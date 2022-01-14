@@ -1,0 +1,36 @@
+{
+    "name": "selfphpframework/selfphpframework",
+    "type": "library",
+    "description": "SelfPHPFramework is framework in PHP for a Scalable Application",
+    "authors": [
+        {
+            "name": "Giceha Junior",
+            "email": "gicehajunior76@dapahascomp.com"
+        }
+    ],
+    "require": {
+        "africastalking/africastalking": "^2.3",
+        "braintree/braintree_php": "^5.3",
+        "phpmailer/phpmailer": "^6.1",
+        "altorouter/altorouter": "1.1.0",
+        "php": "^7.2",
+        "guzzlehttp/guzzle": "^6.2",
+        "twbs/bootstrap": "^4.6.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "vlucas/phpdotenv": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "SelfPhP\\SelfPhP\\": "./",
+            "SelfPhP\\SelfPhP\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "rm -rf public/bootstrap",
+            "cp -R vendor/twbs/bootstrap/dist public/bootstrap"
+        ]
+    }
+}
