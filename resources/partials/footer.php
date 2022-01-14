@@ -1,6 +1,6 @@
 <footer>
     <div style="background-color: #EEEEEE;" class="center w-100 fixed-bottom">
-        <p class="text-center pt-3">Self<strong style="color: green;">Php</strong> Framework. All Copyrights @<?= date("Y"); ?> Reserved.</p>
+        <p class="text-center pt-3">Self<strong style="color: green;">PhP</strong> Framework. All Copyrights @<?= date("Y"); ?> Reserved.</p>
     </div>
 </footer>
 
