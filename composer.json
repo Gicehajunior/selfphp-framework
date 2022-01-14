@@ -1,7 +1,7 @@
 {
-    "name": "selfphpframework/selfphpframework",
+    "name": "selfphp/selfphp",
     "type": "library",
-    "description": "SelfPHPFramework is framework in PHP for a Scalable Application",
+    "description": "SelfPHP is framework in PHP for a Scalable Application",
     "authors": [
         {
             "name": "Giceha Junior",
