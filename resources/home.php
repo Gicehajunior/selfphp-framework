@@ -24,17 +24,23 @@
     <!-- Topbar -->
     <div class="pb-5">
         <?php
-        include "partials/topbar.php";
+        include $this->RootDir . "/resources/partials/topbar.php";
         ?>
     </div>
     <!--end of topbar -->
 
     <!-- body -->
-    <div style="margin-top: 90px;" class="card pt-3 pb-5">
+    <div style="margin-top: 90px;" class="card border-0 pt-3 pb-5">
         <div class="card-body">
             <div class="container">
-                <h3>Background</h3>
-
+                <div class="row justify-content-center">
+                    <div class="form-group pl-5">
+                        <a href="login"><button class="btn btn btn-primary">Sign In</button></a>
+                    </div>
+                    <div class="form-group pl-5">
+                        <a href="register"><button class="btn btn btn-primary">Sign Up</button></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -42,6 +48,6 @@
 
     <!-- footer -->
     <?php
-    include "partials/footer.php";
+    include $this->RootDir . "/resources/partials/footer.php";
     ?>
     <!-- /footer -->

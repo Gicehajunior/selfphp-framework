@@ -7,20 +7,7 @@
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link explore" id="explore" href="#documentation">Documentation</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="#examples" id="dropdownId">Examples</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="#contact-us" id="dropdownId">Contacts</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0 pl-5">
-            <input style="width: 19rem;" class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">Search</button>
-        </form>
+            </li> 
+        </ul> 
     </div>
 </nav>
