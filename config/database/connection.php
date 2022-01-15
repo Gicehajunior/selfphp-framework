@@ -1,6 +1,8 @@
 <?php
 
-namespace SimplePay\SimplePay;
+namespace SelfPhP\SelfPhP;
+
+use SelfPhP\SelfPhP\DatabaseModel;
 
 class Database extends DatabaseModel {
     

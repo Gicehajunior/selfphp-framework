@@ -4,9 +4,11 @@ require "./config/view_config.php";
 
 class AuthController{
     
+    public $session_object;
+    
     public function __construct()
     { 
-        
+        $this->session_object = null;
     }
 
     public function login() {

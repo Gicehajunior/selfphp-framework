@@ -14,3 +14,5 @@ class HomeController{
         $page->View("resources", "home");
     }
 }
+
+

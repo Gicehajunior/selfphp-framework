@@ -10,8 +10,7 @@ function route($controller, $callable_function)
 
 function controller_path($controller)
 {
-    $controllerPath = $GLOBALS['controllerPath'];
-    $modelsPath = $GLOBALS['modelsPath'];
+    $controllerPath = $GLOBALS['controllerPath']; 
 
     $controller_found_array = array();
 
