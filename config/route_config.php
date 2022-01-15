@@ -1,7 +1,7 @@
 <?php
 
 function route($controller, $callable_function)
-{
+{ 
     require controller_path($controller);
 
     $controller_class = new $controller();
@@ -13,11 +13,16 @@ function controller_path($controller)
     $controllerPath = $GLOBALS['controllerPath'];
     $modelsPath = $GLOBALS['modelsPath'];
 
-    $controller_path = glob($controllerPath . DIRECTORY_SEPARATOR . $controller . '.php');
+    $controller_found_array = array();
 
-    return $controller_path[0];
+    foreach ($controllerPath as $controller_folder) { 
+        $controller_path = glob($controller_folder . DIRECTORY_SEPARATOR . $controller . '.php');
+
+        array_push($controller_found_array, $controller_path);
+    } 
+
+    return $controller_found_array[0][0] ? $controller_found_array[0][0] : $controller_found_array[1][0];
 }
-
 
 
 

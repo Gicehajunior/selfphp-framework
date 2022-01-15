@@ -1,6 +1,6 @@
 ## SelfPHP Framework 
 <p align="center">
-    <img style="display: block; margin: 0 auto" src="public/storage/logo/branded-logo.png" height="250" width="250">
+    <img style="display: block; margin: 0 auto" src="public/storage/logo/sp-logo.png" height="250" width="250">
 </p>
 
 <br><br>

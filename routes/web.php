@@ -1,17 +1,26 @@
 <?php 
+    require "./config/route_config.php";
+
     // Router
     $router = new AltoRouter(); 
 
-    require "./config/route_config.php";
-
     // home page route
-    $router->map('GET', '/', route('HomeController', 'index'));
+    $router->map('GET', '/', function () {
+        route('HomeController', 'index');
+    });
  
     //Add more routes here below
-    /* code */
     
-
-
+    // auth routes
+    $router->map('GET', '/login', function () {
+        route('AuthController', 'login');
+    });
+ 
+    $router->map('GET', '/register', function () {
+        route('AuthController', 'signup');
+    });
+ 
+    
 
 
 
