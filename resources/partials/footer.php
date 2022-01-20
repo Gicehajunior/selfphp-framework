@@ -4,10 +4,10 @@
     </div>
 </footer>
 
-<script type="text/javascript" src="<?= EnvLoader::env_var()['app_domain'] ?>/public/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=  $_ENV['APP_DOMAIN'] ?>/public/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- local js script -->
-<script src="<?= EnvLoader::env_var()['app_domain'] ?>/public/js/app.js"></script>
+<script src="<?=  $_ENV['APP_DOMAIN'] ?>/public/js/app.js"></script>
 </body>
 
 </html>
