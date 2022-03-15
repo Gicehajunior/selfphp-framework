@@ -1,4 +1,5 @@
 .env
 vendor 
-public/bootstrap
+public/bootstrap/css/
+public/bootstrap/js/
 
