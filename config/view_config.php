@@ -1,22 +1,30 @@
-<?php 
+<?php
+
+require "./config/serve_database.php";
 
 class Page{ 
     public $RootDir;
-    public $dotenv;
+    public $dotenv; 
 
     public function __construct()
     {
         $this->RootDir = $GLOBALS['RootDir'];
-
-        $this->dotenv = Dotenv\Dotenv::createImmutable('./');
-        $this->dotenv->load(); 
     }
 
     public function View($view_folder_name, $view) { 
-        $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');  
+        $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
 
-        require $files[0]; 
+        require "./config/config.php";
+        require $files[0];
     } 
+
+    public function navigate_to($path, $message=[]) { 
+        $_SESSION['status'] = (array_keys($message)[0]) ? array_keys($message)[0] : null;
+        $_SESSION['message'] = (array_values($message)[0]) ? array_values($message)[0] : null; 
+
+        header("Location: " . $path);
+        exit();
+    }
 }
 
 

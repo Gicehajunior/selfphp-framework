@@ -1,28 +1,38 @@
 <?php
 
-function route($controller, $callable_function)
-{ 
-    require controller_path($controller);
+class Path extends AltoRouter{
 
-    $controller_class = new $controller();
-    $controller_class->$callable_function();
-}
+    public function __construct()
+    {
+        session_start();
+    }
 
-function controller_path($controller)
-{
-    $controllerPath = $GLOBALS['controllerPath']; 
+    public static function route($controller, $callable_function)
+    {
+        $path = new Path();
 
-    $controller_found_array = array();
+        require $path->controller_path($controller);
 
-    foreach ($controllerPath as $controller_folder) { 
-        $controller_path = glob($controller_folder . DIRECTORY_SEPARATOR . $controller . '.php');
+        $controller_class = new $controller();
+        $controller_class->$callable_function();
+    }
 
-        array_push($controller_found_array, $controller_path);
-    } 
+    public function controller_path($controller)
+    {
+        $controllerPath = $GLOBALS['controllerPath'];
 
-    return $controller_found_array[0][0] ? $controller_found_array[0][0] : $controller_found_array[1][0];
-}
+        $controller_found_array = array();
 
+        foreach ($controllerPath as $controller_folder) {
+            $controller_path = glob($controller_folder . DIRECTORY_SEPARATOR . $controller . '.php');
+
+            array_push($controller_found_array, $controller_path);
+        }
+
+        return ($controller_found_array[0][0]) ? $controller_found_array[0][0] : $controller_found_array[1][0];
+    }
+
+} 
 
 
 

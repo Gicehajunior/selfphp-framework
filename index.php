@@ -11,4 +11,10 @@ $GLOBALS['controllerPath'] = [
 $GLOBALS['modelsPath'] = "./app";
 
 require 'vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable('./');
+$dotenv->load();
+
 require "routes/web.php";
+
+
