@@ -1,9 +1,6 @@
 <?php 
 
-require "./config/selfphp.php";
-require "./config/view_config.php"; 
 require "./app/models/AuthModel.php";
-require "./config/auth.php";
 
 class AuthController extends SP{
     

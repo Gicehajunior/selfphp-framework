@@ -23,14 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SelfPhP\\SelfPhP\\": [
-                "app/http/auth/",
-                "app/http/controllers/",
-                "app/models/",
-                "app/config/",
-                "app/database/"
-            ],
-            "SelfPhP\\SelfPhP\\Tests\\": "tests"
+            "SelfPhp\\": "."
         }
     },
     "scripts": {

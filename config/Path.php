@@ -1,10 +1,17 @@
 <?php
 
-class Path extends AltoRouter{
+require "./config/selfphp.php";
+require "./config/Page.php";
 
-    public function __construct()
+class Path extends AltoRouter {
+    public $controller;
+    public $callable_function;
+
+    public function __construct($controller=null, $callable_function=null)
     {
         session_start();
+        $this->controller = $controller;
+        $this->$callable_function;
     }
 
     public static function route($controller, $callable_function)
