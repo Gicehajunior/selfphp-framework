@@ -2,17 +2,18 @@
 
 require "./config/database/db_connection.php";
 
-class Serve {
+class Serve
+{
 
     public $db_connection;
     public $table;
 
     public function __construct($table)
-    { 
+    {
         $this->table = $table;
         $this->db_connection = new Database();
         $this->db_connection = $this->db_connection->connect();
-    } 
+    }
 
     public function save($post_object)
     {
@@ -34,15 +35,15 @@ class Serve {
 
         if ($result == true || is_object($result)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
 
         return mysqli_error($this->db_connection);
     }
 
-    public function fetchAll() {
+    public function fetchAll()
+    {
         $query = "SELECT * FROM $this->table";
         $result = mysqli_query($this->db_connection, $query);
 
@@ -52,17 +53,18 @@ class Serve {
             if ($rows) {
                 return $rows;
             }
-        } 
+        }
 
         return mysqli_error($this->db_connection);
     }
 
-    public function user_exists_on_condition($post_object = []) {
+    public function user_exists_on_condition($post_object = [])
+    {
         $exists = false;
 
-        $query = "SELECT * FROM $this->table WHERE username='".$post_object['username']."' AND email='".$post_object['email']."'";
+        $query = "SELECT * FROM $this->table WHERE username='" . $post_object['username'] . "' AND email='" . $post_object['email'] . "'";
         $result = mysqli_query($this->db_connection, $query);
- 
+
         if (isset($result)) {
             $row_count = mysqli_num_rows($result);
 
@@ -74,33 +76,23 @@ class Serve {
                 return $exists;
             }
         }
-    
+
         return mysqli_error($this->db_connection);
     }
 
-    public function get_user_on_condition($post_object = []) {
+    public function get_user_on_condition($post_object = [])
+    {
         $query = "SELECT * FROM $this->table WHERE email='" . $post_object['email'] . "'";
         $result = mysqli_query($this->db_connection, $query);
 
         if (isset($result)) {
             $row = mysqli_fetch_assoc($result);
 
-            if ($row) { 
+            if ($row) {
                 return $row;
             }
         }
-        
+
         return mysqli_error($this->db_connection);
     }
 }
-
-
-
-
-
-
-
-
-
-
-

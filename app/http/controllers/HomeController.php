@@ -2,18 +2,17 @@
 
 require "./app/models/HomeModel.php";
 
-class HomeController{
+class HomeController
+{
 
     public function __construct()
     {
-        
     }
 
-    public function index() {
+    public function index()
+    {
         $page = new Page();
-        
+
         $page->View("resources", "home");
     }
 }
-
-

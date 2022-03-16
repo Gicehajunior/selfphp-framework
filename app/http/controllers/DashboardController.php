@@ -8,7 +8,7 @@ class DashboardController extends SP
 
     public function __construct()
     {
-        $this->page = new Page();  
+        $this->page = new Page();
     }
 
     public function index()
