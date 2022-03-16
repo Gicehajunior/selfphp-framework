@@ -32,8 +32,11 @@ class Serve {
         $query = "INSERT INTO $this->table($table_column_keys) VALUES('$key_values')";
         $result = mysqli_query($this->db_connection, $query);
 
-        if ($result) {
+        if ($result == true || is_object($result)) {
             return true;
+        }
+        else {
+            return false;
         }
 
         return mysqli_error($this->db_connection);

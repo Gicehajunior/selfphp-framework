@@ -49,6 +49,10 @@
         Path::route('AuthController', 'signup_user');
     });
 
+    $router->map('GET', '/logout', function () {
+        Path::route('AuthController', 'logout');
+    });
+
     //Add more routes here below
 
     

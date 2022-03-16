@@ -13,14 +13,16 @@
  * 
  */
 
-$status = $_SESSION['status'];
+if (isset($_SESSION['status']) || isset($_SESSION['message'])) {
+
+
+    $status = $_SESSION['status'];
 
 
 
-$message = $_SESSION['message'];
+    $message = $_SESSION['message'];
 
-
-
+}
 
 
 

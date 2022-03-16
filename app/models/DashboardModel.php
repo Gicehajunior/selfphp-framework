@@ -6,6 +6,6 @@ class AuthModel
 
     public function __construct()
     {
-
+        
     }
 }
