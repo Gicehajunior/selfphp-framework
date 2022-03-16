@@ -1,6 +1,7 @@
 <?php
 
-require "./config/serve_database.php";
+require "./config/auth.php";
+require "./config/Serve.php";
 
 class Page{ 
     public $RootDir;

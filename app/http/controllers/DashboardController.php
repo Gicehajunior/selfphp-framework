@@ -1,5 +1,6 @@
 <?php
-require "./config/view_config.php";
+
+require "./app/models/DashboardModel.php";
 
 class DashboardController
 {

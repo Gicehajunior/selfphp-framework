@@ -1,9 +1,9 @@
 <?php
 
-    require "./config/route_config.php"; 
-    
+    require "./config/Path.php";
+
     // Router
-    $router = new AltoRouter(); 
+    $router = new Path(); 
 
     /******************************************************************
      *  

@@ -1,5 +1,6 @@
-<?php 
-require "./config/view_config.php";
+<?php
+
+require "./app/models/HomeModel.php";
 
 class HomeController{
 
