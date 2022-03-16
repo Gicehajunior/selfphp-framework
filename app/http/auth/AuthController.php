@@ -2,15 +2,11 @@
 
 require "./app/models/AuthModel.php";
 
-class AuthController extends SP{
+class AuthController extends SP{ 
     
-    public $session_object; 
-
     public $page;
-    
     public function __construct()
-    { 
-        $this->session_object = null;
+    {   
         $this->page = new Page();
     }
 
@@ -36,6 +32,7 @@ class AuthController extends SP{
             if ($user['email'] == $data['email']) {
                 // ready for password verification 
                 if (password_verify($data['password'], $user['password'])) {
+                    Auth::start_session(['user_id' => $user['id'], 'username' => $user['username'], 'email' => $user['email']]);
                     $this->page->navigate_to("dashboard", ["success" => "Login Success!"]);
                 }
                 else {
@@ -78,6 +75,24 @@ class AuthController extends SP{
             if ($serve->save($data) == true) {
                 $this->page->navigate_to("login", ["success" => "Registration success!"]);
             }
+            else {
+                $this->page->go_back("register", ["error" => "Server Error!"]);
+            }
+        }
+    }
+
+    public function logout()
+    {
+        if (Auth::session_exists() == true) {
+            if (Auth::boot_out() == true) {
+                $this->page->go_back("login?#booted out");
+            }
+            else {
+                $this->page->navigate_to("dashboard", ["error" => "System error when trying to log you out.!"]); 
+            }
+        } 
+        else {
+            $this->page->navigate_to("login?#booted out", ["error" => "Login required!"]);
         }
     }
 } 

@@ -1,7 +1,10 @@
 <?php
 
-require "./config/selfphp.php";
 require "./config/Page.php";
+require "./config/Serve.php";
+require "./config/Auth.php";
+require "./config/selfphp.php";
+
 
 class Path extends AltoRouter {
     public $controller;
@@ -9,7 +12,9 @@ class Path extends AltoRouter {
 
     public function __construct($controller=null, $callable_function=null)
     { 
+
         ($this->is_session_active() == true) ? null : session_start();
+
 
         $this->controller = $controller;
         $this->callable_function = $callable_function;

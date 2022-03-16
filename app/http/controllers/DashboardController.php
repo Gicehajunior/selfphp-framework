@@ -2,17 +2,18 @@
 
 require "./app/models/DashboardModel.php";
 
-class DashboardController
+class DashboardController extends SP
 {
+    public $page;
 
     public function __construct()
     {
+        $this->page = new Page();  
     }
 
     public function index()
     {
-        $page = new Page();
-
-        $page->View("resources/views", "dashboard");
+        $this->page->AuthorizationMiddleware();
+        $this->page->View("resources/views", "dashboard");
     }
 }
