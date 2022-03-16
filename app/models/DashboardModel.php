@@ -2,10 +2,10 @@
 
 class AuthModel
 {
-    public static $table = "users";
+    public static $table;
 
     public function __construct()
     {
-        
+
     }
 }
