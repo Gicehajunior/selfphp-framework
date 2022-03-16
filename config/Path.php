@@ -8,11 +8,28 @@ class Path extends AltoRouter {
     public $callable_function;
 
     public function __construct($controller=null, $callable_function=null)
-    {
-        session_start();
+    { 
+        ($this->is_session_active() == true) ? null : session_start();
+
         $this->controller = $controller;
-        $this->$callable_function;
+        $this->callable_function = $callable_function;
     }
+
+    /**
+     * @return bool
+     */
+    public function is_session_active()
+    {
+        if (php_sapi_name() !== 'cli') {
+            if (version_compare(phpversion(), '5.4.0', '>=')) {
+                return session_status() === PHP_SESSION_ACTIVE ? true : false;
+            } else {
+                return session_id() === '' ? false : true;
+            }
+        }
+        return false;
+    }
+
 
     public static function route($controller, $callable_function)
     {
