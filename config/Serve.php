@@ -1,6 +1,8 @@
 <?php
 
-require "./config/database/db_connection.php";
+namespace SelfPhp;
+
+use SelfPhp\database\Database;
 
 class Serve
 {

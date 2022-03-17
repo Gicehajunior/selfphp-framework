@@ -1,18 +1,22 @@
 <?php
 
-require "./app/models/HomeModel.php";
+use SelfPhp\SP;
+use SelfPhp\Page;
+use SelfPhp\Auth;
+use SelfPhp\Serve; 
+use App\models\HomeModel;  
 
-class HomeController
+class HomeController extends SP
 {
+    public $page;
 
     public function __construct()
     {
+        $this->page = new Page();
     }
 
     public function index()
-    {
-        $page = new Page();
-
-        $page->View("resources", "home");
+    { 
+        $this->page->View("resources", "home");
     }
 }

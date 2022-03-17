@@ -1,5 +1,7 @@
 <?php
 
+namespace SelfPhp\database;
+
 class DatabaseConfig {
     
     private $servername;

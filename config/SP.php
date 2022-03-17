@@ -1,5 +1,7 @@
 <?php
 
+namespace SelfPhp; 
+
 class SP
 {
     public $request;

@@ -1,7 +1,8 @@
-
 <?php
 
-require "databaseConfig.php";
+namespace SelfPhp\database;
+
+use SelfPhp\database\DatabaseConfig;
 
 class Database {
     

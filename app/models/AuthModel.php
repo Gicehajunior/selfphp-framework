@@ -1,5 +1,7 @@
 <?php
 
+namespace App\models;
+
 class AuthModel{
     public static $table = "users";
 

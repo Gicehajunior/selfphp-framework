@@ -1,10 +1,13 @@
 <?php
 
-require "./app/models/AuthModel.php";
+use SelfPhp\SP;
+use SelfPhp\Page;
+use SelfPhp\Auth;
+use SelfPhp\Serve; 
+use App\models\AuthModel; 
 
 class AuthController extends SP
 {
-
     public $page;
 
     public function __construct()
