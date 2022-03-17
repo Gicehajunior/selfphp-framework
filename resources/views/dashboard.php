@@ -45,7 +45,7 @@
                         <a class="nav-link" href="#"> <i class="fa fa-inbox" aria-hidden="true"></i> Inbox</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i> <?= Auth::User('username') ?></a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i> <?= $auth['username'] ?></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="#">Profile</a>
                             <a class="dropdown-item" href="#">Settings</a> 

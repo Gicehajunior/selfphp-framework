@@ -1,9 +1,8 @@
 <?php
 
-require "./config/Page.php";
-require "./config/Serve.php";
-require "./config/Auth.php";
-require "./config/selfphp.php";
+namespace SelfPhp;
+
+use AltoRouter;
 
 class Path extends AltoRouter
 {
@@ -40,7 +39,11 @@ class Path extends AltoRouter
     {
         $path = new Path();
 
-        require $path->controller_path($controller);
+        $route = $path->controller_path($controller);
+        
+        if (isset($route)) {
+            require $route;
+        }
 
         $controller_class = new $controller();
         $controller_class->$callable_function();
@@ -55,9 +58,22 @@ class Path extends AltoRouter
         foreach ($controllerPath as $controller_folder) {
             $controller_path = glob($controller_folder . DIRECTORY_SEPARATOR . $controller . '.php');
 
-            array_push($controller_found_array, $controller_path);
+            if (count($controller_path) > 0) {
+                array_push($controller_found_array, $controller_path);
+            } 
         }
 
-        return ($controller_found_array[0][0]) ? $controller_found_array[0][0] : $controller_found_array[1][0];
+        // echo count($controller_found_array);
+        // exit();
+
+        if (isset($controller_found_array[0][0]) && !empty($controller_found_array[0][0])) {
+            return $controller_found_array[0][0];
+        } 
+        else if (isset($controller_found_array[1][0]) && !empty($controller_found_array[1][0])){
+            return $controller_found_array[1][0];
+        }
+        else {
+            return null;
+        }
     }
 }

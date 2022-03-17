@@ -1,5 +1,9 @@
 <?php
 
+namespace SelfPhp;
+
+use SelfPhp\Page;
+
 class Auth extends Page
 {
 

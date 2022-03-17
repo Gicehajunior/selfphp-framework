@@ -1,5 +1,12 @@
 <?php
 
+namespace SelfPhp;
+
+use SelfPhp\Page;
+use SelfPhp\Serve;
+use SelfPhp\Auth;
+use SelfPhp\SP;
+
 class Page
 {
     public $RootDir;
@@ -17,6 +24,9 @@ class Page
         $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
 
         require "./config/config.php";
+
+        // return session variable values for the user
+        $Auth = $auth = (isset($_SESSION)) ? $_SESSION : null;
 
         // Return data from backend to frontend
         if (is_array($data)) {
@@ -37,8 +47,10 @@ class Page
 
     public function navigate_to($path, $message = [])
     {
-        $_SESSION['status'] = $this->status = (array_keys($message)[0]) ? array_keys($message)[0] : null;
-        $_SESSION['message'] = $this->message = (array_values($message)[0]) ? array_values($message)[0] : null;
+        if (count($message)) {
+            $_SESSION['status'] = $this->status = (array_keys($message)[0]) ? array_keys($message)[0] : null;
+            $_SESSION['message'] = $this->message = (array_values($message)[0]) ? array_values($message)[0] : null;
+        }
 
         header("Location: " . $path);
         exit();
@@ -48,8 +60,10 @@ class Page
     {
         $path = ($path == null || is_array($path)) ? $_SERVER['HTTP_REFERER'] : $path;
 
-        $_SESSION['status'] = $this->status = (array_keys($message)[0]) ? array_keys($message)[0] : null;
-        $_SESSION['message'] = $this->message = (array_values($message)[0]) ? array_values($message)[0] : null;
+        if (count($message)) {
+            $_SESSION['status'] = $this->status = (array_keys($message)[0]) ? array_keys($message)[0] : null;
+            $_SESSION['message'] = $this->message = (array_values($message)[0]) ? array_values($message)[0] : null;
+        }
 
         header("Location: " . $path);
         exit();

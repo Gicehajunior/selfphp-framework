@@ -1,8 +1,10 @@
 <?php
 
-class AuthModel
+namespace App\models;
+
+class DashboardModel
 {
-    public static $table;
+    public static $table = 'users';
 
     public function __construct()
     {

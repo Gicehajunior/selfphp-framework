@@ -1,4 +1,6 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
+
 $GLOBALS['RootDir'] = $_SERVER['DOCUMENT_ROOT'];
 
 $GLOBALS['resource_views_dir'] = "resources";
@@ -10,11 +12,9 @@ $GLOBALS['controllerPath'] = [
 
 $GLOBALS['modelsPath'] = "./app";
 
-require 'vendor/autoload.php';
-
 $dotenv = Dotenv\Dotenv::createImmutable('./');
 $dotenv->load();
 
-require "routes/web.php";
+require __DIR__ . "/routes/web.php";
 
 

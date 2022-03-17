@@ -1,6 +1,10 @@
 <?php
 
-require "./app/models/DashboardModel.php";
+use SelfPhp\SP;
+use SelfPhp\Page;
+use SelfPhp\Auth;
+use SelfPhp\Serve; 
+use App\models\DashboardModel;   
 
 class DashboardController extends SP
 {
