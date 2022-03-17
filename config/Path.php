@@ -5,13 +5,13 @@ require "./config/Serve.php";
 require "./config/Auth.php";
 require "./config/selfphp.php";
 
-
-class Path extends AltoRouter {
+class Path extends AltoRouter
+{
     public $controller;
     public $callable_function;
 
-    public function __construct($controller=null, $callable_function=null)
-    { 
+    public function __construct($controller = null, $callable_function = null)
+    {
 
         ($this->is_session_active() == true) ? null : session_start();
 
@@ -60,8 +60,4 @@ class Path extends AltoRouter {
 
         return ($controller_found_array[0][0]) ? $controller_found_array[0][0] : $controller_found_array[1][0];
     }
-
-} 
-
-
-
+}

@@ -1,21 +1,24 @@
-<?php 
+<?php
 
 require "./app/models/AuthModel.php";
 
-class AuthController extends SP{ 
-    
+class AuthController extends SP
+{
+
     public $page;
+
     public function __construct()
-    {   
+    {
         $this->page = new Page();
     }
 
-    public function login() { 
+    public function login()
+    {
         $this->page->View("resources/auth", "login");
     }
 
     public function signup()
-    { 
+    {
         $this->page->View("resources/auth", "register");
     }
 
@@ -34,22 +37,19 @@ class AuthController extends SP{
                 if (password_verify($data['password'], $user['password'])) {
                     Auth::start_session(['user_id' => $user['id'], 'username' => $user['username'], 'email' => $user['email']]);
                     $this->page->navigate_to("dashboard", ["success" => "Login Success!"]);
-                }
-                else {
+                } else {
                     $this->page->navigate_to("login", ["error" => "Please check your username and password and try again!"]);
                 }
-            }
-            else {
+            } else {
                 $this->page->navigate_to("login", ["error" => "Please check your username and password and try again!"]);
             }
-        }
-        else {
+        } else {
             $this->page->navigate_to("login", ["error" => "No account associated with the email found!"]);
         }
-
     }
 
-    public function signup_user() { 
+    public function signup_user()
+    {
         $serve = new Serve(AuthModel::$table);
 
         $data['username'] = $this->request('username');
@@ -66,16 +66,14 @@ class AuthController extends SP{
                 unset($exists);
                 $this->page->navigate_to("register", ["error" => "Please fill in all the fields!"]);
             }
-        } 
+        }
 
         if ($exists == true) {
             $this->page->navigate_to("register", ["error" => "User is already registered. Register using a different email!"]);
-        } 
-        else {
+        } else {
             if ($serve->save($data) == true) {
                 $this->page->navigate_to("login", ["success" => "Registration success!"]);
-            }
-            else {
+            } else {
                 $this->page->go_back("register", ["error" => "Server Error!"]);
             }
         }
@@ -86,14 +84,11 @@ class AuthController extends SP{
         if (Auth::session_exists() == true) {
             if (Auth::boot_out() == true) {
                 $this->page->go_back("login?#booted out");
+            } else {
+                $this->page->navigate_to("dashboard", ["error" => "System error when trying to log you out.!"]);
             }
-            else {
-                $this->page->navigate_to("dashboard", ["error" => "System error when trying to log you out.!"]); 
-            }
-        } 
-        else {
+        } else {
             $this->page->navigate_to("login?#booted out", ["error" => "Login required!"]);
         }
     }
-} 
-
+}

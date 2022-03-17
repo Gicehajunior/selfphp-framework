@@ -8,12 +8,13 @@ class DashboardController extends SP
 
     public function __construct()
     {
-        $this->page = new Page();  
+        $this->page = new Page();
     }
 
     public function index()
     {
-        $this->page->AuthorizationMiddleware();
+        $this->page->AuthorizationMiddleware(); 
+        
         $this->page->View("resources/views", "dashboard");
     }
 }

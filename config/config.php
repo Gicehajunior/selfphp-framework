@@ -21,8 +21,4 @@ if (isset($_SESSION['status']) || isset($_SESSION['message'])) {
 
 
     $message = $_SESSION['message'];
-
 }
-
-
-
