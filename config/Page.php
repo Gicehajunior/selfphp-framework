@@ -12,12 +12,26 @@ class Page
         $this->RootDir = $GLOBALS['RootDir'];
     }
 
-    public function View($view_folder_name, $view)
+    public function View($view_folder_name, $view, $data = null)
     {
         $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
 
         require "./config/config.php";
+
+        // Return data from backend to frontend
+        if (is_array($data)) {
+            if (count($data) > 0) {
+                foreach ($data as $key => $value) { 
+                    $$key = $value; 
+                }
+            }
+        }
+        // End of Return data from backend to frontend
+
         require $files[0];
+
+        unset($_SESSION['status']);
+        unset($_SESSION['message']);
     }
 
 

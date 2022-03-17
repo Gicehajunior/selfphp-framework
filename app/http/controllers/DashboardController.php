@@ -13,7 +13,8 @@ class DashboardController extends SP
 
     public function index()
     {
-        $this->page->AuthorizationMiddleware();
+        $this->page->AuthorizationMiddleware(); 
+        
         $this->page->View("resources/views", "dashboard");
     }
 }
