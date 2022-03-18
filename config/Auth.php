@@ -38,17 +38,8 @@ class Auth extends Page
         $session = (isset($_SESSION[$key])) ? $_SESSION[$key] : null;
 
         return $session;
-    }
-
-    public static function session_exists()
-    {
-        if (isset($_SESSION['id']) || isset($_SESSION['username']) || isset($_SESSION['email'])) {
-            return true;
-        }
-
-        return false;
-    }
-
+    } 
+    
     public static function boot_out()
     {
         if (session_destroy() || session_unset()) {
