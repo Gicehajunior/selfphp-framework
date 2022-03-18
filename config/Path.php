@@ -61,10 +61,7 @@ class Path extends AltoRouter
             if (count($controller_path) > 0) {
                 array_push($controller_found_array, $controller_path);
             } 
-        }
-
-        // echo count($controller_found_array);
-        // exit();
+        } 
 
         if (isset($controller_found_array[0][0]) && !empty($controller_found_array[0][0])) {
             return $controller_found_array[0][0];

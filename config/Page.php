@@ -1,11 +1,6 @@
 <?php
 
-namespace SelfPhp;
-
-use SelfPhp\Page;
-use SelfPhp\Serve;
-use SelfPhp\Auth;
-use SelfPhp\SP;
+namespace SelfPhp; 
 
 class Page
 {
@@ -17,6 +12,8 @@ class Page
     public function __construct()
     {
         $this->RootDir = $GLOBALS['RootDir'];
+
+        $this->page = new Page();
     }
 
     public function View($view_folder_name, $view, $data = null)
@@ -67,14 +64,5 @@ class Page
 
         header("Location: " . $path);
         exit();
-    }
-
-    public function AuthorizationMiddleware()
-    {
-        if (strtolower($_ENV['AUTH']) == 'true') {
-            if (Auth::session_exists() == false) {
-                $this->navigate_to(strtolower($_ENV['LOGOUT_DESTINATION']), ["error" => "Login is required!"]);
-            }
-        }
     }
 }

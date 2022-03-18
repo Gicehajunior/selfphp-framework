@@ -3,13 +3,12 @@
 use SelfPhp\SP;
 use SelfPhp\Page;
 use SelfPhp\Auth;
-use SelfPhp\Serve; 
-use App\models\AuthModel; 
+use SelfPhp\Serve;
+use App\http\middleware\AuthMiddleware;
+use App\models\AuthModel;
 
 class AuthController extends SP
 {
-    public $page;
-
     public function __construct()
     {
         $this->page = new Page();
@@ -84,7 +83,7 @@ class AuthController extends SP
 
     public function logout()
     {
-        if (Auth::session_exists() == true) {
+        if (AuthMiddleware::session_exists() == true) {
             if (Auth::boot_out() == true) {
                 $this->page->go_back("login?#booted out");
             } else {
