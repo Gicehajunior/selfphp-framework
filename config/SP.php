@@ -8,8 +8,7 @@ class SP
 
     public function __construct()
     {
-        $this->request = null;
-        $this->page = $this->page();
+        $this->request = null; 
     } 
 
     public function request($param)

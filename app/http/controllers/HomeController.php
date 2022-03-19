@@ -3,7 +3,8 @@
 use SelfPhp\SP;
 use SelfPhp\Page;
 use SelfPhp\Auth;
-use SelfPhp\Serve; 
+use SelfPhp\Serve;
+use App\http\middleware\AuthMiddleware;
 use App\models\HomeModel;  
 
 class HomeController extends SP

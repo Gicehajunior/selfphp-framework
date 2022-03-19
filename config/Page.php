@@ -13,7 +13,6 @@ class Page
     {
         $this->RootDir = $GLOBALS['RootDir'];
 
-        $this->page = new Page();
     }
 
     public function View($view_folder_name, $view, $data = null)
