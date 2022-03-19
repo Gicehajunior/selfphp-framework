@@ -5,10 +5,11 @@ namespace App\http\middleware;
 use SelfPhp\Auth; 
 use SelfPhp\Page;
 
-class AuthMiddleware {
+class AuthMiddleware 
+{ 
+
     public function __construct()
-    {
-        
+    { 
     }
 
     public static function session_exists()

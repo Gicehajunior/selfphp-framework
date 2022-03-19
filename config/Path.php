@@ -44,6 +44,10 @@ class Path extends AltoRouter
         if (isset($route)) {
             require $route;
         }
+        else { 
+            header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
+            exit();
+        }
 
         $controller_class = new $controller();
         $controller_class->$callable_function();
@@ -65,12 +69,9 @@ class Path extends AltoRouter
 
         if (isset($controller_found_array[0][0]) && !empty($controller_found_array[0][0])) {
             return $controller_found_array[0][0];
-        } 
-        else if (isset($controller_found_array[1][0]) && !empty($controller_found_array[1][0])){
-            return $controller_found_array[1][0];
-        }
+        }  
         else {
-            return null;
-        }
+            return $controller_found_array[1][0];
+        } 
     }
 }

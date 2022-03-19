@@ -9,6 +9,8 @@ use App\models\AuthModel;
 
 class AuthController extends SP
 {
+    public $page;
+
     public function __construct()
     {
         $this->page = new Page();

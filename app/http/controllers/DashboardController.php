@@ -9,6 +9,8 @@ use App\models\DashboardModel;
 
 class DashboardController extends SP
 {  
+    public $page;
+    
     public function __construct()
     {
         $this->page = new Page();

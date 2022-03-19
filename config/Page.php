@@ -13,7 +13,6 @@ class Page
     {
         $this->RootDir = $GLOBALS['RootDir'];
 
-        $this->page = new Page();
     }
 
     public function View($view_folder_name, $view, $data = null)
@@ -26,6 +25,17 @@ class Page
         $Auth = $auth = (isset($_SESSION)) ? $_SESSION : null;
 
         // Return data from backend to frontend
+
+        if (isset($_SESSION['status']) || isset($_SESSION['message'])) { 
+
+            $status = $_SESSION['status'];
+
+
+
+            $message = $_SESSION['message'];
+        }
+
+
         if (is_array($data)) {
             if (count($data) > 0) {
                 foreach ($data as $key => $value) { 
