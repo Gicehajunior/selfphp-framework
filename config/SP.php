@@ -15,4 +15,11 @@ class SP
     {
         return $_POST[$param];
     }
+
+    public function request_config($config) {
+        $config_file = require "./config/" . $config . '.php';
+
+        return $config_file;
+    }
+
 }

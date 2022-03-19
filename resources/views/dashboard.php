@@ -76,7 +76,10 @@
                 }
                 ?>
             </div>
+
+            <?= ($mail_config) ?>
         </div> 
+        
     </main>
 
     <!-- footer -->
