@@ -70,8 +70,11 @@ class Path extends AltoRouter
         if (isset($controller_found_array[0][0]) && !empty($controller_found_array[0][0])) {
             return $controller_found_array[0][0];
         }  
-        else {
+        else if (isset($controller_found_array[1][0]) && !empty($controller_found_array[1][0])) {
             return $controller_found_array[1][0];
         } 
+        else {
+            return null;
+        }
     }
 }
