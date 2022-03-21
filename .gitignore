@@ -1,5 +1,6 @@
 .env
 vendor 
+public/bootstrap/readMe.md
 public/bootstrap/css/
 public/bootstrap/js/
 

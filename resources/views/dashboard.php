@@ -75,9 +75,7 @@
                 <?php
                 }
                 ?>
-            </div>
-
-            <?= ($mail_config) ?>
+            </div> 
         </div> 
         
     </main>

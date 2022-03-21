@@ -13,7 +13,7 @@
         "braintree/braintree_php": "^5.3",
         "phpmailer/phpmailer": "^6.1",
         "altorouter/altorouter": "1.1.0",
-        "php": "^7.2",
+        "php": "^7.4",
         "guzzlehttp/guzzle": "^6.2",
         "twbs/bootstrap": "^4.6.1"
     },
@@ -29,7 +29,8 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "rm -rf public/bootstrap",
+            "rm -rf public/bootstrap/css",
+            "rm -rf public/bootstrap/js",
             "cp -R vendor/twbs/bootstrap/dist public/bootstrap"
         ]
     }
