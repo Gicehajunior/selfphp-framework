@@ -1,6 +1,6 @@
 <?php
 
-namespace SelfPhp; 
+namespace SelfPhp;  
 
 class SP
 {
@@ -20,6 +20,13 @@ class SP
         $config_file = require "./config/" . $config . '.php';
 
         return $config_file;
+    }
+
+    public static function init_sql_debug($db_connection) { 
+        if ($_ENV['DEBUG'] == 'true' || $_ENV['DEBUG'] == 'True' || $_ENV['DEBUG'] == 'TRUE') {
+            echo mysqli_error($db_connection);
+            exit();
+        }
     }
 
 }
