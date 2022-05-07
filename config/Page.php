@@ -28,10 +28,7 @@ class Page
 
         if (isset($_SESSION['status']) || isset($_SESSION['message'])) { 
 
-            $status = $_SESSION['status'];
-
-
-
+            $status = $_SESSION['status']; 
             $message = $_SESSION['message'];
         }
 
@@ -54,7 +51,7 @@ class Page
 
     public function navigate_to($path, $message = [])
     {
-        if (count($message)) {
+        if (count($message) > 0) {
             $_SESSION['status'] = $this->status = (array_keys($message)[0]) ? array_keys($message)[0] : null;
             $_SESSION['message'] = $this->message = (array_values($message)[0]) ? array_values($message)[0] : null;
         }
@@ -67,7 +64,7 @@ class Page
     {
         $path = ($path == null || is_array($path)) ? $_SERVER['HTTP_REFERER'] : $path;
 
-        if (count($message)) {
+        if (count($message) > 0) {
             $_SESSION['status'] = $this->status = (array_keys($message)[0]) ? array_keys($message)[0] : null;
             $_SESSION['message'] = $this->message = (array_values($message)[0]) ? array_values($message)[0] : null;
         }

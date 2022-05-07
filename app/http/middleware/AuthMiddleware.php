@@ -25,9 +25,16 @@ class AuthMiddleware
     { 
         if (strtolower($_ENV['AUTH']) == 'true') {
             if (AuthMiddleware::session_exists() == false) { 
-                Page::navigate_to(strtolower($_ENV['LOGOUT_DESTINATION']), ["error" => "Login is required!"]);
+                if (!empty(strtolower($_ENV['LOGOUT_DESTINATION']))) {
+                    $page = new Page();
+                    
+                    $page->navigate_to(strtolower($_ENV['LOGOUT_DESTINATION']), ["error" => "Login is required!"]);
+                } else {
+                    echo "Logout destination not set in .env file. Please set to experience a smooth logout process!";
+                    exit();
+                }
             }
-        }
+        } 
     }
 }
 
