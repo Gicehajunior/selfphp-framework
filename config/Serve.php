@@ -49,7 +49,23 @@ class Serve
         $query = "SELECT * FROM $this->table";
         $result = mysqli_query($this->db_connection, $query);
 
-        SP::init_sql_debug($this->db_connection); 
+        if ($result == true or is_object($result)) {
+            $row_array = array();
+
+            while($rows = mysqli_fetch_assoc($result)){
+                array_push($row_array, $rows);
+            }
+
+            return $row_array;
+        } else {
+            SP::init_sql_debug($this->db_connection);
+            return false;
+        } 
+    }
+
+    public function fetchAllInDescOrder() {
+        $query = "SELECT * FROM $this->table ORDER BY $this->table.created_at DESC";
+        $result = mysqli_query($this->db_connection, $query);
 
         if ($result == true or is_object($result)) {
             $row_array = array();
@@ -71,8 +87,6 @@ class Serve
 
         $query = "SELECT * FROM $this->table WHERE email='" . $post_object['email'] . "'";
         $result = mysqli_query($this->db_connection, $query);
-
-        SP::init_sql_debug($this->db_connection); 
 
         if ($result == true or is_object($result)) {
             $row_count = mysqli_num_rows($result);
