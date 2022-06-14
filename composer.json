@@ -5,9 +5,16 @@
     "authors": [
         {
             "name": "Giceha Junior",
-            "email": "gicehajunior76@dapahascomp.com"
+            "email": "gicehajunior76@dapahascomp.com",
+            "role": "Backend Developer",
+            "homepage": "https://www.github.com/Gicehajunior"
         }
     ],
+    "support": {
+        "email": "support@dapahascomp.com"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
         "africastalking/africastalking": "^2.3",
         "braintree/braintree_php": "^5.3",
