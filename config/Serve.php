@@ -27,10 +27,9 @@ class Serve
 
 
         // extract key values passed on the post object 
-
         $key_values = array_values($post_object);
 
-        $key_values = implode("', '", $key_values);
+        $key_values = implode("', '", str_replace("'", "`", $key_values));
 
         // DB Queries(INSERT)
         $query = "INSERT INTO $this->table($table_column_keys) VALUES('$key_values')";
