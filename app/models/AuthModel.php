@@ -2,7 +2,9 @@
 
 namespace App\models;
 
-class AuthModel{
+use SelfPhp\SP;
+class AuthModel extends SP{
+    
     public static $table = "users";
 
     public function __construct()
