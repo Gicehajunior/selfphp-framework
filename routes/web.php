@@ -1,8 +1,6 @@
 <?php 
 
-    use SelfPhp\Path; 
-
-    // require "./config/Path.php";
+    use SelfPhp\Path;  
     
     // Router
     $router = new Path(); 

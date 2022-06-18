@@ -2,7 +2,8 @@
 
 namespace App\models;
 
-class DashboardModel
+use SelfPhp\SP;
+class DashboardModel extends SP
 {
     public static $table = 'users';
 
