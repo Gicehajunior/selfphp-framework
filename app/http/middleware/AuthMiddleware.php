@@ -21,8 +21,8 @@ class AuthMiddleware
         return false;
     }
 
-    public function AuthView()
-    { 
+    public static function AuthView()
+    {
         if (strtolower($_ENV['AUTH']) == 'true') {
             if (AuthMiddleware::session_exists() == false) { 
                 if (!empty(strtolower($_ENV['LOGOUT_DESTINATION']))) {

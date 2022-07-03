@@ -22,7 +22,7 @@
         ?>
     </div> 
 </div> 
- <!-- /body  -->
+<!-- /body  -->
 
 <!-- footer -->
 <?php
