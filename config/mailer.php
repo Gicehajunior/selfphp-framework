@@ -27,7 +27,7 @@ return [
      * This refers to the default method for mailing. 
      * The method should be found in the MailerService Class.
      */
-    'mail_service_default_method' => 'php_mailer()', 
+    'mail_service_default_method' => 'php_mailer', 
  
 
     /***************************
@@ -61,7 +61,8 @@ return [
      */
     'source' => array (
         'email_address' => $_ENV['MAIL_SOURCE_ADDRESS'],
-        'email_username' => $_ENV['MAIL_SOURCE_USERNAME']
+        'email_username' => $_ENV['MAIL_SOURCE_USERNAME'],
+        'email_password' => $_ENV['MAIL_SOURCE_ADDRESS_PASSWORD']
     ),
 
 

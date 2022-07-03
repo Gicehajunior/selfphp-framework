@@ -6,6 +6,7 @@ use SelfPhp\Auth;
 use SelfPhp\Serve;
 use App\http\middleware\AuthMiddleware;
 use App\models\AuthModel;
+use App\services\MailerService;
 
 class AuthController extends SP
 {

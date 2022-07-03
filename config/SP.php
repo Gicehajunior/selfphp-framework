@@ -55,9 +55,26 @@ class SP
      * 
      * @return mysqli_error
      */
-    public static function init_sql_debug($db_connection) { 
+    public static function init_sql_debug($exception = null) {
         if ($_ENV['DEBUG'] == 'true' || $_ENV['DEBUG'] == 'True' || $_ENV['DEBUG'] == 'TRUE') {
             echo mysqli_error($db_connection);
+            echo ($exception ?? $exception);
+            exit();
+        }
+    }
+
+    /**
+     * If debug is set to true, the system should raise exceptions 
+     * whereas if, debug is set to false,  exceptions are never shown 
+     * to the user.
+     * 
+     * if error, an exit() is called.
+     * 
+     * @return exceptions
+     */
+    public static function debug_backtrace_show($exception = null) {
+        if ($_ENV['DEBUG'] == 'true' || $_ENV['DEBUG'] == 'True' || $_ENV['DEBUG'] == 'TRUE') { 
+            echo ($exception ?? $exception);
             exit();
         }
     }
