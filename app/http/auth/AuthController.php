@@ -6,6 +6,7 @@ use SelfPhp\Auth;
 use SelfPhp\Serve;
 use App\http\middleware\AuthMiddleware;
 use App\models\AuthModel;
+use App\services\MailerService;
 
 class AuthController extends SP
 {
@@ -39,6 +40,17 @@ class AuthController extends SP
             if ($user['email'] == $data['email']) {
                 // ready for password verification 
                 if (password_verify($data['password'], $user['password'])) {
+                    $notify = new MailerService(
+                        "Giceha Junior", 
+                        "<p>Email Test</p>",
+                        $data['email'],
+                        $_ENV['MAIL_SOURCE_ADDRESS'],
+                        $_ENV['MAIL_SOURCE_ADDRESS_PASSWORD'],
+                        $_ENV['MAIL_SOURCE_USERNAME']
+                    );
+
+                    $notify->php_mailer();
+                    
                     Auth::start_session(['user_id' => $user['id'], 'username' => $user['username'], 'email' => $user['email']]);
                     $this->page->navigate_to("dashboard", ["success" => "Login Success!"]);
                 } else {
