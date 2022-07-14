@@ -46,7 +46,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             echo "<span>No Bootstrap Css and Js files set on public!</span>";
             exit();
         }
-    }  
+    } 
 }
 
 // Require Dotenv Class; To load environment varaibles.
