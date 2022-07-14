@@ -55,11 +55,12 @@ class SP
      * 
      * @return mysqli_error
      */
-    public static function init_sql_debug($exception = null) {
-        if ($_ENV['DEBUG'] == 'true' || $_ENV['DEBUG'] == 'True' || $_ENV['DEBUG'] == 'TRUE') {
-            echo mysqli_error($db_connection);
-            echo ($exception ?? $exception);
-            exit();
+    public static function init_sql_debug($db_connection = null) {
+        if (!empty($_ENV['DEBUG'])) {
+            if (strtolower($_ENV['DEBUG']) == 'true') {
+                echo mysqli_error($db_connection); 
+                exit();
+            }
         }
     }
 
@@ -73,9 +74,12 @@ class SP
      * @return exceptions
      */
     public static function debug_backtrace_show($exception = null) {
-        if ($_ENV['DEBUG'] == 'true' || $_ENV['DEBUG'] == 'True' || $_ENV['DEBUG'] == 'TRUE') { 
-            echo ($exception ?? $exception);
-            exit();
+        
+        if (!empty($_ENV['DEBUG'])) {
+            if (strtolower($_ENV['DEBUG']) == 'true') {
+                echo ($exception ?? $exception);
+                exit();
+            }
         }
     }
 
