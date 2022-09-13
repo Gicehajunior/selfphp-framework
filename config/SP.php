@@ -47,6 +47,16 @@ class SP
     }
 
     /**
+     * Returns json format of an array to be 
+     * served 
+     * 
+     * @return json
+     */
+    public function serve_json(array $data) {
+        echo json_encode($data);
+    }
+
+    /**
      * If debug is set true, the system sql commands 
      * should show errors whereas if, debug is set to false, 
      * sql commands never shows/produces debugging statements.
