@@ -42,9 +42,7 @@ class Serve
         }
         
         $table_column_keys = $new_table_column_keys;
-        $table_column_keys = implode(", ", $table_column_keys); 
-
-        $table_column_keys = implode(", ", $table_column_keys);
+        $table_column_keys = implode(", ", $table_column_keys);  
 
         $key_values = array_values($post_object);
 
