@@ -33,6 +33,14 @@ class Auth extends Page
         }
     }
 
+    public static function auth() {
+        if (count($_SESSION) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     public static function User($key)
     {
         $session = (isset($_SESSION[$key])) ? $_SESSION[$key] : null;

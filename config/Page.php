@@ -2,6 +2,7 @@
 
 namespace SelfPhp; 
 use SelfPhp\SP;
+use SelfPhp\Auth;
 
 class Page extends SP
 {
@@ -14,22 +15,26 @@ class Page extends SP
     {
         $this->RootDir = $GLOBALS['RootDir'];
     }
-
+ 
     public function View($view_folder_name, $view, $data = null)
     {
         $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
-
+ 
         // return session variable values for the user
-        $Auth = $auth = (isset($_SESSION)) ? $_SESSION : null;
+        $auth = (isset($_SESSION)) ? $_SESSION : null;
 
         // Return data from backend to frontend
-
-        if (isset($_SESSION['status']) || isset($_SESSION['message'])) { 
-
+        if (isset($_SESSION['status']) || isset($_SESSION['message'])) {   
             $status = $_SESSION['status']; 
             $message = $_SESSION['message'];
-        }
+        }  
 
+        if (Auth::auth() == true) { 
+            $Auth = true;
+        } 
+        else {
+            $Auth = false;
+        }
 
         if (is_array($data)) {
             if (count($data) > 0) {
@@ -38,8 +43,8 @@ class Page extends SP
                 }
             }
         }
-        // End of Return data from backend to frontend
 
+        // End of Return data from backend to frontend 
         require $files[0];
 
         unset($_SESSION['status']);
@@ -57,7 +62,7 @@ class Page extends SP
                 ? array_values($message)[0] 
                 : null;
         }
-
+        
         header("Location: " . $path);
         exit();
     }

@@ -4,6 +4,7 @@ namespace SelfPhp;
 
 use AltoRouter;
 use SelfPhp\SP;
+use SelfPhp\Auth;
 
 class Path extends AltoRouter
 {
@@ -35,14 +36,13 @@ class Path extends AltoRouter
         return false;
     }
 
-
     public static function route($controller, $callable_function)
     {
         $path = new Path();
 
         $sp = new SP();
-        
-        $sp->setup_config();
+
+        $sp->setup_config(); 
 
         $route = $path->controller_path($controller);
         
