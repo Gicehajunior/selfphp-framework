@@ -36,11 +36,22 @@ class Serve
     {
         $table_column_keys = array_keys($post_object);
 
-        $table_column_keys = implode(", ", $table_column_keys);
+        $new_table_column_keys = [];
+        foreach ($table_column_keys as $key => $value) {
+            array_push($new_table_column_keys, "`$value`");
+        }
+        
+        $table_column_keys = $new_table_column_keys;
+        $table_column_keys = implode(", ", $table_column_keys);  
 
         $key_values = array_values($post_object);
 
-        $key_values = implode("', '", str_replace("'", "`", $key_values));
+        $new_key_values = array();
+        foreach ($key_values as $key => $value) {
+            array_push($new_key_values, str_replace("'", "`", $value));
+        }
+
+        $key_values = $new_key_values; 
 
         $query = "INSERT INTO $this->table($table_column_keys) VALUES('$key_values')";
         $result = mysqli_query($this->db_connection, $query); 

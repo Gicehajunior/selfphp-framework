@@ -20,7 +20,7 @@ class DashboardController extends SP
     }
 
     public function index()
-    { 
+    {
         $this->page->View("resources/views", "dashboard");
     }
 }
