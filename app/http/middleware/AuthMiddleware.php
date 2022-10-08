@@ -12,23 +12,14 @@ class AuthMiddleware
     { 
     }
 
-    public static function session_exists()
-    {
-        if (isset($_SESSION['id']) || isset($_SESSION['username']) || isset($_SESSION['email'])) {
-            return true;
-        }
-
-        return false;
-    }
-
     public static function AuthView()
     {
         if (strtolower($_ENV['AUTH']) == 'true') {
-            if (AuthMiddleware::session_exists() == false) { 
+            if (Auth::auth() == false) { 
                 if (!empty(strtolower($_ENV['LOGOUT_DESTINATION']))) {
-                    $page = new Page();
-                    
-                    $page->navigate_to(strtolower($_ENV['LOGOUT_DESTINATION']), ["error" => "Login is required!"]);
+                    $page = new Page(); 
+
+                    $page->View("resources/auth", $_ENV['LOGOUT_DESTINATION'], ["message" => "Login is required!"]);
                 } else {
                     echo "Logout destination not set in .env file. Please set to experience a smooth logout process!";
                     exit();

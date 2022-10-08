@@ -40,7 +40,11 @@ class AuthController extends SP
             if ($user['email'] == $data['email']) {
                 // ready for password verification 
                 if (password_verify($data['password'], $user['password'])) {
-                    Auth::start_session(['user_id' => $user['id'], 'username' => $user['username'], 'email' => $user['email']]);
+                    Auth::start_session([
+                        'user_id' => $user['id'], 
+                        'username' => $user['username'], 
+                        'email' => $user['email']
+                    ]);
                     $this->page->navigate_to("dashboard", ["success" => "Login Success!"]);
                 } else {
                     $this->page->navigate_to("login", ["error" => "Please check your username and password and try again!"]);
@@ -86,7 +90,7 @@ class AuthController extends SP
 
     public function logout()
     {
-        if (AuthMiddleware::session_exists() == true) {
+        if (Auth::auth() == true) {
             if (Auth::boot_out() == true) {
                 $this->page->go_back("login?#booted out");
             } else {

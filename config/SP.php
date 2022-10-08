@@ -18,11 +18,6 @@ class SP
 {
     public $request; 
 
-    public function __construct()
-    {
-        $this->request = null; 
-    } 
-
     /**
      * Process and get the post request values
      * from the frontend

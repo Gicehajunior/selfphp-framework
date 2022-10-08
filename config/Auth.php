@@ -7,10 +7,6 @@ use SelfPhp\Page;
 class Auth extends Page
 {
 
-    public function __construct()
-    {
-    }
-
     public static function hash_pass($password)
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -31,6 +27,14 @@ class Auth extends Page
         } else {
             return false;
         }
+    }
+
+    public static function auth() {
+        if (count($_SESSION) > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function User($key)
