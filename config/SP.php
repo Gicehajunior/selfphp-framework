@@ -35,6 +35,17 @@ class SP
     }
 
     /**
+     * Process and get the files posted
+     * from the frontend
+     * 
+     * @return post
+     */
+    public function file($param)
+    {
+        return $_FILES[$param];
+    }
+
+    /**
      * Include/require the config file
      * found from the config directory
      * 
@@ -54,6 +65,15 @@ class SP
      */
     public function serve_json(array $data) {
         echo json_encode($data);
+    }
+
+    /**
+     * Setup configurations 
+     * 
+     * @return configurations
+     */
+    public function setup_config() {
+        $this->request_config("config"); 
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace SelfPhp;
 
 use AltoRouter;
+use SelfPhp\SP;
 
 class Path extends AltoRouter
 {
@@ -38,6 +39,10 @@ class Path extends AltoRouter
     public static function route($controller, $callable_function)
     {
         $path = new Path();
+
+        $sp = new SP();
+        
+        $sp->setup_config();
 
         $route = $path->controller_path($controller);
         

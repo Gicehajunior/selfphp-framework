@@ -22,7 +22,8 @@
         "altorouter/altorouter": "1.1.0",
         "php": "^7.4",
         "guzzlehttp/guzzle": "^6.2",
-        "twbs/bootstrap": "^4.6.1"
+        "twbs/bootstrap": "^4.6.1",
+        "components/jquery": "^3.6"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5",

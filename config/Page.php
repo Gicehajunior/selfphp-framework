@@ -1,8 +1,9 @@
 <?php
 
 namespace SelfPhp; 
+use SelfPhp\SP;
 
-class Page
+class Page extends SP
 {
     public $RootDir;
     public $dotenv;
@@ -12,14 +13,11 @@ class Page
     public function __construct()
     {
         $this->RootDir = $GLOBALS['RootDir'];
-
     }
 
     public function View($view_folder_name, $view, $data = null)
     {
         $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
-
-        require "./config/config.php";
 
         // return session variable values for the user
         $Auth = $auth = (isset($_SESSION)) ? $_SESSION : null;
@@ -52,8 +50,12 @@ class Page
     public function navigate_to($path, $message = [])
     {
         if (count($message) > 0) {
-            $_SESSION['status'] = $this->status = (array_keys($message)[0]) ? array_keys($message)[0] : null;
-            $_SESSION['message'] = $this->message = (array_values($message)[0]) ? array_values($message)[0] : null;
+            $_SESSION['status'] = $this->status = (array_keys($message)[0]) 
+                ? array_keys($message)[0] 
+                : null;
+            $_SESSION['message'] = $this->message = (array_values($message)[0]) 
+                ? array_values($message)[0] 
+                : null;
         }
 
         header("Location: " . $path);
@@ -65,8 +67,12 @@ class Page
         $path = ($path == null || is_array($path)) ? $_SERVER['HTTP_REFERER'] : $path;
 
         if (count($message) > 0) {
-            $_SESSION['status'] = $this->status = (array_keys($message)[0]) ? array_keys($message)[0] : null;
-            $_SESSION['message'] = $this->message = (array_values($message)[0]) ? array_values($message)[0] : null;
+            $_SESSION['status'] = $this->status = (array_keys($message)[0]) 
+                ? array_keys($message)[0] 
+                : null;
+            $_SESSION['message'] = $this->message = (array_values($message)[0]) 
+                ? array_values($message)[0] 
+                : null;
         }
 
         header("Location: " . $path);
