@@ -13,7 +13,6 @@
      *                  ____________________________________                        
      * 
      */
-    
     Route::get('/', 'HomeController@index');
     Route::get('/dashboard', 'DashboardController@index');
     Route::get('/login', 'AuthController@login');

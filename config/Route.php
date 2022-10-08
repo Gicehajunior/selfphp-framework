@@ -7,19 +7,19 @@ use SelfPhp\Path;
 class Route {
 
     public $routes;
-    public static $controller_method_array;
+    public static $controller_array;
     
-    public static function route_call($route_method, $route, $controller_method) {  
-        if (isset($route) || isset($controller_method)) { 
+    public static function route_call($route_method, $route, $controller) {  
+        if (isset($route) || isset($controller)) { 
 
-            $controller_method_array = explode("@", $controller_method);  
+            $controller_array = explode("@", $controller);  
 
-            Route::$controller_method_array = $controller_method_array;
+            Route::$controller_array = $controller_array;
 
             $router = new Path(); 
 
             $router->map($route_method, $route, function (){
-                Path::route(Route::$controller_method_array[0], Route::$controller_method_array[1]);
+                Path::route(Route::$controller_array[0], Route::$controller_array[1]);
             }); 
 
             if (!method_exists("Route", "route_matcher_call")) {
@@ -32,20 +32,20 @@ class Route {
         
     } 
 
-    public static function get($route, $controller_method) { 
-        Route::route_call("GET", $route, $controller_method);
+    public static function get($route, $controller) { 
+        Route::route_call("GET", $route, $controller);
     }
 
-    public static function post($route, $controller_method) { 
-        Route::route_call("POST", $route, $controller_method);
+    public static function post($route, $controller) { 
+        Route::route_call("POST", $route, $controller);
     }
 
-    public static function put($route, $controller_method) { 
-        Route::route_call("PUT", $route, $controller_method);
+    public static function put($route, $controller) { 
+        Route::route_call("PUT", $route, $controller);
     }
 
-    public static function delete($route, $controller_method) { 
-        Route::route_call("`DELETE`", $route, $controller_method);
+    public static function delete($route, $controller) { 
+        Route::route_call("`DELETE`", $route, $controller);
     } 
 
     public static function route_matcher_call($router) {  
