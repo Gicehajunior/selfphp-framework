@@ -13,10 +13,10 @@ namespace SelfPhp;
  * @version    Release: 1.0.0
  * @link       https://github.com/Gicehajunior/selfphp-framework/blob/main/config/SP.php
  * @since      Class available since Release 1.0.0
- */ 
+ */
 class SP
 {
-    public $request; 
+    public $request;
 
     /**
      * Process and get the post request values
@@ -46,7 +46,11 @@ class SP
      * 
      * @return config_file
      */
-    public function request_config($config) {
+    public function request_config($config)
+    {
+
+        $config = ucfirst(strtolower($config));
+
         $config_file = require "./config/" . $config . '.php';
 
         return $config_file;
@@ -58,7 +62,8 @@ class SP
      * 
      * @return json
      */
-    public function serve_json(array $data) {
+    public function serve_json(array $data)
+    {
         echo json_encode($data);
     }
 
@@ -67,9 +72,122 @@ class SP
      * 
      * @return configurations
      */
-    public function setup_config() {
-        $this->request_config("config"); 
+    public function setup_config()
+    {
+        $this->request_config("config");
     }
+
+    /**
+     * @return env_variable
+     */
+    public static function env($var_name)
+    {
+        return $_ENV[$var_name];
+    }
+
+
+    /**
+     * @return publicPath
+     */
+    public static function public_path()
+    {
+        return SP::env("APP_DOMAIN") . "/public";
+    }
+
+    /**
+     * @return assetPath
+     */
+    public static function asset_path($path)
+    {
+        return SP::public_path() . "/" . $path;
+    }
+
+    /**
+     * @return storagePath
+     */
+    public static function storage_path()
+    {
+        return SP::env("APP_DOMAIN") . "/public/storage/";
+    }
+
+    /**
+     * Requires the included file
+     * Parsed over to the running view
+     * 
+     * @return filePath
+     */
+    public function resource_path($view)
+    {
+        $file_array = array();
+        $resource_path = getcwd() . "/resources";
+        
+        $files = $this->scan_directory($resource_path);
+        
+        $end_name = null;
+        $file_name = null;
+        
+        $view_path_array = explode(".", $view); 
+
+        if (strtolower(end($view_path_array)) == "partial") {
+            $end_name .= end($view_path_array);
+
+            array_pop($view_path_array);
+
+            $file_name .= end($view_path_array);
+
+            array_pop($view_path_array);
+        }
+        else {
+            $end_name = null;
+
+            $file_name .= end($view_path_array);
+
+            array_pop($view_path_array);
+        }
+
+        $dynamic_path = null;
+
+        foreach ($view_path_array as $key => $view_path) {
+            $dynamic_path .= $view_path . DIRECTORY_SEPARATOR;
+        }
+
+        $file_match_array = array();
+        foreach ($files as $key => $folder) {  
+            $file = glob($folder . DIRECTORY_SEPARATOR . $dynamic_path . $file_name . (($end_name == null) ? null : ("." . $end_name)) . ".php");
+            
+            if (count($file) > 0) {
+                array_push($file_match_array, $file);
+            }
+        }
+
+        $included_file_path = (isset($file_match_array[0]))     
+            ?   array_unique($file_match_array[0])
+            :   null;
+        
+        if (!empty($included_file_path)) {
+            include_once $included_file_path[0];
+        } 
+        else {
+            throw new \Exception("FileNotFoundException");
+        } 
+    }
+
+    public function scan_directory($resource_path) {
+        $files = array();
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($resource_path),
+            \RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        foreach ($iterator as $file) {
+            if ($file->isDir()) {
+                array_push($files, $file->getRealpath());
+            }
+        }
+
+        return $files;
+    }
+
 
     /**
      * If debug is set true, the system sql commands 
@@ -80,10 +198,11 @@ class SP
      * 
      * @return mysqli_error
      */
-    public static function init_sql_debug($db_connection = null) {
+    public static function init_sql_debug($db_connection = null)
+    {
         if (!empty($_ENV['DEBUG'])) {
-            if (strtolower($_ENV['DEBUG']) == 'true') {
-                echo mysqli_error($db_connection); 
+            if (strtolower($_ENV['DEBUG']) == 'true') { 
+                throw new \Exception(mysqli_error($db_connection)); 
                 exit();
             }
         }
@@ -98,14 +217,16 @@ class SP
      * 
      * @return exceptions
      */
-    public static function debug_backtrace_show($exception = null) {
-        
+    public static function debug_backtrace_show($exception = null)
+    {
+
         if (!empty($_ENV['DEBUG'])) {
             if (strtolower($_ENV['DEBUG']) == 'true') {
-                echo ($exception ?? $exception);
-                exit();
+                if ($exception) {
+                    throw new \Exception($exception);
+                    exit();
+                } 
             }
         }
     }
-
 }

@@ -6,5 +6,6 @@ public/bootstrap/css/
 public/bootstrap/js/
 
 public/assets/jquery/
+app/Exceptions/Exception.php
 
 tests

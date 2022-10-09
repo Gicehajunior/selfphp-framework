@@ -44,6 +44,8 @@ class Path extends AltoRouter
 
         $sp->setup_config(); 
 
+        $sp->request_config("Helper");
+
         $route = $path->controller_path($controller);
         
         if (isset($route)) {

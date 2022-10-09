@@ -20,19 +20,3 @@ ini_set("upload_max_filesize", "12M");
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
