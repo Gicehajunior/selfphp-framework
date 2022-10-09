@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="origin">
 
-    <title><?= $_ENV['APP_NAME'] ?></title>
+    <title><?= app_name() ?></title>
 
-    <link href="<?= $_ENV['APP_DOMAIN'] ?>/public/bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="<?= asset_path("bootstrap/css/bootstrap.min.css") ?>" rel="stylesheet"> 
 
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -19,8 +19,8 @@
 </head>
 
 <body class="bodyContainer">
-    <?php   
-    if ($Auth) {  
+    <?php    
+    if (Authenticated()) {   
         ?> 
         <!-- auth navbar -->
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
@@ -44,7 +44,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user-circle" aria-hidden="true"></i> 
-                            <?= $auth['username'] ?>
+                            <?= Auth('username') ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="#">Profile</a>

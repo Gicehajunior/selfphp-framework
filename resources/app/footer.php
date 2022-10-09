@@ -6,16 +6,16 @@
 </footer>
 
 <!-- include jquery -->
-<script type="text/javascript" src="<?= $_ENV['APP_DOMAIN'] ?>/public/assets/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="<?= asset_path("assets/jquery/jquery.min.js") ?>"></script>
 
 <!-- include bootstrap js -->
-<script type="text/javascript" src="<?= $_ENV['APP_DOMAIN'] ?>/public/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?= asset_path("bootstrap/js/bootstrap.min.js") ?>"></script>
 
 <!-- local js script -->
-<script src="<?= $_ENV['APP_DOMAIN'] ?>/public/js/auth.js"></script>
+<script src="<?= asset_path("js/auth.js") ?>"></script>
 
 <!-- local js script -->
-<script src="<?= $_ENV['APP_DOMAIN'] ?>/public/js/app.js"></script>
+<script src="<?= asset_path("js/app.js") ?>"></script>
 
 </body>
 

@@ -1,8 +1,8 @@
-<!-- footer -->
-<?php
-    include $this->RootDir . "/resources/app/layout.php"; 
+<!-- layout -->
+<?php 
+    page_extends("app.layout");
 ?>
-<!-- /footer -->
+<!-- /layout -->
 
 <!-- body -->
 <div class="container pt-5">
@@ -25,7 +25,7 @@
 <!-- /body  -->
 
 <!-- footer -->
-<?php
-    include $this->RootDir . "/resources/app/footer.php";
+<?php 
+    page_extends("app.footer");
 ?>
 <!-- /footer -->
