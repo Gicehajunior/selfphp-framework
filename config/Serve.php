@@ -53,10 +53,12 @@ class Serve
 
         $key_values = $new_key_values; 
 
+        $key_values = implode("', '", $key_values);
+
         $query = "INSERT INTO $this->table($table_column_keys) VALUES('$key_values')";
         $result = mysqli_query($this->db_connection, $query); 
 
-        if ($result == true or is_object($result) or is_object($result)) {
+        if ($result == true or is_object($result)) {
             return true;
         } else {
             SP::init_sql_debug($this->db_connection);

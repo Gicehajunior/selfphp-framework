@@ -19,22 +19,12 @@ class Page extends SP
     public function View($view_folder_name, $view, $data = null)
     {
         $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
- 
-        // return session variable values for the user
-        $auth = (isset($_SESSION)) ? $_SESSION : null;
 
         // Return data from backend to frontend
         if (isset($_SESSION['status']) || isset($_SESSION['message'])) {   
             $status = $_SESSION['status']; 
             $message = $_SESSION['message'];
         }  
-
-        if (Auth::auth() == true) { 
-            $Auth = true;
-        } 
-        else {
-            $Auth = false;
-        }
 
         if (is_array($data)) {
             if (count($data) > 0) {
