@@ -19,7 +19,7 @@ class Auth extends Page
         if (is_array($session_object)) {
             if (count($session_object) > 0) {
                 foreach ($session_object as $key => $value) {
-                    $_SESSION[$key] = $value;
+                    $_SESSION["session"][$key] = $value;
                 }
 
                 return true;
@@ -30,8 +30,10 @@ class Auth extends Page
     }
 
     public static function auth() {
-        if (count($_SESSION) > 0) {
-            return true;
+        if (isset($_SESSION['session'])) {
+            if (count($_SESSION['session']) > 0) { 
+                return true;
+            }
         }
 
         return false;
@@ -39,7 +41,7 @@ class Auth extends Page
 
     public static function User($key)
     {
-        $session = (isset($_SESSION[$key])) ? $_SESSION[$key] : null;
+        $session = (isset($_SESSION['session'][$key])) ? $_SESSION['session'][$key] : null;
 
         return $session;
     } 
