@@ -1,8 +1,8 @@
-<!-- footer -->
-<?php
-    include $this->RootDir . "/resources/app/layout.php";
+<!-- layout -->
+<?php 
+    page_extends("app.layout");
 ?>
-<!-- /footer -->
+<!-- /layout -->
 
 <!-- body -->
 <div class="card border-0 pb-5 auth-register-card">
@@ -61,7 +61,7 @@
 <!-- /body -->
 
 <!-- footer -->
-<?php
-include $this->RootDir . "/resources/app/footer.php";
+<?php 
+    page_extends("app.footer");
 ?>
 <!-- /footer -->
