@@ -36,7 +36,7 @@ class Page extends SP
                 }
             }
 
-            if (strtolower($view) == strtolower(SP::env("LOGOUT_DESTINATION")) AND Auth::auth() == true) { 
+            if (strtolower($view) == strtolower(login_page()) AND Auth::auth() == true) { 
                 $this->navigate_to('dashboard', [
                     'status' => 'info', 
                     'message' => Auth('username') . ', Welcome back!'
