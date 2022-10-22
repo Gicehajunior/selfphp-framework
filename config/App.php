@@ -1,6 +1,13 @@
 <?php
 
 return [ 
+    /**
+     * APP NAME
+     * 
+     * This is the application if no APP_NAME is set in the .env file
+     * However, you're permitted to change this name to a name of your preference
+     */
+    'APP_NAME' => 'SelfPHP',
 
     /**
      * APP DOMAIN.

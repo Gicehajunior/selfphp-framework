@@ -54,6 +54,19 @@ class SP
     }
 
     /**
+     * @return AppName
+     */
+    public function app_name() {
+        $app = $this->request_config("app");
+
+        $app_name = ($this->env('APP_NAME')) 
+            ?   $this->env('APP_NAME') 
+            :   $app['APP_NAME'];
+        
+        return $app_name;
+    }
+
+    /**
      * Require app domain
      * 
      * @return array
@@ -88,7 +101,7 @@ class SP
     public function env($var_name)
     {
         try {
-            return $_ENV[$var_name];
+            return $_ENV[strtoupper($var_name)];
         } catch (\Throwable $error) {
             SP::debug_backtrace_show("EnvironmentVariableParameterException");
         }
@@ -212,8 +225,8 @@ class SP
      */
     public static function init_sql_debug($db_connection = null)
     {
-        if (!empty($_ENV['DEBUG'])) {
-            if (strtolower($_ENV['DEBUG']) == 'true') { 
+        if (!empty((new SP())->env('DEBUG'))) {
+            if (strtolower((new SP())->env('DEBUG')) == 'true') { 
                 throw new \Exception(mysqli_error($db_connection)); 
                 exit();
             }
@@ -232,8 +245,8 @@ class SP
     public static function debug_backtrace_show($exception = null)
     {
 
-        if (!empty($_ENV['DEBUG'])) {
-            if (strtolower($_ENV['DEBUG']) == 'true') {
+        if (!empty((new SP())->env('DEBUG'))) {
+            if (strtolower((new SP())->env('DEBUG')) == 'true') {
                 if (!empty($exception)) {
                     throw new \Exception($exception);
                     exit();
