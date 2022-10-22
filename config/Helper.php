@@ -38,7 +38,7 @@ function env($key) {
 function app_name() {
     return ((new SP())->env("APP_NAME")) 
         ?   (new SP())->env("APP_NAME") 
-        :   "Self PHP";
+        :   ((new SP())->app_name());
 }
 
 /**
