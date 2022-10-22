@@ -4,27 +4,25 @@ namespace App\http\middleware;
 
 use SelfPhp\Auth; 
 use SelfPhp\Page;
+use SelfPhp\SP;
 
 class AuthMiddleware 
 { 
-
-    public function __construct()
-    { 
-    }
-
     public static function AuthView()
     {
         if (strtolower($_ENV['AUTH']) == 'true') {
             if (Auth::auth() == false) { 
-                if (!empty(strtolower($_ENV['LOGOUT_DESTINATION']))) {
+                if (!empty(strtolower(login_page()))) { 
                     $page = new Page(); 
 
-                    $page->View("resources/auth", $_ENV['LOGOUT_DESTINATION'], ["message" => "Login is required!"]);
+                    $page->navigate_to(login_page(), [
+                        "status" => "error", 
+                        "message" => "Login is required!"
+                    ]);
                 } else {
-                    echo "Logout destination not set in .env file. Please set to experience a smooth logout process!";
-                    exit();
+                    SP::debug_backtrace_show("LogoutDestinationNotSetException");
                 }
-            }
+            } 
         } 
     }
 }

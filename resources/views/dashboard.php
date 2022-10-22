@@ -15,7 +15,7 @@
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <?= $message; ?>
+                <?= $message ?>
             </div>
         <?php
         }

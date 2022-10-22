@@ -1,6 +1,7 @@
 <?php
 
 use SelfPhp\SP;
+use SelfPhp\Request;
 use SelfPhp\Page;
 use SelfPhp\Auth;
 use SelfPhp\Serve;
@@ -23,4 +24,5 @@ class DashboardController extends SP
     {
         $this->page->View("resources/views", "dashboard");
     }
+    
 }

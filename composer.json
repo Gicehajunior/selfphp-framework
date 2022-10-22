@@ -15,9 +15,7 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "require": {
-        "africastalking/africastalking": "^2.3",
-        "braintree/braintree_php": "^5.3",
+    "require": { 
         "phpmailer/phpmailer": "^6.1",
         "altorouter/altorouter": "1.1.0",
         "php": "^7.4",

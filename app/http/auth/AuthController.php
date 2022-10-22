@@ -1,5 +1,7 @@
 <?php
 
+use SelfPhp\Request;
+
 use SelfPhp\SP;
 use SelfPhp\Page;
 use SelfPhp\Auth;
@@ -27,12 +29,12 @@ class AuthController extends SP
         $this->page->View("resources/auth", "register");
     }
 
-    public function login_user()
+    public function login_user(Request $request)
     {
         $serve = new Serve(AuthModel::$table);
 
-        $data['email'] = $this->request('email');
-        $data['password'] = $this->request('password');
+        $data['email'] = $request->get->email;
+        $data['password'] = $request->get->password;
 
         $user = $serve->get_user_on_condition(['email' => $data['email'], 'password' => $data['password']]);
 
@@ -55,16 +57,18 @@ class AuthController extends SP
         } else {
             $this->page->navigate_to("login", ["error" => "No account associated with the email found!"]);
         }
+        $data['email'] = $request->email;
+        $data['password'] = $request->password; 
     }
 
     public function signup_user()
     {
         $serve = new Serve(AuthModel::$table);
 
-        $data['username'] = $this->request('username');
-        $data['email'] = $this->request('email');
-        $data['contact'] = $this->request('tel');
-        $data['password'] = Auth::hash_pass($this->request('password'));
+        $data['username'] = $request->get->username;
+        $data['email'] = $request->get->email;
+        $data['contact'] = $request->get->tel;
+        $data['password'] = Auth::hash_pass($request->get->password);
         $data['created_at'] = date("Y-m-d H:i:s");
         $data['updated_at'] = date("Y-m-d H:i:s");
 

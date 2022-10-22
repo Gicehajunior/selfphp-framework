@@ -1,7 +1,6 @@
 <?php
 
-namespace SelfPhp; 
-
+namespace SelfPhp;  
 use SelfPhp\Path;  
     
 class Route {

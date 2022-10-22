@@ -15,31 +15,7 @@ namespace SelfPhp;
  * @since      Class available since Release 1.0.0
  */
 class SP
-{
-    public $request;
-
-    /**
-     * Process and get the post request values
-     * from the frontend
-     * 
-     * @return post
-     */
-    public function request($param)
-    {
-        return $_POST[$param];
-    }
-
-    /**
-     * Process and get the files posted
-     * from the frontend
-     * 
-     * @return post
-     */
-    public function file($param)
-    {
-        return $_FILES[$param];
-    }
-
+{  
     /**
      * Include/require the config file
      * found from the config directory
@@ -78,36 +54,72 @@ class SP
     }
 
     /**
-     * @return env_variable
+     * Require app domain
+     * 
+     * @return array
      */
-    public static function env($var_name)
-    {
-        return $_ENV[$var_name];
+    public function domain() {
+        $app = $this->request_config("app");
+
+        return $app['APP_DOMAIN'];
     }
 
+    /**
+     * @return LoginPageName
+     */
+    public function login_page() {
+        $app = $this->request_config("app");
+        
+        return $app['AuthPage'];
+    }
+
+    /**
+     * @return DashboardPageName
+     */
+    public function dashboard_page() {
+        $app = $this->request_config("app");
+        
+        return $app['HomePage'];
+    }
+
+    /**
+     * @return env_variable
+     */
+    public function env($var_name)
+    {
+        try {
+            return $_ENV[$var_name];
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show("EnvironmentVariableParameterException");
+        }
+    }
 
     /**
      * @return publicPath
      */
-    public static function public_path()
+    public function public_path()
     {
-        return SP::env("APP_DOMAIN") . "/public";
+        return ($this->env("APP_DOMAIN") 
+            ?   $this->env("APP_DOMAIN") 
+            :   $this->domain()) . "/public";
     }
 
     /**
      * @return assetPath
      */
-    public static function asset_path($path)
-    {
-        return SP::public_path() . "/" . $path;
+    public function asset_path($path)
+    { 
+        return $this->public_path() . "/" . $path;
     }
 
     /**
      * @return storagePath
      */
-    public static function storage_path()
+    public function storage_path()
     {
-        return SP::env("APP_DOMAIN") . "/public/storage/";
+        return ($this->env("APP_DOMAIN") 
+            ?   $this->env("APP_DOMAIN") 
+            :   $this->domain()) . "/public/storage/";
     }
 
     /**
@@ -222,7 +234,7 @@ class SP
 
         if (!empty($_ENV['DEBUG'])) {
             if (strtolower($_ENV['DEBUG']) == 'true') {
-                if ($exception) {
+                if (!empty($exception)) {
                     throw new \Exception($exception);
                     exit();
                 } 
