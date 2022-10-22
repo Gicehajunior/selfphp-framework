@@ -3,6 +3,7 @@
 namespace SelfPhp;
 
 use AltoRouter;
+use SelfPhp\Request;
 use SelfPhp\SP;
 use SelfPhp\Auth;
 
@@ -55,9 +56,9 @@ class Path extends AltoRouter
             header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
             exit();
         }
-
+        
         $controller_class = new $controller();
-        $controller_class->$callable_function();
+        $controller_class->$callable_function((new Request()));
     }
 
     public function controller_path($controller)

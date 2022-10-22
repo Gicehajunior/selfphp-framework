@@ -8,7 +8,7 @@ use SelfPhp\Auth;
  * 
  * @return bool
  */
-function Authenticated() { 
+function Authenticated() {  
     return Auth::auth();
 }
 
@@ -22,13 +22,22 @@ function Auth($key) {
 }
 
 /**
+ * Read environment variable
+ * 
+ * @return string
+ */
+function env($key) {
+    return (new SP())->env($key);
+}
+
+/**
  * 
  * 
  * @return AppName
  */
 function app_name() {
-    return (SP::env("APP_NAME")) 
-        ?   SP::env("APP_NAME") 
+    return ((new SP())->env("APP_NAME")) 
+        ?   (new SP())->env("APP_NAME") 
         :   "Self PHP";
 }
 
@@ -36,21 +45,21 @@ function app_name() {
  * @return publicPath
  */
 function public_path() {
-    return SP::public_path();
+    return (new SP())->public_path();
 }
 
 /**
  * @return assetPath
  */
 function asset_path($path) {
-    return SP::asset_path($path);
+    return (new SP())->asset_path($path);
 }
 
 /**
  * @return storagePath
  */
 function storage_path() {
-    return SP::storage_path();
+    return (new SP())->storage_path();
 }
 
 /**
@@ -59,7 +68,21 @@ function storage_path() {
  * @return domain
  */
 function sys_domain($var) {
-    return SP::env($var);
+    return (new SP())->env($var);
+}
+
+/**
+ * @return LoginPageName
+ */
+function login_page() {
+    return (new SP())->login_page();
+}
+
+/**
+ * @return DashboardPageName
+ */
+function dashboard_page() {
+    return (new SP())->dashboard_page();
 }
 
 /**

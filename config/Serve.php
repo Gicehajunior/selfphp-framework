@@ -34,35 +34,38 @@ class Serve
      */
     public function save(array $post_object)
     {
-        $table_column_keys = array_keys($post_object);
+        try {
+            $table_column_keys = array_keys($post_object);
 
-        $new_table_column_keys = [];
-        foreach ($table_column_keys as $key => $value) {
-            array_push($new_table_column_keys, "`$value`");
-        }
-        
-        $table_column_keys = $new_table_column_keys;
-        $table_column_keys = implode(", ", $table_column_keys);  
+            $new_table_column_keys = [];
+            foreach ($table_column_keys as $key => $value) {
+                array_push($new_table_column_keys, "`$value`");
+            }
+            
+            $table_column_keys = $new_table_column_keys;
+            $table_column_keys = implode(", ", $table_column_keys);  
 
-        $key_values = array_values($post_object);
+            $key_values = array_values($post_object);
 
-        $new_key_values = array();
-        foreach ($key_values as $key => $value) {
-            array_push($new_key_values, str_replace("'", "`", $value));
-        }
+            $new_key_values = array();
+            foreach ($key_values as $key => $value) {
+                array_push($new_key_values, str_replace("'", "`", $value));
+            }
 
-        $key_values = $new_key_values; 
+            $key_values = $new_key_values; 
 
-        $key_values = implode("', '", $key_values);
+            $key_values = implode("', '", $key_values);
 
-        $query = "INSERT INTO $this->table($table_column_keys) VALUES('$key_values')";
-        $result = mysqli_query($this->db_connection, $query); 
+            $query = "INSERT INTO $this->table($table_column_keys) VALUES('$key_values')";
+            $result = mysqli_query($this->db_connection, $query); 
 
-        if ($result == true or is_object($result)) {
-            return true;
-        } else {
-            SP::init_sql_debug($this->db_connection);
-            return false;
+            if ($result == true or is_object($result)) {
+                return true;
+            } else { 
+                return false;
+            }
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error);
         } 
     }
 
@@ -77,26 +80,27 @@ class Serve
      */
     public function fetchAll()
     {
-        $query = "SELECT * FROM $this->table";
-        $result = mysqli_query($this->db_connection, $query);
+        try {
+            $query = "SELECT * FROM $this->table";
+            $result = mysqli_query($this->db_connection, $query);
 
-        if ($result == true or is_object($result)) {
             $row_array = array();
-
-            while($rows = mysqli_fetch_assoc($result)){
-                array_push($row_array, $rows);
+            
+            if ($result == true or is_object($result)) {
+                while($rows = mysqli_fetch_assoc($result)){
+                    array_push($row_array, $rows);
+                } 
             }
 
-            return $row_array;
-        } else {
-            SP::init_sql_debug($this->db_connection);
-            return false;
-        } 
+            return $row_array[0];
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error); 
+        }
     }
 
     /**
      * Function to fecth every row from a specified table in descending
-     * Order.
+     * Order while ordered by creation time.
      * 
      * @author Giceha Junior <https://github.com/Gicehajunior>
      * 
@@ -105,26 +109,28 @@ class Serve
      *                  a debug error will be returned.
      */
     public function fetchAllInDescOrder() {
-        $query = "SELECT * FROM $this->table ORDER BY $this->table.created_at DESC";
-        $result = mysqli_query($this->db_connection, $query);
+        try {
+            $query = "SELECT * FROM $this->table ORDER BY $this->table.created_at DESC";
+            $result = mysqli_query($this->db_connection, $query);
 
-        if ($result == true or is_object($result)) {
             $row_array = array();
 
-            while($rows = mysqli_fetch_assoc($result)){
-                array_push($row_array, $rows);
+            if ($result == true or is_object($result)) { 
+
+                while($rows = mysqli_fetch_assoc($result)){
+                    array_push($row_array, $rows);
+                }
             }
 
-            return $row_array;
-        } else {
-            SP::init_sql_debug($this->db_connection);
-            return false;
+            return $row_array[0];
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error); 
         } 
     }
 
     /**
      * Function to fecth every row from a specified table in ascending
-     * Order.
+     * Order while ordered by creation time.
      * 
      * @author Giceha Junior <https://github.com/Gicehajunior>
      * 
@@ -133,20 +139,22 @@ class Serve
      *                  a debug error will be returned.
      */
     public function fetchAllInAscOrder() {
-        $query = "SELECT * FROM $this->table ORDER BY $this->table.created_at ASC";
-        $result = mysqli_query($this->db_connection, $query);
+        try {
+            $query = "SELECT * FROM $this->table ORDER BY $this->table.created_at ASC";
+            $result = mysqli_query($this->db_connection, $query);
 
-        if ($result == true or is_object($result)) {
             $row_array = array();
 
-            while($rows = mysqli_fetch_assoc($result)){
-                array_push($row_array, $rows);
+            if ($result == true or is_object($result)) { 
+
+                while($rows = mysqli_fetch_assoc($result)){
+                    array_push($row_array, $rows);
+                }
             }
 
-            return $row_array;
-        } else {
-            SP::init_sql_debug($this->db_connection);
-            return false;
+            return $row_array[0];
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error); 
         } 
     }
 
@@ -161,18 +169,19 @@ class Serve
      *                  a debug error will be returned.
      */
     public function FetchBasedOnId(int $id) {
-        $query = "SELECT * FROM $this->table WHERE id='" . $id . "'";
-        $result = mysqli_query($this->db_connection, $query); 
+        try {
+            $row = array();
 
-        if ($result == true or is_object($result)) {
-            $row = mysqli_fetch_assoc($result);
+            $query = "SELECT * FROM $this->table WHERE id='" . $id . "'";
+            $result = mysqli_query($this->db_connection, $query); 
 
-            if ($row) {
-                return $row;
+            if ($result == true or is_object($result)) {
+                $row = mysqli_fetch_assoc($result);
             }
-        } else {
-            SP::init_sql_debug($this->db_connection); 
-            return false;
+
+            return $row;
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error); 
         } 
     }
 
@@ -189,10 +198,10 @@ class Serve
     {
         $exists = false;
 
-        $query = "SELECT * FROM $this->table WHERE email='" . $post_object['email'] . "'";
-        $result = mysqli_query($this->db_connection, $query);
-
-        if ($result == true or is_object($result)) {
+        try {
+            $query = "SELECT * FROM $this->table WHERE email='" . $post_object['email'] . "'";
+            $result = mysqli_query($this->db_connection, $query);
+            
             $row_count = mysqli_num_rows($result);
 
             if ($row_count > 0) {
@@ -202,10 +211,45 @@ class Serve
             } else {
                 return $exists;
             }
-        } else {
-            SP::init_sql_debug($this->db_connection);
-            return false;
-        } 
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error); 
+        }  
+    }
+
+    /**
+     * Function to fecth every row from a specified table based on an passed params
+     * 
+     * @author Giceha Junior <https://github.com/Gicehajunior>
+     * 
+     * @return rows
+     */
+    public function query_by_condition(array $post_object = [])
+    {  
+        try {
+            $appendable_query_string = null;
+
+            $post = $post_object;
+            foreach ($post as $key => $value) {
+                if (!empty($value)) {
+                    $command = $key . ' ' . '"' . $value . '"';
+                    $appendable_query_string .= $command;
+                } 
+            } 
+
+            $query = "SELECT * FROM $this->table WHERE " . $appendable_query_string; 
+            $result = mysqli_query($this->db_connection, $query);
+            
+            $row_array = array();
+
+            if ($result) {
+                while($rows = mysqli_fetch_assoc($result)){
+                    array_push($row_array, $rows);
+                }
+            }
+            return $row_array; 
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error);  
+        }
     }
 
     /**
@@ -214,24 +258,27 @@ class Serve
      * @author Giceha Junior <https://github.com/Gicehajunior>
      * 
      * @return row - Return row found.
-     * @return false - if an error and if debug is set to true, then,
-     *                  a debug error will be returned.
+     * if an error and if debug is set to true, then,
+     * a debug error will be returned.
      */
     public function get_user_on_condition(array $post_object = [])
-    {
-        $query = "SELECT * FROM $this->table WHERE email='" . $post_object['email'] . "'";
-        $result = mysqli_query($this->db_connection, $query); 
+    { 
+        try {
+            $query = "SELECT * FROM $this->table WHERE email='" . $post_object['email'] . "'";
+            $result = mysqli_query($this->db_connection, $query); 
 
-        if ($result == true or is_object($result)) {
-            $row = mysqli_fetch_assoc($result);
+            $row_array = array();
 
-            if ($row) {
-                return $row;
+            if ($result) {
+                while($rows = mysqli_fetch_assoc($result)){
+                    array_push($row_array, $rows);
+                }
             }
-        } else {
-            SP::init_sql_debug($this->db_connection); 
-            return false;
-        } 
+
+            return $row_array[0]; 
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error);  
+        }
     }
 
     /**
@@ -244,16 +291,17 @@ class Serve
      *                  a true status is returned.
      */
     public function TrashBasedOnId(int $id) {
-        $query = "DELETE FROM $this->table WHERE id ='" . $id . "'";
-        $result = mysqli_query($this->db_connection, $query); 
+        try {
+            $query = "DELETE FROM $this->table WHERE id ='" . $id . "'";
+            $result = mysqli_query($this->db_connection, $query); 
 
-        if ($result) {
-            return true;
-        } else {
-            SP::init_sql_debug($this->db_connection); 
-            return false;
+            if ($result) {
+                return true;
+            } else { 
+                return false;
+            }
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error); 
         } 
     }
-
-
 }
