@@ -2,6 +2,7 @@
 
 namespace SelfPhp\database;
 
+use SelfPhp\SP;
 use SelfPhp\database\DatabaseConfig;
 
 class Database {
@@ -18,18 +19,22 @@ class Database {
 
     public function __construct()
     {
-        $this->host = $_ENV['DB_HOST'];
-        $this->db_name = $_ENV['DB_NAME'];
-        $this->db_username = $_ENV['DB_USERNAME'];
-        $this->db_password = $_ENV['DB_PASSWORD'];
+        $this->host = env('DB_HOST');
+        $this->db_name = env('DB_NAME');
+        $this->db_username = env('DB_USERNAME');
+        $this->db_password = env('DB_PASSWORD');
     }
 
     public function connect() {
-        $database_connection = new DatabaseConfig($this->host, $this->db_name, $this->db_username, $this->db_password);
+        try {
+            $database_connection = new DatabaseConfig($this->host, $this->db_name, $this->db_username, $this->db_password);
 
-        $this->db_connection = $database_connection->getConnection();
+            $this->db_connection = $database_connection->getConnection();
 
-        return $this->db_connection;
+            return $this->db_connection;
+        } catch (\Throwable $error) {
+            SP::debug_backtrace_show($error);
+        }
     }
 }
 

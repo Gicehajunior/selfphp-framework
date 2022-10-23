@@ -14,6 +14,7 @@ class Serve
     public function __construct($table)
     {
         $this->table = $table;
+        
         $this->db_connection = new Database();
         $this->db_connection = $this->db_connection->connect();
     }
