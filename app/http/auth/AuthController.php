@@ -61,7 +61,7 @@ class AuthController extends SP
         $data['password'] = $request->password; 
     }
 
-    public function signup_user()
+    public function signup_user(Request $request)
     {
         $serve = new Serve(AuthModel::$table);
 
