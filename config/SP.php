@@ -17,6 +17,19 @@ namespace SelfPhp;
 class SP
 {  
     /**
+     * Initializes the application configurations
+     * 
+     * @return array of of configs.
+     */
+    public $app;
+
+    public function __construct()
+    {
+        $this->app = $this->request_config("app");
+        
+    }
+
+    /**
      * Include/require the config file
      * found from the config directory
      * 
@@ -57,11 +70,9 @@ class SP
      * @return AppName
      */
     public function app_name() {
-        $app = $this->request_config("app");
-
         $app_name = ($this->env('APP_NAME')) 
             ?   $this->env('APP_NAME') 
-            :   $app['APP_NAME'];
+            :   $this->app['APP_NAME'];
         
         return $app_name;
     }
@@ -72,27 +83,21 @@ class SP
      * @return array
      */
     public function domain() {
-        $app = $this->request_config("app");
-
-        return $app['APP_DOMAIN'];
+        return $this->app['APP_DOMAIN'];
     }
 
     /**
      * @return LoginPageName
      */
-    public function login_page() {
-        $app = $this->request_config("app");
-        
-        return $app['AuthPage'];
+    public function login_page() {    
+        return $this->app['AuthPage'];
     }
 
     /**
      * @return DashboardPageName
      */
-    public function dashboard_page() {
-        $app = $this->request_config("app");
-        
-        return $app['HomePage'];
+    public function dashboard_page() {    
+        return $this->app['HomePage'];
     }
 
     /**
