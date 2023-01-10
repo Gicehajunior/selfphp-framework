@@ -77,7 +77,7 @@ return [
     'markup_lang' => array(
         'preset' => true,
         'default' => array(
-            'path' => 'vendor/configs/mail'
+            'path' => 'resources/vendor/templates/mails'
         )
     ),
 
