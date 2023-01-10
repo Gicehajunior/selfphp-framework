@@ -72,6 +72,15 @@ function sys_domain($var) {
 }
 
 /**
+ * Parses html/php files with post data
+ * 
+ * @return parsed_data
+ */
+function file_parser($data, $filename) {
+    return (new SP())->file_parser($data, $filename);
+}
+
+/**
  * @return LoginPageName
  */
 function login_page() {

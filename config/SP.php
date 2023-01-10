@@ -218,6 +218,26 @@ class SP
         return $files;
     }
 
+    /**
+     * Parses html/php files with post data
+     * 
+     * @return parsed_data
+     */
+    public function file_parser($data, $filename = null) {
+        if (is_file($filename)) {
+            if (is_array($data) && count($data)) {
+                extract($data);
+            }
+    
+            ob_start();
+    
+            include $filename;
+    
+            return ob_get_clean();
+        }
+        
+        return false;
+    }
 
     /**
      * If debug is set true, the system sql commands 

@@ -46,8 +46,10 @@ class AuthController extends SP
                         'user_id' => $user['id'], 
                         'username' => $user['username'], 
                         'email' => $user['email']
-                    ]);
+                    ]); 
+
                     $this->page->navigate_to("dashboard", ["success" => "Login Success!"]);
+
                 } else {
                     $this->page->navigate_to("login", ["error" => "Please check your username and password and try again!"]);
                 }
@@ -56,9 +58,7 @@ class AuthController extends SP
             }
         } else {
             $this->page->navigate_to("login", ["error" => "No account associated with the email found!"]);
-        }
-        $data['email'] = $request->email;
-        $data['password'] = $request->password; 
+        } 
     }
 
     public function signup_user(Request $request)

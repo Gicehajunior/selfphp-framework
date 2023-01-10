@@ -2,6 +2,7 @@
 
 namespace SelfPhp;
 
+use mysqli;
 use SelfPhp\database\Database; 
 use SelfPhp\SP;
 
@@ -10,6 +11,8 @@ class Serve
 
     public $db_connection;
     public $table;
+
+    public $final_params;
 
     public function __construct($table)
     {
@@ -70,6 +73,44 @@ class Serve
         } 
     }
 
+    public function update_on_condition($post_object = [], $params_array = []) { 
+
+        // Where clause params
+        $appendable_query_string = null; 
+        foreach ($params_array as $key => $value) {
+            if (!empty($value)) {
+                $command = $key . ' ' . "'".$value."'";
+                $appendable_query_string .= $command;
+            } 
+        } 
+        // End of where clause params
+
+        // params with  update values
+        $final_params = array(); 
+        foreach ($post_object as $col_key_name => $col_key_value) { 
+            if (!empty($col_key_value)) {
+                array_push($final_params, $col_key_name . ' = ' . "'" . str_replace("'", "`", $col_key_value ? $col_key_value : "") . "'" );  
+            }
+        }
+
+        $this->final_params = implode(",", $final_params); 
+
+        if (empty($appendable_query_string)) {
+            $query = "UPDATE $this->table SET " . $this->final_params; 
+        }
+        else { 
+            $query = "UPDATE $this->table SET $this->final_params WHERE " . $appendable_query_string; 
+        } 
+        
+        $result = mysqli_query($this->db_connection, $query);
+
+        if ($result == true or is_object($result)) {
+            return true;
+        } else { 
+            return false;
+        }
+    }
+
     /**
      * Function to fecth every row from a specified table.
      * 
@@ -80,7 +121,7 @@ class Serve
      *                  a debug error will be returned.
      */
     public function fetchAll()
-    {
+    { 
         try {
             $query = "SELECT * FROM $this->table";
             $result = mysqli_query($this->db_connection, $query);
@@ -97,8 +138,8 @@ class Serve
         } catch (\Throwable $error) {
             SP::debug_backtrace_show($error); 
         }
-    }
-
+    } 
+    
     /**
      * Function to fecth every row from a specified table in descending
      * Order while ordered by creation time.
@@ -169,7 +210,7 @@ class Serve
      * @return false - if an error and if debug is set to true, then,
      *                  a debug error will be returned.
      */
-    public function FetchBasedOnId(int $id) {
+    public function FetchById(int $id) {
         try {
             $row = array();
 
@@ -237,7 +278,13 @@ class Serve
                 } 
             } 
 
-            $query = "SELECT * FROM $this->table WHERE " . $appendable_query_string; 
+            if (empty($appendable_query_string)) {
+                $query = "SELECT * FROM $this->table"; 
+            }
+            else {
+                $query = "SELECT * FROM $this->table WHERE " . $appendable_query_string; 
+            }
+
             $result = mysqli_query($this->db_connection, $query);
             
             $row_array = array();

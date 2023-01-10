@@ -31,6 +31,9 @@ class MailerService
     public $message;
     public $html_body;
     public $attachment;
+    public $email_templates_path;
+    public $email_template;
+    public $template_file;
 
     public function __construct($header_name, $html_body = null, $recipient,  $sender_email_address = null, $sender_email_address_password = null, $subject = null, $message = null, $sender_email_username = null, $attachment = [])
     {
@@ -55,10 +58,24 @@ class MailerService
         $this->sender_email_address = ($sender_email_address) ? $this->config['source']['email_address'] : $this->config['source']['email_address'];
         $this->sender_email_username = ($sender_email_username) ? $sender_email_username : ($sender_email_address) ? $sender_email_address : $this->config['source']['email_username'];
         $this->sender_email_address_password = ($sender_email_address_password) ? $sender_email_address_password : ($this->config['source']['email_password']);
+        $this->email_templates_path = $this->config['markup_lang']['default']['path'];
     }
 
-    public function php_mailer()
+    public function php_mailer($template_file = null)
     {
+        if (is_array($this->html_body)) {
+            $this->template_file = $template_file;
+
+            $this->email_template = $this->email_templates_path . DIRECTORY_SEPARATOR . $this->template_file . '.php'; 
+
+            if (is_file($this->email_template)) { 
+                $this->html_body = file_parser(
+                    $this->html_body, 
+                    $this->email_template
+                );
+            } 
+        }
+        
         if (isset($this->mail_service_default_method)) {  
             if (__FUNCTION__ == $this->mail_service_default_method) {
                 // Instantiation and passing `true` enables exceptions
