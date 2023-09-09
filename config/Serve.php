@@ -323,7 +323,7 @@ class Serve
                 }
             }
 
-            return $row_array[0]; 
+            return isset($row_array[0]) ? $row_array[0] : null; 
         } catch (\Throwable $error) {
             SP::debug_backtrace_show($error);  
         }
