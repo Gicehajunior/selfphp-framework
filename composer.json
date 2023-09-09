@@ -16,15 +16,14 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": { 
+        "php": "^8.1",
         "phpmailer/phpmailer": "^6.1",
-        "altorouter/altorouter": "1.1.0",
-        "php": "^7.4",
+        "altorouter/altorouter": "1.1.0", 
         "guzzlehttp/guzzle": "^6.2",
         "twbs/bootstrap": "^4.6.1",
         "components/jquery": "^3.6"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^6.5",
+    "require-dev": { 
         "vlucas/phpdotenv": "^5.1"
     },
     "autoload": {
@@ -37,7 +36,8 @@
         "post-update-cmd": [
             "rm -rf public/bootstrap/css",
             "rm -rf public/bootstrap/js",
-            "cp -R vendor/twbs/bootstrap/dist/* public/bootstrap"
+            "cp -R vendor/twbs/bootstrap/dist/* public/bootstrap",
+            "cp -R vendor/components/jquery/* public/bootstrap/assets/jquery"
         ]
     }
 }
