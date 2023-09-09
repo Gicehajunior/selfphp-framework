@@ -48,16 +48,16 @@ class AuthController extends SP
                         'email' => $user['email']
                     ]); 
 
-                    $this->page->navigate_to("dashboard", ["success" => "Login Success!"]);
+                    $this->page->navigate_to("dashboard", ["status" => "success", "message" => "Login Success!"]);
 
                 } else {
-                    $this->page->navigate_to("login", ["error" => "Please check your username and password and try again!"]);
+                    $this->page->navigate_to("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
                 }
             } else {
-                $this->page->navigate_to("login", ["error" => "Please check your username and password and try again!"]);
+                $this->page->navigate_to("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
             }
         } else {
-            $this->page->navigate_to("login", ["error" => "No account associated with the email found!"]);
+            $this->page->navigate_to("login", ["status" => "error", "message" => "No account associated with the email found!"]);
         } 
     }
 
@@ -77,17 +77,17 @@ class AuthController extends SP
         foreach ($data as $key => $value) {
             if (empty($value)) {
                 unset($exists);
-                $this->page->navigate_to("register", ["error" => "Please fill in all the fields!"]);
+                $this->page->navigate_to("register", ["status" => "error", "message" => "Please fill in all the fields!"]);
             }
         }
 
         if ($exists == true) {
-            $this->page->navigate_to("register", ["error" => "User is already registered. Register using a different email!"]);
+            $this->page->navigate_to("register", ["status" => "error", "message" => "User is already registered. Register using a different email!"]);
         } else {
             if ($serve->save($data) == true) {
-                $this->page->navigate_to("login", ["success" => "Registration success!"]);
+                $this->page->navigate_to("login", ["status" => "success", "message" => "Registration success!"]);
             } else {
-                $this->page->go_back("register", ["error" => "Server Error!"]);
+                $this->page->go_back("register", ["status" => "error", "message" => "Server Error!"]);
             }
         }
     }
@@ -98,10 +98,10 @@ class AuthController extends SP
             if (Auth::boot_out() == true) {
                 $this->page->go_back("login?#booted out");
             } else {
-                $this->page->navigate_to("dashboard", ["error" => "System error when trying to log you out.!"]);
+                $this->page->navigate_to("dashboard", ["status" => "error", "message" => "System error when trying to log you out.!"]);
             }
         } else {
-            $this->page->navigate_to("login?#booted out", ["error" => "Login required!"]);
+            $this->page->navigate_to("login?#booted out", ["status" => "error", "message" => "Login required!"]);
         }
     }
 }
