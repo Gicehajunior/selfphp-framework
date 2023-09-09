@@ -15,8 +15,7 @@ $GLOBALS['controllerPath'] = [
     "./app/http/auth"
 ];
 
-$GLOBALS['modelsPath'] = "./app"; 
-
+$GLOBALS['modelsPath'] = "./app";  
 /**
  * Copies bootstrap assets onto puclic folder.
  * Since composer json post-update-cmd script 

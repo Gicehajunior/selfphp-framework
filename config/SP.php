@@ -127,7 +127,7 @@ class SP
      */
     public function asset_path($path)
     { 
-        return $this->public_path() . "/" . $path;
+        return "/public\/" . $path;
     }
 
     /**
