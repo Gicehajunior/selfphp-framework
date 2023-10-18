@@ -35,7 +35,7 @@ class MailerService
     public $email_template;
     public $template_file;
 
-    public function __construct($header_name, $html_body = null, $recipient,  $sender_email_address = null, $sender_email_address_password = null, $subject = null, $message = null, $sender_email_username = null, $attachment = [])
+    public function __construct($header_name, $recipient, $html_body = null, $subject = null, $sender_email_address = null, $sender_email_address_password = null, $message = null, $sender_email_username = null, $attachment = [])
     {
         $this->config = null;
         $this->header_name = $header_name;
@@ -45,7 +45,7 @@ class MailerService
         $this->attachment = $attachment;
         $this->recipient_email_address = $recipient;
 
-        $this->config = SP::request_config("mailer");
+        $this->config = (new SP())->request_config("mailer");
 
         $this->mail_driver = $this->config['mail_driver'];
         $this->mail_host = $this->config['mailer']['smtp']['host'];
@@ -56,7 +56,7 @@ class MailerService
         $this->mail_encryption_criteria = $this->config['mailer']['smtp']['encryption_criteria'];
         $this->mail_service_default_method = $this->config['mail_service_default_method'];
         $this->sender_email_address = ($sender_email_address) ? $this->config['source']['email_address'] : $this->config['source']['email_address'];
-        $this->sender_email_username = ($sender_email_username) ? $sender_email_username : ($sender_email_address) ? $sender_email_address : $this->config['source']['email_username'];
+        $this->sender_email_username = ($sender_email_username) ? $sender_email_username : (($sender_email_address) ? $sender_email_address : $this->config['source']['email_username']);
         $this->sender_email_address_password = ($sender_email_address_password) ? $sender_email_address_password : ($this->config['source']['email_password']);
         $this->email_templates_path = $this->config['markup_lang']['default']['path'];
     }
@@ -72,7 +72,7 @@ class MailerService
                 $this->html_body = file_parser(
                     $this->html_body, 
                     $this->email_template
-                );
+                ); 
             } 
         }
         

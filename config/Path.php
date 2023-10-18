@@ -38,27 +38,57 @@ class Path extends AltoRouter
     }
 
     public static function route($controller, $callable_function)
-    {
-        $path = new Path();
+    { 
+        try { 
+            $path = new Path();
 
-        $sp = new SP();
+            $sp = new SP();
 
-        $sp->setup_config(); 
+            $sp->setup_config();  
 
-        $sp->request_config("Helper");
+            $route = $path->controller_path($controller);
+            
+            if (isset($route)) {
+                require $route;
+            }
+            else { 
+                throw new \Exception($controller . " Controller not found");
+            }
+            $controller_class = new $controller();
+            $response = $controller_class->$callable_function((new Request()));
 
-        $route = $path->controller_path($controller);
-        
-        if (isset($route)) {
-            require $route;
+            // Return data from backend to frontend
+            if (isset($_SESSION['status']) || isset($_SESSION['message'])) {   
+                $status = $_SESSION['status']; 
+                $message = $_SESSION['message'];
+            }   
+
+            if (isset($response['data'])) { 
+                extract($response['data']);
+            }
+
+            if (isset($response['view_url'])) {
+                if (file_exists($response['view_url'])) { 
+                    require $response['view_url'];
+                } 
+                else {
+                    throw new \Exception((isset($response['view']) ? $response['view'] : null) . " View path could not be found. You might have deleted the view, or the view path is incorrect.");
+                }
+            } 
+            else {
+                throw new \Exception((isset($response['view']) ? $response['view'] : null) . " View path could not be found. You might have deleted the view, or the view path is incorrect.");
+            }
+
+            if (! isset($response['view'])) {
+                throw new \Exception((isset($response['view']) ? $response['view'] : null) . " View not not be found");
+            }
+
+            unset($_SESSION['status']);
+            unset($_SESSION['message']); 
+
+        } catch (\Throwable $th) { 
+            echo $th->getMessage();
         }
-        else { 
-            header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
-            exit();
-        }
-        
-        $controller_class = new $controller();
-        $controller_class->$callable_function((new Request()));
     }
 
     public function controller_path($controller)

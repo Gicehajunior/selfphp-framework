@@ -11,22 +11,20 @@ use App\models\AuthModel;
 use App\services\MailerService;
 
 class AuthController extends SP
-{
-    public $page;
-
+{ 
     public function __construct()
-    {
-        $this->page = new Page();
+    { 
+        
     }
 
     public function login()
-    {
-        $this->page->View("resources/auth", "login");
+    { 
+        return view("resources/auth", "login");
     }
 
     public function signup()
     {
-        $this->page->View("resources/auth", "register");
+        return view("resources/auth", "register");
     }
 
     public function login_user(Request $request)
@@ -48,16 +46,16 @@ class AuthController extends SP
                         'email' => $user['email']
                     ]); 
 
-                    $this->page->navigate_to("dashboard", ["status" => "success", "message" => "Login Success!"]);
+                    return route()->navigate_to("dashboard", ["status" => "success", "message" => "Login Success!"]);
 
                 } else {
-                    $this->page->navigate_to("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
+                    return route()->navigate_to("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
                 }
             } else {
-                $this->page->navigate_to("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
+                return route()->navigate_to("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
             }
         } else {
-            $this->page->navigate_to("login", ["status" => "error", "message" => "No account associated with the email found!"]);
+            return route()->navigate_to("login", ["status" => "error", "message" => "No account associated with the email found!"]);
         } 
     }
 
@@ -77,17 +75,17 @@ class AuthController extends SP
         foreach ($data as $key => $value) {
             if (empty($value)) {
                 unset($exists);
-                $this->page->navigate_to("register", ["status" => "error", "message" => "Please fill in all the fields!"]);
+                return route()->navigate_to("register", ["status" => "error", "message" => "Please fill in all the fields!"]);
             }
         }
 
         if ($exists == true) {
-            $this->page->navigate_to("register", ["status" => "error", "message" => "User is already registered. Register using a different email!"]);
+            return route()->navigate_to("register", ["status" => "error", "message" => "User is already registered. Register using a different email!"]);
         } else {
             if ($serve->save($data) == true) {
-                $this->page->navigate_to("login", ["status" => "success", "message" => "Registration success!"]);
+                return route()->navigate_to("login", ["status" => "success", "message" => "Registration success!"]);
             } else {
-                $this->page->go_back("register", ["status" => "error", "message" => "Server Error!"]);
+                return route()->go_back("register", ["status" => "error", "message" => "Server Error!"]);
             }
         }
     }
@@ -96,12 +94,12 @@ class AuthController extends SP
     {
         if (Auth::auth() == true) {
             if (Auth::boot_out() == true) {
-                $this->page->go_back("login?#booted out");
+                return route()->go_back("login?#booted out");
             } else {
-                $this->page->navigate_to("dashboard", ["status" => "error", "message" => "System error when trying to log you out.!"]);
+                return route()->navigate_to("dashboard", ["status" => "error", "message" => "System error when trying to log you out.!"]);
             }
         } else {
-            $this->page->navigate_to("login?#booted out", ["status" => "error", "message" => "Login required!"]);
+            return route()->navigate_to("login?#booted out", ["status" => "error", "message" => "Login required!"]);
         }
     }
 }

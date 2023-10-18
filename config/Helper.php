@@ -2,6 +2,7 @@
 
 use SelfPhp\SP;
 use SelfPhp\Auth;
+use SelfPhp\Page;
 
 /**
  * Checks if Authenticated
@@ -105,6 +106,20 @@ function page_extends($file) {
     return (new SP())->resource_path($file);
 }
 
+function view($view_dir, $view, $data = []) { 
+    $page = new Page();
+    $response = [];
+    $view_response = $page->View($view_dir, $view, $data);
 
+    $response['view_url'] = $view_response; 
+    $response['view'] = $view;
+    $response['data'] = $data;
+
+    return $response;
+}
+
+function route() {
+    return new Page(); 
+}
 
 

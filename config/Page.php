@@ -18,40 +18,29 @@ class Page extends SP
     }
 
     public function View($view_folder_name, $view, $data = null)
-    {
-        try {
-            $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
+    { 
+        $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
 
-            // Return data from backend to frontend
-            if (isset($_SESSION['status']) || isset($_SESSION['message'])) {   
-                $status = $_SESSION['status']; 
-                $message = $_SESSION['message'];
-            }  
-
-            if (is_array($data)) {
-                if (count($data) > 0) {
-                    foreach ($data as $key => $value) { 
-                        $$key = $value; 
-                    }
+        if (is_array($data)) {
+            if (count($data) > 0) {
+                foreach ($data as $key => $value) { 
+                    $$key = $value; 
                 }
             }
-
-            if (strtolower($view) == strtolower(login_page()) AND Auth::auth() == true) { 
-                $this->navigate_to('dashboard', [
-                    'status' => 'info', 
-                    'message' => Auth('username') . ', Welcome back!'
-                ]);
-            }
-            else {
-                // End of Return data from backend to frontend 
-                require $files[0];
-            }
-            
-            unset($_SESSION['status']);
-            unset($_SESSION['message']);
-        } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error);
         }
+
+        if (strtolower($view) == strtolower(login_page()) AND Auth::auth() == true) { 
+            $this->navigate_to('dashboard', [
+                'status' => 'info', 
+                'message' => Auth('username') . ', Welcome back!'
+            ]);
+        }
+        else {
+            // End of Return data from backend to frontend 
+            if (isset($files[0])) {
+                return $files[0];
+            }  
+        } 
     }
 
     public function set_alert_properties($message) {
@@ -68,14 +57,14 @@ class Page extends SP
     }
 
     public function navigate_to($path, $message = [])
-    {
+    { 
         try {
             $this->set_alert_properties($message);
             
             header("Location: /" . $path);
             exit();
         } catch (\Throwable $th) {
-            SP::debug_backtrace_show($error);
+            SP::debug_backtrace_show($th);
         }
     }
 
@@ -89,7 +78,7 @@ class Page extends SP
             header("Location: /" . $path);
             exit();
         } catch (\Throwable $th) {
-            SP::debug_backtrace_show($error);
+            SP::debug_backtrace_show($th);
         }
     }
 }

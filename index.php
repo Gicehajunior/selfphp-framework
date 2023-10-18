@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // require autoload class
 require __DIR__ . '/vendor/autoload.php';
 
@@ -70,9 +67,23 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     } 
 }
 
+/**
+ * Require Config Files
+ */
+require __DIR__ . "/config/Helper.php";
+
 // Require Dotenv Class; To load environment varaibles.
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+if (strtolower(env("DEBUG")) == "true") { 
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1); 
+}
+else {
+    error_reporting(0);
+    ini_set('display_errors', 0);
+}
 
 // Require Routes
 require __DIR__ . "/routes/web.php";
