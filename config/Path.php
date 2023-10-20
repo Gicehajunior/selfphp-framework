@@ -57,37 +57,63 @@ class Path extends AltoRouter
             $controller_class = new $controller();
             $response = $controller_class->$callable_function((new Request()));
 
-            // Return data from backend to frontend
-            if (isset($_SESSION['status']) || isset($_SESSION['message'])) {   
-                $status = $_SESSION['status']; 
-                $message = $_SESSION['message'];
-            }   
+            // Return data from backend to frontend   
+            if (isset($_SESSION['status'])) {   
+                $response['data']['status'] = $_SESSION['status'];
+                $_SESSION['controller_parsed_data']['status'] = $_SESSION['status'];
+            } 
+            
+            if (isset($_SESSION['message'])) {   
+                $response['data']['message'] = $_SESSION['message'];
+                $_SESSION['controller_parsed_data']['message'] = $_SESSION['message'];
+            } 
 
-            if (isset($response['data'])) { 
-                extract($response['data']);
+            if (isset($response['data']))
+            {
+                if (is_array($response['data'])) {
+                    if (count($response['data']) > 0) {
+                        $_SESSION['controller_parsed_data'] = $response['data'];
+                        foreach ($response['data'] as $key => $value) { 
+                            $$key = $value; 
+                        }
+                    }
+                }
+    
+                if (isset($response['data'])) { 
+                    extract($response['data']);
+                } 
             }
 
             if (isset($response['view_url'])) {
-                if (file_exists($response['view_url'])) { 
-                    require $response['view_url'];
+                if (file_exists($response['view_url'])) {  
+                    echo $sp->file_parser($response['data'], $response['view_url']); 
+                    unset($_SESSION['status']);
+                    unset($_SESSION['message']); 
+                    exit(); 
                 } 
                 else {
                     throw new \Exception((isset($response['view']) ? $response['view'] : null) . " View path could not be found. You might have deleted the view, or the view path is incorrect.");
                 }
-            } 
-            else {
-                throw new \Exception((isset($response['view']) ? $response['view'] : null) . " View path could not be found. You might have deleted the view, or the view path is incorrect.");
-            }
+            }    
 
-            if (! isset($response['view'])) {
-                throw new \Exception((isset($response['view']) ? $response['view'] : null) . " View not not be found");
-            }
-
-            unset($_SESSION['status']);
-            unset($_SESSION['message']); 
-
+            (new Path())->alternative_callable_method_response($response, $sp); 
         } catch (\Throwable $th) { 
             echo $th->getMessage();
+        }
+    }
+
+    public function alternative_callable_method_response($controllerResponse, $sp) { 
+        if (is_array($controllerResponse)) {
+            if (count($controllerResponse) > 0) {
+                if (!isset($response['view_url']) && empty($response['view_url'])) { 
+                    if (!isset($response['view']) && empty($response['view'])) {
+                        unset($_SESSION['status']);
+                        unset($_SESSION['message']);
+                        echo $sp->serve_json($controllerResponse);
+                        exit();
+                    }
+                }  
+            }
         }
     }
 

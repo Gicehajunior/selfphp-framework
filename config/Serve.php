@@ -20,6 +20,9 @@ class Serve
         
         $this->db_connection = new Database();
         $this->db_connection = $this->db_connection->connect();
+
+        $this->row = null;
+        $this->rows = null;
     }
 
     /**
@@ -79,7 +82,7 @@ class Serve
         $appendable_query_string = null; 
         foreach ($params_array as $key => $value) {
             if (!empty($value)) {
-                $command = $key . ' ' . "'".$value."'";
+                $command = $key . ' = ' . "$value";
                 $appendable_query_string .= $command;
             } 
         } 
@@ -273,7 +276,7 @@ class Serve
             $post = $post_object;
             foreach ($post as $key => $value) {
                 if (!empty($value)) {
-                    $command = $key . ' ' . '"' . $value . '"';
+                    $command = $key . '=' . '"' . $value . '"';
                     $appendable_query_string .= $command;
                 } 
             } 
@@ -283,7 +286,7 @@ class Serve
             }
             else {
                 $query = "SELECT * FROM $this->table WHERE " . $appendable_query_string; 
-            }
+            } 
 
             $result = mysqli_query($this->db_connection, $query);
             
@@ -294,11 +297,21 @@ class Serve
                     array_push($row_array, $rows);
                 }
             }
-            return $row_array; 
+            $this->rows = $row_array;
+
+            return $this;
         } catch (\Throwable $error) {
             SP::debug_backtrace_show($error);  
         }
     }
+
+    public function first() {
+        if (! is_null($this->rows)) {
+            $this->row = current($this->rows);
+        } 
+
+        return $this->row;
+    } 
 
     /**
      * Function to fecth row from a specified table based on an email
@@ -309,7 +322,7 @@ class Serve
      * if an error and if debug is set to true, then,
      * a debug error will be returned.
      */
-    public function get_user_on_condition(array $post_object = [])
+    public function getUserByEmail(array $post_object = [])
     { 
         try {
             $query = "SELECT * FROM $this->table WHERE email='" . $post_object['email'] . "'";
