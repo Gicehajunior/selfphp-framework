@@ -37,7 +37,7 @@
             "rm -rf public/bootstrap/css",
             "rm -rf public/bootstrap/js",
             "cp -R vendor/twbs/bootstrap/dist/* public/bootstrap",
-            "cp -R vendor/components/jquery/* public/bootstrap/assets/jquery"
+            "cp -R vendor/components/jquery/* public/assets/jquery"
         ]
     }
 }
