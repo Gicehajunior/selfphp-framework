@@ -9,8 +9,12 @@ public/assets/jquery/*.js
 public/assets/jquery/*.json
 public/assets/jquery/*.map
 public/assets/jquery/*.min.js
+
+public/asset 
+
 public/404.html
 
 app/Exceptions/Exception.php
 
 tests
+/*.zip 

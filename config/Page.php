@@ -12,6 +12,8 @@ class Page extends SP
     public $status;
     public $message;
 
+    public $route;
+
     public function __construct()
     {
         $this->RootDir = $GLOBALS['RootDir'];
@@ -20,14 +22,6 @@ class Page extends SP
     public function View($view_folder_name, $view, $data = null)
     { 
         $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
-
-        if (is_array($data)) {
-            if (count($data) > 0) {
-                foreach ($data as $key => $value) { 
-                    $$key = $value; 
-                }
-            }
-        }
 
         if (strtolower($view) == strtolower(login_page()) AND Auth::auth() == true) { 
             $this->navigate_to('dashboard', [
@@ -56,26 +50,35 @@ class Page extends SP
         }
     }
 
-    public function navigate_to($path, $message = [])
+    public function navigate_to($route, $message = [])
     { 
         try {
-            $this->set_alert_properties($message);
+            if (isset($route)) {
+                $this->route = $route;  
+            } 
+
+            if (is_array($message) && count($message) > 0) {  
+                $this->set_alert_properties($message);
+                extract($_SESSION);
+            } 
             
-            header("Location: /" . $path);
+            header("Location: /" . $route);
             exit();
         } catch (\Throwable $th) {
             SP::debug_backtrace_show($th);
         }
     }
 
-    public function go_back($path = null, $message = [])
+    public function go_back($route = null, $message = [])
     {
         try {
-            $path = ($path == null || is_array($path)) ? $_SERVER['HTTP_REFERER'] : $path;
+            $this->route = ($route == null || is_array($route)) ? $_SERVER['HTTP_REFERER'] : $route;
 
-            $this->set_alert_properties($message);
+            if (is_array($message) && count($message) > 0) {
+                $this->set_alert_properties($message);
+            }
 
-            header("Location: /" . $path);
+            header("Location: /" . $this->route);
             exit();
         } catch (\Throwable $th) {
             SP::debug_backtrace_show($th);

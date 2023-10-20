@@ -25,8 +25,7 @@ class SP
 
     public function __construct()
     {
-        $this->app = $this->request_config("app");
-        
+        $this->app = $this->request_config("app"); 
     }
 
     /**
@@ -53,7 +52,7 @@ class SP
      */
     public function serve_json(array $data)
     {
-        echo json_encode($data);
+        return json_encode($data);
     }
 
     /**
@@ -115,29 +114,37 @@ class SP
     /**
      * @return publicPath
      */
-    public function public_path()
+    public function public_path($path=null)
     {
-        return ($this->env("APP_DOMAIN") 
+        $path = ($this->env("APP_DOMAIN") 
             ?   $this->env("APP_DOMAIN") 
-            :   $this->domain()) . "/public";
+            :   $this->domain()) . "/public" . $path;
+
+        return $path;
     }
 
     /**
      * @return assetPath
      */
-    public function asset_path($path)
+    public function asset_path($path=null)
     { 
-        return "/public\/" . $path;
+        $path = ($this->env("APP_DOMAIN") 
+                    ?   $this->env("APP_DOMAIN") 
+                    :   $this->domain()) . "/public/" . $path;
+
+        return $path;
     }
 
     /**
      * @return storagePath
      */
-    public function storage_path()
+    public function storage_path($path=null)
     {
-        return ($this->env("APP_DOMAIN") 
+        $path = ($this->env("APP_DOMAIN") 
             ?   $this->env("APP_DOMAIN") 
-            :   $this->domain()) . "/public/storage/";
+            :   $this->domain()) . "/public/storage/" . $path;
+
+        return $path;
     }
 
     /**
@@ -146,7 +153,7 @@ class SP
      * 
      * @return filePath
      */
-    public function resource_path($view)
+    public function resource_path($view, $data=null)
     {
         $file_array = array();
         $resource_path = getcwd() . "/resources";
@@ -194,8 +201,8 @@ class SP
             ?   array_unique($file_match_array[0])
             :   null;
         
-        if (!empty($included_file_path)) {
-            include_once $included_file_path[0];
+        if (!empty($included_file_path)) { 
+            echo $this->file_parser($data, $included_file_path[0]);
         } 
         else {
             throw new \Exception("FileNotFoundException");
@@ -224,17 +231,27 @@ class SP
      * @return parsed_data
      */
     public function file_parser($data, $filename = null) {
+        $controller_parsed_data = $_SESSION['controller_parsed_data'];
+        if (is_array($controller_parsed_data)) {
+            if (count($controller_parsed_data) > 0) {
+                foreach ($controller_parsed_data as $key => $value) {   
+                    $data[$key] = $value;
+                }
+            }
+        }
         if (is_file($filename)) {
             if (is_array($data) && count($data)) {
                 extract($data);
             }
     
-            ob_start();
-    
-            include $filename;
+            ob_start(); 
+            
+            require($filename);
     
             return ob_get_clean();
         }
+
+        unset($_SESSION['controller_parsed_data']);
         
         return false;
     }
