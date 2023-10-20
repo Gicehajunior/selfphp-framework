@@ -45,8 +45,8 @@ function app_name() {
 /**
  * @return publicPath
  */
-function public_path() {
-    return (new SP())->public_path();
+function public_path($path) {
+    return (new SP())->public_path($path);
 }
 
 /**
@@ -59,8 +59,8 @@ function asset_path($path) {
 /**
  * @return storagePath
  */
-function storage_path() {
-    return (new SP())->storage_path();
+function storage_path($path) {
+    return (new SP())->storage_path($path);
 }
 
 /**
@@ -101,12 +101,11 @@ function dashboard_page() {
  * 
  * @return bool
  */
-function page_extends($file) {
-    
-    return (new SP())->resource_path($file);
+function page_extends($file, $data=null) {   
+    return (new SP())->resource_path($file, $data);
 }
 
-function view($view_dir, $view, $data = []) { 
+function view($view_dir, $view, $data = []) {  
     $page = new Page();
     $response = [];
     $view_response = $page->View($view_dir, $view, $data);
@@ -118,8 +117,9 @@ function view($view_dir, $view, $data = []) {
     return $response;
 }
 
-function route() {
-    return new Page(); 
+function route($route, $data = []) {  
+    $page = new Page(); 
+    $page->navigate_to($route, $data);
 }
 
 
