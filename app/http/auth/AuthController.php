@@ -2,20 +2,16 @@
 
 use SelfPhp\Request;
 
-use SelfPhp\SP;
-use SelfPhp\Page;
+use SelfPhp\SP; 
 use SelfPhp\Auth;
 use SelfPhp\Serve;
-use App\http\middleware\AuthMiddleware;
 use App\models\AuthModel;
 use App\services\MailerService;
+use App\http\middleware\AuthMiddleware;
 
 class AuthController extends SP
 { 
-    public function __construct()
-    { 
-        
-    }
+    public function __construct() {}
 
     public function login()
     { 
