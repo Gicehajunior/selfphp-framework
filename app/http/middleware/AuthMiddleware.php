@@ -12,10 +12,8 @@ class AuthMiddleware
     {
         if (strtolower($_ENV['AUTH']) == 'true') {
             if (Auth::auth() == false) { 
-                if (!empty(strtolower(login_page()))) { 
-                    $page = new Page(); 
-
-                    $page->navigate_to(login_page(), [
+                if (!empty(strtolower(login_page()))) {  
+                    route(login_page(), [
                         "status" => "error", 
                         "message" => "Login is required!"
                     ]);

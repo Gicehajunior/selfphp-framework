@@ -19,20 +19,22 @@ class Page extends SP
         $this->RootDir = $GLOBALS['RootDir'];
     }
 
-    public function View($view_folder_name, $view, $data = null)
+    public function View($view_folder_name, $data = null)
     { 
-        $files = glob("." . DIRECTORY_SEPARATOR . $view_folder_name . DIRECTORY_SEPARATOR . $view . '.php');
+        $filepath = getcwd() . DIRECTORY_SEPARATOR . "resources/" . str_replace(".", "/", $view_folder_name); 
+        $files = glob($filepath . '.php');
 
-        if (strtolower($view) == strtolower(login_page()) AND Auth::auth() == true) { 
-            $this->navigate_to('dashboard', [
-                'status' => 'info', 
-                'message' => Auth('username') . ', Welcome back!'
-            ]);
+        $view_folder_name = explode("/", $view_folder_name);
+        $route = end($view_folder_name);
+
+        if (strtolower($route) == strtolower(login_page()) AND Auth::auth() == true) { 
+            $this->navigate_to('dashboard');
         }
         else {
-            // End of Return data from backend to frontend 
-            if (isset($files[0])) {
-                return $files[0];
+            // End of Return data from backend to frontend  
+            $current_file = current($files); 
+            if (isset($current_file)) { 
+                return $current_file;
             }  
         } 
     }
@@ -52,36 +54,28 @@ class Page extends SP
 
     public function navigate_to($route, $message = [])
     { 
-        try {
-            if (isset($route)) {
-                $this->route = $route;  
-            } 
+        if (isset($route)) {
+            $this->route = $route;  
+        } 
 
-            if (is_array($message) && count($message) > 0) {  
-                $this->set_alert_properties($message);
-                extract($_SESSION);
-            } 
-            
-            header("Location: /" . $route);
-            exit();
-        } catch (\Throwable $th) {
-            SP::debug_backtrace_show($th);
-        }
+        if (is_array($message) && count($message) > 0) {  
+            $this->set_alert_properties($message);
+            extract($_SESSION);
+        } 
+        
+        header("Location: /" . $route);
+        exit(); 
     }
 
     public function go_back($route = null, $message = [])
-    {
-        try {
-            $this->route = ($route == null || is_array($route)) ? $_SERVER['HTTP_REFERER'] : $route;
+    { 
+        $this->route = ($route == null || is_array($route)) ? $_SERVER['HTTP_REFERER'] : $route;
 
-            if (is_array($message) && count($message) > 0) {
-                $this->set_alert_properties($message);
-            }
-
-            header("Location: /" . $this->route);
-            exit();
-        } catch (\Throwable $th) {
-            SP::debug_backtrace_show($th);
+        if (is_array($message) && count($message) > 0) {
+            $this->set_alert_properties($message);
         }
+
+        header("Location: /" . $this->route);
+        exit(); 
     }
 }

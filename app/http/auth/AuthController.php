@@ -19,12 +19,12 @@ class AuthController extends SP
 
     public function login()
     { 
-        return view("resources/auth", "login");
+        return view("auth.login");
     }
 
     public function signup()
     {
-        return view("resources/auth", "register");
+        return view("auth.register");
     }
 
     public function login_user(Request $request)
@@ -34,7 +34,7 @@ class AuthController extends SP
         $data['email'] = $request->get->email;
         $data['password'] = $request->get->password;
 
-        $user = $serve->get_user_on_condition(['email' => $data['email'], 'password' => $data['password']]);
+        $user = $serve->query_by_condition(['email' => $data['email']])->first();
 
         if (!empty($user)) {
             if ($user['email'] == $data['email']) {
@@ -46,16 +46,16 @@ class AuthController extends SP
                         'email' => $user['email']
                     ]); 
 
-                    return route()->navigate_to("dashboard", ["status" => "success", "message" => "Login Success!"]);
+                    return route("dashboard", ["status" => "success", "message" => "Login Success!"]);
 
                 } else {
-                    return route()->navigate_to("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
+                    return route("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
                 }
             } else {
-                return route()->navigate_to("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
+                return route("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
             }
         } else {
-            return route()->navigate_to("login", ["status" => "error", "message" => "No account associated with the email found!"]);
+            return route("login", ["status" => "error", "message" => "No account associated with the email found!"]);
         } 
     }
 
@@ -75,15 +75,15 @@ class AuthController extends SP
         foreach ($data as $key => $value) {
             if (empty($value)) {
                 unset($exists);
-                return route()->navigate_to("register", ["status" => "error", "message" => "Please fill in all the fields!"]);
+                return route("register", ["status" => "error", "message" => "Please fill in all the fields!"]);
             }
         }
 
         if ($exists == true) {
-            return route()->navigate_to("register", ["status" => "error", "message" => "User is already registered. Register using a different email!"]);
+            return route("register", ["status" => "error", "message" => "User is already registered. Register using a different email!"]);
         } else {
             if ($serve->save($data) == true) {
-                return route()->navigate_to("login", ["status" => "success", "message" => "Registration success!"]);
+                return route("login", ["status" => "success", "message" => "Registration success!"]);
             } else {
                 return route()->go_back("register", ["status" => "error", "message" => "Server Error!"]);
             }
@@ -94,12 +94,12 @@ class AuthController extends SP
     {
         if (Auth::auth() == true) {
             if (Auth::boot_out() == true) {
-                return route()->go_back("login?#booted out");
+                return route("login?#booted out");
             } else {
-                return route()->navigate_to("dashboard", ["status" => "error", "message" => "System error when trying to log you out.!"]);
+                return route("dashboard", ["status" => "error", "message" => "System error when trying to log you out.!"]);
             }
         } else {
-            return route()->navigate_to("login?#booted out", ["status" => "error", "message" => "Login required!"]);
+            return route("login?#booted out", ["status" => "error", "message" => "Login required!"]);
         }
     }
 }

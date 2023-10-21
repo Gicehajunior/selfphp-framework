@@ -18,7 +18,7 @@ class DashboardController extends SP
 
     public function index()
     {
-        return view("resources/views", "dashboard");
+        return view("views.dashboard");
     }
     
 }
