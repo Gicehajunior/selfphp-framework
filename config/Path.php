@@ -44,6 +44,8 @@ class Path extends AltoRouter
 
             $sp = new SP();
 
+            $sp->verify_domain_format(env("APP_DOMAIN"));
+
             $sp->setup_config();  
 
             $route = $path->controller_path($controller);
@@ -84,7 +86,7 @@ class Path extends AltoRouter
                 } 
             }
 
-            if (isset($response['view_url'])) {
+            if (isset($response['view_url'])) { 
                 if (file_exists($response['view_url'])) {  
                     echo $sp->file_parser($response['data'], $response['view_url']); 
                     unset($_SESSION['status']);
@@ -92,7 +94,7 @@ class Path extends AltoRouter
                     exit(); 
                 } 
                 else {
-                    throw new \Exception((isset($response['view']) ? $response['view'] : null) . " View path could not be found. You might have deleted the view, or the view path is incorrect.");
+                    throw new \Exception("View path could not be found. You might have deleted the view, or the view path is incorrect.");
                 }
             }    
 
@@ -105,13 +107,11 @@ class Path extends AltoRouter
     public function alternative_callable_method_response($controllerResponse, $sp) { 
         if (is_array($controllerResponse)) {
             if (count($controllerResponse) > 0) {
-                if (!isset($response['view_url']) && empty($response['view_url'])) { 
-                    if (!isset($response['view']) && empty($response['view'])) {
-                        unset($_SESSION['status']);
-                        unset($_SESSION['message']);
-                        echo $sp->serve_json($controllerResponse);
-                        exit();
-                    }
+                if (!isset($response['view_url']) && empty($response['view_url'])) {  
+                    unset($_SESSION['status']);
+                    unset($_SESSION['message']);
+                    echo $sp->serve_json($controllerResponse);
+                    exit(); 
                 }  
             }
         }

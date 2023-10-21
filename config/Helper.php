@@ -105,13 +105,12 @@ function page_extends($file, $data=null) {
     return (new SP())->resource_path($file, $data);
 }
 
-function view($view_dir, $view, $data = []) {  
+function view($view_dir, $data = []) {  
     $page = new Page();
     $response = [];
-    $view_response = $page->View($view_dir, $view, $data);
+    $view_response = $page->View($view_dir, $data);
 
-    $response['view_url'] = $view_response; 
-    $response['view'] = $view;
+    $response['view_url'] = $view_response;  
     $response['data'] = $data;
 
     return $response;

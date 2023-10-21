@@ -111,6 +111,18 @@ class SP
         }
     }
 
+    public function verify_domain_format($domain=null)
+    { 
+        if (!empty($domain)) {
+            if (strpos($domain, "http://") == false || strpos($domain, "https://") == false)
+            {
+                return $domain; 
+            }    
+
+            throw new \Exception("DomainFormatException: Domain must be in the format of http:// or https://");
+        }  
+    }
+
     /**
      * @return publicPath
      */
@@ -202,7 +214,8 @@ class SP
             :   null;
         
         if (!empty($included_file_path)) { 
-            echo $this->file_parser($data, $included_file_path[0]);
+            $included_file = current($included_file_path); 
+            echo $this->file_parser($data, $included_file);
         } 
         else {
             throw new \Exception("FileNotFoundException");
@@ -230,17 +243,21 @@ class SP
      * 
      * @return parsed_data
      */
-    public function file_parser($data, $filename = null) {
-        $controller_parsed_data = $_SESSION['controller_parsed_data'];
-        if (is_array($controller_parsed_data)) {
-            if (count($controller_parsed_data) > 0) {
-                foreach ($controller_parsed_data as $key => $value) {   
-                    $data[$key] = $value;
-                }
-            }
-        }
+    public function file_parser($data=[], $filename = null) { 
         if (is_file($filename)) {
             if (is_array($data) && count($data)) {
+                $controller_parsed_data = isset($_SESSION['controller_parsed_data']) 
+                    ?   $_SESSION['controller_parsed_data'] 
+                    :   null;
+                
+                if (is_array($controller_parsed_data)) {
+                    if (count($controller_parsed_data) > 0) {
+                        foreach ($controller_parsed_data as $key => $value) {   
+                            $data[$key] = $value;
+                        }
+                    }
+                } 
+
                 extract($data);
             }
     
@@ -286,7 +303,6 @@ class SP
      */
     public static function debug_backtrace_show($exception = null)
     {
-
         if (!empty((new SP())->env('DEBUG'))) {
             if (strtolower((new SP())->env('DEBUG')) == 'true') {
                 if (!empty($exception)) {
