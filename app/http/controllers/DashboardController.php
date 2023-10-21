@@ -1,13 +1,12 @@
 <?php
-
-use SelfPhp\SP;
 use SelfPhp\Request;
-use SelfPhp\Page;
+
+use SelfPhp\SP; 
 use SelfPhp\Auth;
 use SelfPhp\Serve;
-use App\http\middleware\AuthMiddleware;
 use App\models\DashboardModel;  
 use App\services\MailerService; 
+use App\http\middleware\AuthMiddleware;
 
 class DashboardController extends SP
 {   
