@@ -25,7 +25,7 @@ class SP
 
     public function __construct()
     {
-        $this->app = $this->request_config("app"); 
+        $this->app = (Object) $this->request_config("app"); 
     }
 
     /**
@@ -69,11 +69,13 @@ class SP
      * @return AppName
      */
     public function app_name() {
-        $app_name = ($this->env('APP_NAME')) 
-            ?   $this->env('APP_NAME') 
-            :   $this->app['APP_NAME'];
-        
-        return $app_name;
+        $app_name = (new SP())->env("APP_NAME");
+
+        if (isset($app_name) && !empty($app_name)) {
+            return (new SP())->env("APP_NAME");
+        } else {
+            return $this->app->APP_NAME;
+        }   
     }
 
     /**
@@ -82,21 +84,27 @@ class SP
      * @return array
      */
     public function domain() {
-        return $this->app['APP_DOMAIN'];
+        return isset($this->app->APP_DOMAIN) 
+            ?   $this->app->APP_DOMAIN 
+            :   null;
     }
 
     /**
      * @return LoginPageName
      */
     public function login_page() {    
-        return $this->app['AuthPage'];
+        return isset($this->app->AuthPage) 
+            ?   $this->app->AuthPage 
+            :   null;
     }
 
     /**
      * @return DashboardPageName
      */
     public function dashboard_page() {    
-        return $this->app['HomePage'];
+        return isset($this->app->HomePage) 
+            ?   $this->app->HomePage 
+            :   null;
     }
 
     /**
