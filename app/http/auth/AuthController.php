@@ -81,7 +81,7 @@ class AuthController extends SP
             if ($serve->save($data) == true) {
                 return route("login", ["status" => "success", "message" => "Registration success!"]);
             } else {
-                return route()->go_back("register", ["status" => "error", "message" => "Server Error!"]);
+                return route("register", ["status" => "error", "message" => "Server Error!"]);
             }
         }
     }

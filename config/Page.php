@@ -55,27 +55,29 @@ class Page extends SP
     public function navigate_to($route, $message = [])
     { 
         if (isset($route)) {
-            $this->route = $route;  
-        } 
+            $this->route = str_replace(".", "/", $route);   
 
-        if (is_array($message) && count($message) > 0) {  
-            $this->set_alert_properties($message);
-            extract($_SESSION);
-        } 
-        
-        header("Location: /" . $route);
-        exit(); 
+            if (is_array($message) && count($message) > 0) {  
+                $this->set_alert_properties($message);
+                extract($_SESSION);
+            } 
+            
+            header("Location: /" . $this->route);
+            exit();
+        }  
     }
 
     public function go_back($route = null, $message = [])
     { 
-        $this->route = ($route == null || is_array($route)) ? $_SERVER['HTTP_REFERER'] : $route;
+        if (isset($route)) {
+            $this->route = ($route == null || is_array($route)) ? $_SERVER['HTTP_REFERER'] : (str_replace(".", "/", $route));
 
-        if (is_array($message) && count($message) > 0) {
-            $this->set_alert_properties($message);
+            if (is_array($message) && count($message) > 0) {
+                $this->set_alert_properties($message);
+            }
+    
+            header("Location: /" . $this->route);
+            exit(); 
         }
-
-        header("Location: /" . $this->route);
-        exit(); 
     }
 }

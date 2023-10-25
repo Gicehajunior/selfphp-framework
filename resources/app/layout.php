@@ -7,7 +7,7 @@
     <meta name="referrer" content="origin">
     <link rel="shortcut icon" href="<?= asset_path("storage/favicon.ico") ?>" type="image/x-icon">
     
-    <title><?= app_name() ?></title>
+    <title><?= sys_name() ?></title>
 
     <link href="<?= asset_path("bootstrap/css/bootstrap.min.css") ?>" rel="stylesheet"> 
 
