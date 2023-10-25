@@ -36,10 +36,14 @@ function env($key) {
  * 
  * @return AppName
  */
-function app_name() {
-    return ((new SP())->env("APP_NAME")) 
-        ?   (new SP())->env("APP_NAME") 
-        :   ((new SP())->app_name());
+function sys_name() {
+    $app_name = (new SP())->env("APP_NAME");
+
+    if (isset($app_name) && !empty($app_name)) {
+        return (new SP())->env("APP_NAME");
+    } else {
+        return (new SP())->app_name(); 
+    }
 }
 
 /**
