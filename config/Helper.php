@@ -106,7 +106,9 @@ function dashboard_page() {
  * @return bool
  */
 function page_extends($file, $data=null) {   
-    return (new SP())->resource_path($file, $data);
+    $filecontent = (new SP())->resource($file, $data);
+
+    echo $filecontent;
 }
 
 function view($view_dir, $data = []) {  
