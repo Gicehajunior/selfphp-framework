@@ -56,7 +56,7 @@ class Serve
 
             $new_key_values = array();
             foreach ($key_values as $key => $value) {
-                array_push($new_key_values, str_replace("'", "`", $value));
+                array_push($new_key_values, ($value ? str_replace("'", "`", $value) : null));
             }
 
             $key_values = $new_key_values; 
@@ -92,7 +92,7 @@ class Serve
         $final_params = array(); 
         foreach ($post_object as $col_key_name => $col_key_value) { 
             if (!empty($col_key_value)) {
-                array_push($final_params, $col_key_name . ' = ' . "'" . str_replace("'", "`", $col_key_value ? $col_key_value : "") . "'" );  
+                array_push($final_params, $col_key_name . ' = ' . "'" . ($col_key_value ? str_replace("'", "`", $col_key_value) : null) . "'" );  
             }
         }
 
@@ -312,6 +312,10 @@ class Serve
 
         return $this->row;
     } 
+
+    public function get() {
+        return $this->rows;
+    }
 
     /**
      * Function to fecth row from a specified table based on an email

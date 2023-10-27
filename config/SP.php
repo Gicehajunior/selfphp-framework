@@ -21,10 +21,10 @@ class SP
      * 
      * @return array of of configs.
      */
-    public $app;
+    public $app; 
 
     public function __construct()
-    {
+    { 
         $this->app = (Object) $this->request_config("app"); 
     }
 
@@ -173,7 +173,7 @@ class SP
      * 
      * @return filePath
      */
-    public function resource_path($view, $data=null)
+    public function resource($view, $data=null)
     {
         $file_array = array();
         $resource_path = getcwd() . "/resources";
@@ -223,7 +223,7 @@ class SP
         
         if (!empty($included_file_path)) { 
             $included_file = current($included_file_path); 
-            echo $this->file_parser($data, $included_file);
+            return $this->file_parser($data, $included_file);
         } 
         else {
             throw new \Exception("FileNotFoundException");
@@ -279,6 +279,90 @@ class SP
         unset($_SESSION['controller_parsed_data']);
         
         return false;
+    }
+
+    public static function csvToArray($filepath, $MAX_LENGTH = 1000) {
+        $csv = Array();
+        
+        try {
+            $count = 0;
+            $reader = fopen($filepath, "r");
+
+            if ($reader !== false) { 
+                $header_cell_values = fgetcsv($reader);
+                $header_column_count = count($header_cell_values);
+                
+                while (!feof($reader)) { 
+                    $row = fgetcsv($reader);
+                    
+                    if ($row !== false && !empty(array_filter($row))) {
+                        $count++; 
+                        $row_column_count = count($row);
+                        
+                        if ($row_column_count == $header_column_count) {
+                            $entry = array_combine($header_cell_values, $row);
+                            $csv[] = $entry; 
+                        } 
+                        else {
+                            return null;
+                        } 
+
+                        if ($count == $MAX_LENGTH) {
+                            break;
+                        }
+                    } 
+                }
+                fclose($reader);
+            } 
+
+            return $csv;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    public static function StorageAdd($fileMetadata, $path)
+    {
+        try {
+            $base_storage_path = getcwd() . DIRECTORY_SEPARATOR . 'public/storage';
+
+            if (substr($path, 1) === "/") {
+                $storage_path = $base_storage_path . $path;
+            }
+            else {
+                $storage_path = $base_storage_path . DIRECTORY_SEPARATOR . $path;
+            }
+    
+            if (!file_exists($storage_path)) {
+                mkdir($storage_path, 0777, true);
+            }
+    
+            $file_name = $fileMetadata['name'];
+            $file_tmp = $fileMetadata['tmp_name'];
+            $file_size = $fileMetadata['size'];
+            $file_error = $fileMetadata['error'];
+            $file_type = $fileMetadata['type']; 
+            
+            // move the uploaded file to the storage path
+            if (substr($storage_path, -1) === "/") {
+                $current_upload = $storage_path . $file_name;
+            }
+            else {
+                $current_upload = $storage_path . DIRECTORY_SEPARATOR . $file_name;
+            }
+
+            // if the file exists on path, delete it, and replace it with the new one
+            if (file_exists($current_upload)) {
+                unlink($current_upload);
+            }
+            
+            $file_destination = $current_upload;
+            move_uploaded_file($file_tmp, $file_destination);
+    
+            return $file_destination;
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
 
     /**

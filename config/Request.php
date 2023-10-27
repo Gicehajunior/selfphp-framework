@@ -6,6 +6,7 @@ use SelfPhp\SP;
 class Request {   
 
     public $get; 
+    public $http_requests = [];
 
     public function __construct()
     { 
@@ -25,25 +26,44 @@ class Request {
     }
 
     public function set_http_requests() {
-        if (isset($_POST)) { 
-            $app_configurations = $this->appConfig();
+        $app_configurations = $this->appConfig();
 
-            $http_request = $this->append_array_values([$app_configurations, $_POST]);
-
-            return $http_request;
-        } 
+        if (isset($_SERVER['REQUEST_METHOD']))
+        {
+            if (isset($_POST)) {
+                $this->combine_req_array_values([$app_configurations, $_POST]); 
+            } 
+            
+            if (isset($_GET)) {
+                $this->combine_req_array_values([$app_configurations, $_GET]); 
+            } 
+            
+            if (isset($_FILES)) { 
+                $this->combine_req_array_values([$app_configurations, $_FILES]); 
+            } 
+            
+            if (isset($_REQUEST)) {
+                $this->combine_req_array_values([$app_configurations, $_REQUEST]); 
+            } 
+            
+            if (isset($_SERVER)) {
+                $this->combine_req_array_values([$app_configurations, $_SERVER]); 
+            } 
+            
+            if (isset($_ENV)) {  
+                $this->combine_req_array_values([$app_configurations, $_ENV]);
+            } 
+        }
+        
+        return $this->http_requests;
     }
 
-    public function append_array_values(array $multi_dim_array) {
-        $http_requests = array();
-
+    public function combine_req_array_values(array $multi_dim_array) { 
         foreach ($multi_dim_array as $key => $array) { 
             foreach($array as $sub_key => $sub_value) {
-                $http_requests[$sub_key] = $sub_value;
+                $this->http_requests[$sub_key] = $sub_value;
             } 
-        } 
-
-        return $http_requests;
+        }  
     }
     
 }
