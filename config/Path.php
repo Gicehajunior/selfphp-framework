@@ -97,8 +97,9 @@ class Path extends AltoRouter
                     throw new \Exception("View path could not be found. You might have deleted the view, or the view path is incorrect.");
                 }
             }    
-
-            (new Path())->alternative_callable_method_response($response, $sp); 
+            else {
+                (new Path())->alternative_callable_method_response($response, $sp); 
+            }
         } catch (\Throwable $th) { 
             echo $th->getMessage();
         }
@@ -106,13 +107,11 @@ class Path extends AltoRouter
 
     public function alternative_callable_method_response($controllerResponse, $sp) { 
         if (is_array($controllerResponse)) {
-            if (count($controllerResponse) > 0) {
-                if (!isset($response['view_url']) && empty($response['view_url'])) {  
-                    unset($_SESSION['status']);
-                    unset($_SESSION['message']);
-                    echo $sp->serve_json($controllerResponse);
-                    exit(); 
-                }  
+            if (count($controllerResponse) > 0) {  
+                unset($_SESSION['status']);
+                unset($_SESSION['message']);
+                echo $sp->serve_json($controllerResponse);
+                exit();  
             }
         }
     }
