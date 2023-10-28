@@ -88,9 +88,7 @@ class Path extends AltoRouter
 
             if (isset($response['view_url'])) { 
                 if (file_exists($response['view_url'])) {  
-                    echo $sp->file_parser($response['data'], $response['view_url']); 
-                    unset($_SESSION['status']);
-                    unset($_SESSION['message']); 
+                    echo $sp->file_parser($response['data'], $response['view_url']);  
                     exit(); 
                 } 
                 else {
@@ -100,6 +98,9 @@ class Path extends AltoRouter
             else {
                 (new Path())->alternative_callable_method_response($response, $sp); 
             }
+
+            // unset($_SESSION['status']);
+            // unset($_SESSION['message']); 
         } catch (\Throwable $th) { 
             echo $th->getMessage();
         }
@@ -107,9 +108,7 @@ class Path extends AltoRouter
 
     public function alternative_callable_method_response($controllerResponse, $sp) { 
         if (is_array($controllerResponse)) {
-            if (count($controllerResponse) > 0) {  
-                unset($_SESSION['status']);
-                unset($_SESSION['message']);
+            if (count($controllerResponse) > 0) {   
                 echo $sp->serve_json($controllerResponse);
                 exit();  
             }
