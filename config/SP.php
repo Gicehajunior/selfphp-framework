@@ -173,7 +173,7 @@ class SP
      * 
      * @return filePath
      */
-    public function resource($view, $data=null)
+    public function resource($view, $data=[])
     {
         $file_array = array();
         $resource_path = getcwd() . "/resources";
@@ -223,6 +223,16 @@ class SP
         
         if (!empty($included_file_path)) { 
             $included_file = current($included_file_path); 
+            $controller_parsed_data = isset($_SESSION['controller_parsed_data']) 
+                    ?   $_SESSION['controller_parsed_data'] 
+                    :   null;
+            if (is_array($controller_parsed_data)) {
+                if (count($controller_parsed_data) > 0) {
+                    foreach ($controller_parsed_data as $key => $value) {   
+                        $data[$key] = $value;
+                    }
+                }
+            } 
             return $this->file_parser($data, $included_file);
         } 
         else {
@@ -253,19 +263,7 @@ class SP
      */
     public function file_parser($data=[], $filename = null) { 
         if (is_file($filename)) {
-            if (is_array($data) && count($data)) {
-                $controller_parsed_data = isset($_SESSION['controller_parsed_data']) 
-                    ?   $_SESSION['controller_parsed_data'] 
-                    :   null;
-                
-                if (is_array($controller_parsed_data)) {
-                    if (count($controller_parsed_data) > 0) {
-                        foreach ($controller_parsed_data as $key => $value) {   
-                            $data[$key] = $value;
-                        }
-                    }
-                } 
-
+            if (is_array($data) && count($data)) {  
                 extract($data);
             }
     
