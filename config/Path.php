@@ -60,13 +60,11 @@ class Path extends AltoRouter
             $response = $controller_class->$callable_function((new Request()));
 
             // Return data from backend to frontend   
-            if (isset($_SESSION['status'])) {   
-                $response['data']['status'] = $_SESSION['status'];
+            if (isset($_SESSION['status'])) {    
                 $_SESSION['controller_parsed_data']['status'] = $_SESSION['status'];
             } 
             
-            if (isset($_SESSION['message'])) {   
-                $response['data']['message'] = $_SESSION['message'];
+            if (isset($_SESSION['message'])) {    
                 $_SESSION['controller_parsed_data']['message'] = $_SESSION['message'];
             } 
 
@@ -97,10 +95,7 @@ class Path extends AltoRouter
             }    
             else {
                 (new Path())->alternative_callable_method_response($response, $sp); 
-            }
-
-            // unset($_SESSION['status']);
-            // unset($_SESSION['message']); 
+            } 
         } catch (\Throwable $th) { 
             echo $th->getMessage();
         }
