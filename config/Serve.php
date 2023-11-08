@@ -277,7 +277,12 @@ class Serve
             foreach ($post as $key => $value) {
                 if (!empty($value)) {
                     $command = $key . '=' . '"' . $value . '"';
-                    $appendable_query_string .= $command;
+
+                    if ($appendable_query_string == null) {
+                        $appendable_query_string .= $command;
+                    } else {
+                        $appendable_query_string .= ' AND ' . $command;
+                    } 
                 } 
             } 
 
