@@ -61,13 +61,12 @@ class Path extends AltoRouter
 
             // Return data from backend to frontend    
             if (isset($_SESSION['controller_response_data'])) {    
-                $response['data'] = $_SESSION['controller_response_data'];
+                $response['data'] = $_SESSION['controller_response_data']; 
             }  
 
             if (isset($response['view_url'])) { 
-                if (file_exists($response['view_url'])) {   
-                    echo $sp->file_parser($response['data'], $response['view_url']);
-                    (new Path())->unset_session();    
+                if (file_exists($response['view_url'])) {    
+                    echo $sp->file_parser($response['data'], $response['view_url']);     
                     exit(); 
                 } 
                 else {
@@ -75,8 +74,7 @@ class Path extends AltoRouter
                 }
             }    
             else {  
-                (new Path())->alternative_callable_method_response($response, $sp); 
-                (new Path())->unset_session(); 
+                (new Path())->alternative_callable_method_response($response, $sp);   
             } 
         } catch (\Throwable $th) { 
             echo $th->getMessage();
@@ -89,13 +87,6 @@ class Path extends AltoRouter
                 echo $sp->serve_json($controllerResponse); 
                 exit();  
             }
-        }
-    }
-
-    public function unset_session()
-    { 
-        if (isset($_SESSION['controller_response_data'])) {
-            unset($_SESSION['controller_response_data']);
         }
     }
 
