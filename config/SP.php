@@ -226,6 +226,9 @@ class SP
             $controller_parsed_data = isset($_SESSION['controller_response_data']) 
                     ?   $_SESSION['controller_response_data'] 
                     :   null;
+            
+            // echo var_dump($_SESSION['controller_response_data']);
+            // exit();
             if (is_array($controller_parsed_data)) {
                 if (count($controller_parsed_data) > 0) {
                     foreach ($controller_parsed_data as $key => $value) {   
@@ -262,12 +265,20 @@ class SP
      * @return parsed_data
      */
     public function file_parser($data=[], $filename = null) { 
+        
+        // assign the data to the controller response session
+        // by doing so, this will distribute the data to the extended 
+        // pages
+        $_SESSION['controller_response_data'] = $data;
+
+        // perform the extraction of the data, and require 
+        // the full page respectively. 
         if (is_file($filename)) {
-            if (is_array($data) && count($data)) {  
+            if (is_array($data) && count($data) > 0) {  
                 extract($data);
             }
-    
-            ob_start(); 
+            
+            ob_start();  
             
             require($filename);
     
@@ -275,6 +286,13 @@ class SP
         }
         
         return false;
+    }
+
+    public function unset_session()
+    { 
+        if (isset($_SESSION['controller_response_data'])) {
+            unset($_SESSION['controller_response_data']);
+        }
     }
 
     public static function csvToArray($filepath, $MAX_LENGTH = 1000) {
