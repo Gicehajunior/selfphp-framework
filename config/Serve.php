@@ -6,14 +6,34 @@ use mysqli;
 use SelfPhp\database\Database; 
 use SelfPhp\SP;
 
+/**
+ * Class Serve
+ * 
+ * Handles database operations such as saving, updating, and fetching rows.
+ */
 class Serve
 {
 
+    /**
+     * @var mysqli The database connection object.
+     */
     public $db_connection;
+
+    /**
+     * @var string The table name to perform operations on.
+     */
     public $table;
 
+    /**
+     * @var array The parameters for the SQL query.
+     */
     public $final_params;
 
+    /**
+     * Serve constructor.
+     * 
+     * @param string $table The table name to perform operations on.
+     */
     public function __construct($table)
     {
         $this->table = $table;
@@ -28,15 +48,13 @@ class Serve
     /**
      * Saving of the post object is done here. 
      * 
-     * An sql post request is executed on this function.
-     * extract keys passed on the post object.
-     * extract key values passed on the post object 
+     * An SQL post request is executed on this function.
+     * Extract keys passed on the post object.
+     * Extract key values passed on the post object 
      * DB Query(INSERT)
      * 
-     * @param post_object a post object that is passed as a parameter for 
-     *                      execution by the sql post request
-     * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
+     * @param array $post_object A post object that is passed as a parameter for 
+     *                      execution by the SQL post request.
      * @return bool 
      */
     public function save(array $post_object)
@@ -76,6 +94,13 @@ class Serve
         } 
     }
 
+    /**
+     * Updates rows based on specified conditions.
+     * 
+     * @param array $post_object The values to be updated.
+     * @param array $params_array The conditions for the update.
+     * @return bool 
+     */
     public function update_on_condition($post_object = [], $params_array = []) { 
 
         // Where clause params
@@ -88,7 +113,7 @@ class Serve
         } 
         // End of where clause params
 
-        // params with  update values
+        // Params with  update values
         $final_params = array(); 
         foreach ($post_object as $col_key_name => $col_key_value) { 
             if (!empty($col_key_value)) {
@@ -115,12 +140,10 @@ class Serve
     }
 
     /**
-     * Function to fecth every row from a specified table.
+     * Fetches all rows from the specified table.
      * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
-     * 
-     * @return row_array - an array of rows fetched.
-     * @return false - if an error and if debug is set to true, then,
+     * @return array An array of rows fetched.
+     * @return false If an error and if debug is set to true, then,
      *                  a debug error will be returned.
      */
     public function fetchAll()
@@ -144,13 +167,11 @@ class Serve
     } 
     
     /**
-     * Function to fecth every row from a specified table in descending
+     * Fetches all rows from the specified table in descending
      * Order while ordered by creation time.
      * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
-     * 
-     * @return row_array - an array of rows fetched.
-     * @return false - if an error and if debug is set to true, then,
+     * @return array An array of rows fetched.
+     * @return false If an error and if debug is set to true, then,
      *                  a debug error will be returned.
      */
     public function fetchAllInDescOrder() {
@@ -174,13 +195,11 @@ class Serve
     }
 
     /**
-     * Function to fecth every row from a specified table in ascending
+     * Fetches all rows from the specified table in ascending
      * Order while ordered by creation time.
      * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
-     * 
-     * @return row_array - an array of rows fetched.
-     * @return false - if an error and if debug is set to true, then,
+     * @return array An array of rows fetched.
+     * @return false If an error and if debug is set to true, then,
      *                  a debug error will be returned.
      */
     public function fetchAllInAscOrder() {
@@ -204,13 +223,12 @@ class Serve
     }
 
     /**
-     * Function to fecth every row from a specified table based on a specified
+     * Fetches a row from the specified table based on a specified
      * unique row's primary key id.
      * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
-     * 
-     * @return row - an array of rows fetched.
-     * @return false - if an error and if debug is set to true, then,
+     * @param int $id The primary key id.
+     * @return array An array of rows fetched.
+     * @return false If an error and if debug is set to true, then,
      *                  a debug error will be returned.
      */
     public function FetchById(int $id) {
@@ -231,12 +249,11 @@ class Serve
     }
 
     /**
-     * Function to fecth every row from a specified table based on an email
+     * Checks if a user with the specified email exists in the table.
      * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
-     * 
-     * @return true - if the row exists, true status, is returned.
-     * @return false - if an error and if debug is set to true, then,
+     * @param array $post_object The post object containing the email.
+     * @return bool True if the user exists, false otherwise.
+     * @return false If an error and if debug is set to true, then,
      *                  a debug error will be returned.
      */
     public function user_exists_on_condition(array $post_object = [])
@@ -262,11 +279,10 @@ class Serve
     }
 
     /**
-     * Function to fecth every row from a specified table based on an passed params
+     * Fetches rows from the table based on specified conditions.
      * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
-     * 
-     * @return rows
+     * @param array $post_object The conditions for the query.
+     * @return Serve The Serve object.
      */
     public function query_by_condition(array $post_object = [])
     {  
@@ -310,6 +326,11 @@ class Serve
         }
     }
 
+    /**
+     * Gets the first row from the fetched rows.
+     * 
+     * @return Serve The Serve object.
+     */
     public function first() {
         if (! is_null($this->rows)) {
             $this->row = current($this->rows);
@@ -318,18 +339,22 @@ class Serve
         return $this->row;
     } 
 
+    /**
+     * Gets all the fetched rows.
+     * 
+     * @return array The fetched rows.
+     */
     public function get() {
         return $this->rows;
     }
 
     /**
-     * Function to fecth row from a specified table based on an email
+     * Fetches a row from the specified table based on an email.
      * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
-     * 
-     * @return row - Return row found.
-     * if an error and if debug is set to true, then,
-     * a debug error will be returned.
+     * @param array $post_object The post object containing the email.
+     * @return array|null An array of rows fetched or null if not found.
+     * @return false If an error and if debug is set to true, then,
+     *                  a debug error will be returned.
      */
     public function getUserByEmail(array $post_object = [])
     { 
@@ -352,13 +377,12 @@ class Serve
     }
 
     /**
-     * Deletes a row based on an id.
+     * Deletes a row from the table based on an id.
      * 
-     * @author Giceha Junior <https://github.com/Gicehajunior>
-     *  
-     * @return bool - if an error and if debug is set to true, then,
-     *                  a debug error will be returned. However, if no error, 
-     *                  a true status is returned.
+     * @param int $id The primary key id.
+     * @return bool True if successful, false otherwise.
+     * @return false If an error and if debug is set to true, then,
+     *                  a debug error will be returned.
      */
     public function TrashBasedOnId(int $id) {
         try {

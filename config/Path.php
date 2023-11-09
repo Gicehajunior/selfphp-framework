@@ -7,27 +7,48 @@ use SelfPhp\Request;
 use SelfPhp\SP;
 use SelfPhp\Auth;
 
+/**
+ * Custom Path class extending AltoRouter
+ * 
+ * Handles routing and controller execution based on specified paths.
+ */
 class Path extends AltoRouter
 {
+    /**
+     * @var string|null The controller to be executed.
+     */
     public $controller;
+
+    /**
+     * @var string|null The callable function/method within the controller.
+     */
     public $callable_function;
 
+    /**
+     * Constructor for the Path class.
+     * 
+     * @param string|null $controller The controller to be executed.
+     * @param string|null $callable_function The callable function/method within the controller.
+     */
     public function __construct($controller = null, $callable_function = null)
     {
-
+        // Start session if not already active
         ($this->is_session_active() == true) ? null : session_start();
-
 
         $this->controller = $controller;
         $this->callable_function = $callable_function;
     }
 
     /**
-     * @return bool
+     * Checks if the session is active.
+     * 
+     * @return bool Returns true if the session is active, false otherwise.
      */
     public function is_session_active()
     {
+        // Check if running in a web environment
         if (php_sapi_name() !== 'cli') {
+            // Check PHP version for session status
             if (version_compare(phpversion(), '5.4.0', '>=')) {
                 return session_status() === PHP_SESSION_ACTIVE ? true : false;
             } else {
@@ -37,6 +58,13 @@ class Path extends AltoRouter
         return false;
     }
 
+    /**
+     * Static method to handle routing and controller execution.
+     * 
+     * @param string $controller The controller to be executed.
+     * @param string $callable_function The callable function/method within the controller.
+     * @return void
+     */
     public static function route($controller, $callable_function)
     { 
         try { 
@@ -59,14 +87,19 @@ class Path extends AltoRouter
             $controller_class = new $controller();
             $response = $controller_class->$callable_function((new Request()));
 
+            $data = null;
+
             // Return data from backend to frontend    
-            if (isset($_SESSION['controller_response_data'])) {    
-                $response['data'] = $_SESSION['controller_response_data']; 
+            if (isset($response)) {  
+                $data = isset($response['controller_response_data']) 
+                    ?   $response['controller_response_data'] 
+                    :   $response;
             }  
 
             if (isset($response['view_url'])) { 
                 if (file_exists($response['view_url'])) {    
-                    echo $sp->file_parser($response['data'], $response['view_url']);     
+                    echo $sp->fileParser($data, $response['view_url']); 
+                    (new Path())->unsetSession();    
                     exit(); 
                 } 
                 else {
@@ -74,13 +107,21 @@ class Path extends AltoRouter
                 }
             }    
             else {  
-                (new Path())->alternative_callable_method_response($response, $sp);   
+                (new Path())->alternative_callable_method_response($response, $sp); 
+                (new Path())->unset_session(); 
             } 
         } catch (\Throwable $th) { 
             echo $th->getMessage();
         }
     }
 
+    /**
+     * Handles an alternative response when the controller response is not a view.
+     * 
+     * @param mixed $controllerResponse The response from the controller.
+     * @param SP $sp The SP instance for utility functions.
+     * @return void
+     */
     public function alternative_callable_method_response($controllerResponse, $sp) { 
         if (is_array($controllerResponse)) {
             if (count($controllerResponse) > 0) {   
@@ -90,6 +131,23 @@ class Path extends AltoRouter
         }
     }
 
+
+    /**
+     * Unsets the controller response session.
+     */
+    public function unsetSession()
+    { 
+        if (isset($_SESSION['controller_response_data'])) {
+            unset($_SESSION['controller_response_data']);
+        }
+    }
+
+    /**
+     * Retrieves the path of the specified controller.
+     * 
+     * @param string $controller The name of the controller.
+     * @return string|null The path to the controller file or null if not found.
+     */
     public function controller_path($controller)
     {
         $controllerPath = $GLOBALS['controllerPath'];

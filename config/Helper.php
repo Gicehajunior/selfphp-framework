@@ -5,115 +5,127 @@ use SelfPhp\Auth;
 use SelfPhp\Page;
 
 /**
- * Checks if Authenticated
+ * Checks if the user is authenticated
  * 
- * @return bool
+ * @return bool Returns true if authenticated, false otherwise.
  */
 function Authenticated() {  
     return Auth::auth();
 }
 
 /**
- * Returns session object
+ * Returns the user session object based on the provided key
  * 
- * @return session
+ * @param string $key The key to retrieve from the user session.
+ * @return mixed The value stored in the user session for the provided key.
  */
 function Auth($key) { 
     return Auth::User($key);
 }
 
 /**
- * conditional check if env function is declared to counter redeclaration exemption
+ * Reads environment variable, considering redeclaration exemption
  * 
- * Error is raised mostly when you try to use some frameworks composer packages & libraries 
- * for example, laravel composer packages & libraries, if you have declared the env function 
- * in your helper file and not checked if exists.
+ * @param string $key The key of the environment variable.
+ * @return string The value of the environment variable.
  */
 if (!function_exists('env'))
 {
-    /**
-     * Read environment variable
-     * 
-     * @return string
-     */
     function env($key) {
         return (new SP())->env($key);
     }
 }
 
 /**
+ * Retrieves the application name
  * 
- * 
- * @return AppName
+ * @return string The application name.
  */
 function sys_name() {
     $app_name = (new SP())->env("APP_NAME");
 
     if (isset($app_name) && !empty($app_name)) {
-        return (new SP())->env("APP_NAME");
+        return $app_name;
     } else {
         return (new SP())->app_name(); 
     }
 }
 
 /**
- * @return publicPath
+ * Retrieves the public path of the application
+ * 
+ * @param string $path The path to append to the public path.
+ * @return string The full public path including the provided path.
  */
 function public_path($path) {
     return (new SP())->public_path($path);
 }
 
 /**
- * @return assetPath
+ * Retrieves the asset path of the application
+ * 
+ * @param string $path The path to append to the asset path.
+ * @return string The full asset path including the provided path.
  */
 function asset_path($path) {
     return (new SP())->asset_path($path);
 }
 
 /**
- * @return storagePath
+ * Retrieves the storage path of the application
+ * 
+ * @param string $path The path to append to the storage path.
+ * @return string The full storage path including the provided path.
  */
 function storage_path($path) {
     return (new SP())->storage_path($path);
 }
 
 /**
- * Reads domain set in the .env file
+ * Reads the domain set in the .env file
  * 
- * @return domain
+ * @param string $var The key of the domain variable.
+ * @return string The value of the domain variable.
  */
 function sys_domain($var) {
     return (new SP())->env($var);
 }
 
 /**
- * Parses html/php files with post data
+ * Parses HTML/PHP files with post data
  * 
- * @return parsed_data
+ * @param string $data The data to be parsed.
+ * @param string $filename The name of the file being parsed.
+ * @return mixed The parsed data.
  */
 function file_parser($data, $filename) {
     return (new SP())->file_parser($data, $filename);
 }
 
 /**
- * @return LoginPageName
+ * Retrieves the set application login page route
+ * 
+ * @return string The login page route.
  */
 function login_page() {
     return (new SP())->login_page();
 }
 
 /**
- * @return DashboardPageName
+ * Retrieves the set application dashboard page route
+ * 
+ * @return string The dashboard page route.
  */
 function dashboard_page() {
     return (new SP())->dashboard_page();
 }
 
 /**
- * Searches for file passed.
- * Requires the file parsed.
+ * Searches for the file passed, requires the file to be parsed
  * 
- * @return bool
+ * @param string $file The name of the file to extend.
+ * @param mixed $data The data to be passed to the extended file.
+ * @return mixed The content of the extended file.
  */
 function page_extends($file, $data=null) {   
     $filecontent = (new SP())->resource($file, $data);
@@ -121,20 +133,32 @@ function page_extends($file, $data=null) {
     echo $filecontent;
 }
 
+/**
+ * Redirects and views the given view file
+ * 
+ * @param string $view_dir The directory of the view file.
+ * @param array $controller_response_data The data to be passed to the view file.
+ * @return array The view URL and data.
+ */
 function view($view_dir, $data = []) {  
     $page = new Page();
     $response = [];
     $view_response = $page->View($view_dir, $data);
 
     $response['view_url'] = $view_response;  
-    $response['data'] = $data;
+    $response['controller_response_data'] = $data;
 
     return $response;
 }
 
+/**
+ * Redirects to the given route
+ * 
+ * @param string $route The route to navigate to.
+ * @param array $data The data to be passed to the route.
+ * @return void
+ */
 function route($route, $data = []) {  
     $page = new Page(); 
     $page->navigate_to($route, $data);
 }
-
-
