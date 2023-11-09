@@ -8,6 +8,12 @@ use SelfPhp\SP;
 
 class AuthMiddleware 
 { 
+    /**
+     * Handles authentication for views.
+     *
+     * @return mixed Returns a route or throws an exception based on authentication status.
+     * @throws \Exception If the login page is not found.
+     */
     public static function AuthView()
     {
         if (strtolower(env("AUTH")) == 'true') {

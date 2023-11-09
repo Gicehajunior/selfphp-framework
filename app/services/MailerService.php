@@ -7,33 +7,127 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+/**
+ * Class MailerService
+ * Handles email sending using PHPMailer library.
+ *
+ * @since Class available since Release 1.0.0
+ */
 class MailerService
 {
-
+    /**
+     * @var null|array The configuration array.
+     */
     public $config;
 
+    /**
+     * @var string The driver for email service (e.g., 'smtp').
+     */
     public $mail_driver;
+
+    /**
+     * @var string The SMTP server host.
+     */
     public $mail_host;
+
+    /**
+     * @var int The SMTP server port.
+     */
     public $mail_port;
-    public $mail_encryption_criteria;
+
+    /**
+     * @var string The encoding type for email (e.g., 'UTF-8').
+     */
     public $mail_encoding;
+
+    /**
+     * @var int The timeout for the email service.
+     */
     public $mail_timeout;
+
+    /**
+     * @var int The debug level for SMTP (0 for no output, 1 for client messages, 2 for client and server messages).
+     */
     public $mail_debug;
+
+    /**
+     * @var string The encryption criteria for SMTP (e.g., 'tls', 'ssl').
+     */
+    public $mail_encryption_criteria;
+
+    /**
+     * @var string The default method for sending mail service.
+     */
+    public $mail_service_default_method;
+
+    /**
+     * @var string The sender's email address.
+     */
+    public $sender_email_address;
+
+    /**
+     * @var string The username associated with the sender's email address.
+     */
     public $sender_email_username;
 
-    public $sender_email_address;
+    /**
+     * @var string The sender's email address password.
+     */
     public $sender_email_address_password;
 
+    /**
+     * @var string|array The recipient email address or an array of addresses.
+     */
     public $recipient_email_address;
 
+    /**
+     * @var string The name to be used as the sender's name in the email header.
+     */
     public $header_name;
+
+    /**
+     * @var string|null The subject of the email.
+     */
     public $subject;
+
+    /**
+     * @var string|null The plain text version of the email.
+     */
     public $message;
+
+    /**
+     * @var string|null The HTML body of the email.
+     */
     public $html_body;
+
+    /**
+     * @var array An array of file paths for email attachments.
+     */
     public $attachment;
+
+    /**
+     * @var string The path to the directory containing email templates.
+     */
     public $email_templates_path;
-    public $email_template;
+
+    /**
+     * @var string|null The name of the template file for rendering HTML content.
+     */
     public $template_file;
+
+    /**
+     * Constructor for the MailerService class.
+     * 
+     * @param string $header_name The name to be used as the sender's name in the email header.
+     * @param string|array $recipient The recipient email address or an array of addresses.
+     * @param string|null $html_body The HTML body of the email.
+     * @param string|null $subject The subject of the email.
+     * @param string|null $sender_email_address The sender's email address.
+     * @param string|null $sender_email_address_password The sender's email address password.
+     * @param string|null $message The plain text version of the email.
+     * @param string|null $sender_email_username The username associated with the sender's email address.
+     * @param array $attachment An array of file paths for email attachments.
+     */
 
     public function __construct($header_name, $recipient, $html_body = null, $subject = null, $sender_email_address = null, $sender_email_address_password = null, $message = null, $sender_email_username = null, $attachment = [])
     {
@@ -61,6 +155,12 @@ class MailerService
         $this->email_templates_path = $this->config['markup_lang']['default']['path'];
     }
 
+    /**
+     * Sends an email using PHPMailer.
+     * 
+     * @param string|null $template_file The name of the template file for rendering HTML content.
+     * @return bool True if the email is sent successfully, false otherwise.
+     */
     public function php_mailer($template_file = null)
     {
         if (is_array($this->html_body)) {
@@ -69,7 +169,7 @@ class MailerService
             $this->email_template = $this->email_templates_path . DIRECTORY_SEPARATOR . $this->template_file . '.php'; 
 
             if (is_file($this->email_template)) { 
-                $this->html_body = file_parser(
+                $this->html_body = fileParser(
                     $this->html_body, 
                     $this->email_template
                 ); 

@@ -16,5 +16,6 @@ public/404.html
 
 app/Exceptions/Exception.php
 config/DataTables
+clone
 tests
 /*.zip 
