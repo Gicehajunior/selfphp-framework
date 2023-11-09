@@ -7,10 +7,10 @@ use SelfPhp\Auth;
 
 class Page extends SP
 {
-    public $RootDir;
-    public $dotenv;
-    public $status;
-    public $message;
+    private $RootDir;
+    private $dotenv;
+    private $status;
+    private $message;
 
     public $route;
 
@@ -40,13 +40,16 @@ class Page extends SP
     }
 
     public function set_alert_properties($message) {
-        if (isset($message)){
+        if (is_array($message)){
             if (count($message) > 0) {
-                $_SESSION['status'] = $this->status = isset($message['status']) 
+                $_SESSION['controller_response_data']['status'] = $this->status = isset($message['status']) 
                     ?   $message['status'] 
                     :   null;
-                $_SESSION['message'] = $this->message = isset($message['message']) 
+                $_SESSION['controller_response_data']['message'] = $this->message = isset($message['message']) 
                     ?   $message['message'] 
+                    :   null;
+                $_SESSION['controller_response_data'] = $this->message = (isset($message) && count($message) > 0)
+                    ?   $message
                     :   null;
             } 
         }
@@ -58,11 +61,10 @@ class Page extends SP
             $this->route = str_replace(".", "/", $route);   
 
             if (is_array($message) && count($message) > 0) {  
-                $this->set_alert_properties($message);
-                extract($_SESSION);
+                $this->set_alert_properties($message);  
             } 
             
-            header("Location: /" . $this->route);
+            header("Location: /" . $this->route); 
             exit();
         }  
     }
@@ -73,11 +75,11 @@ class Page extends SP
             $this->route = ($route == null || is_array($route)) ? $_SERVER['HTTP_REFERER'] : (str_replace(".", "/", $route));
 
             if (is_array($message) && count($message) > 0) {
-                $this->set_alert_properties($message);
+                $this->set_alert_properties($message); 
             }
     
-            header("Location: /" . $this->route);
-            exit(); 
+            header("Location: /" . $this->route); 
+            exit();
         }
     }
 }

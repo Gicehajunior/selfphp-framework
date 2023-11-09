@@ -131,13 +131,13 @@ class Serve
 
             $row_array = array();
             
-            if ($result == true or is_object($result)) {
+            if ($result) {
                 while($rows = mysqli_fetch_assoc($result)){
                     array_push($row_array, $rows);
                 } 
             }
 
-            return $row_array[0];
+            return current($row_array);
         } catch (\Throwable $error) {
             SP::debug_backtrace_show($error); 
         }
@@ -277,7 +277,12 @@ class Serve
             foreach ($post as $key => $value) {
                 if (!empty($value)) {
                     $command = $key . '=' . '"' . $value . '"';
-                    $appendable_query_string .= $command;
+
+                    if ($appendable_query_string == null) {
+                        $appendable_query_string .= $command;
+                    } else {
+                        $appendable_query_string .= ' AND ' . $command;
+                    } 
                 } 
             } 
 

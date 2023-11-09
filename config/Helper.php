@@ -23,12 +23,22 @@ function Auth($key) {
 }
 
 /**
- * Read environment variable
+ * conditional check if env function is declared to counter redeclaration exemption
  * 
- * @return string
+ * Error is raised mostly when you try to use some frameworks composer packages & libraries 
+ * for example, laravel composer packages & libraries, if you have declared the env function 
+ * in your helper file and not checked if exists.
  */
-function env($key) {
-    return (new SP())->env($key);
+if (!function_exists('env'))
+{
+    /**
+     * Read environment variable
+     * 
+     * @return string
+     */
+    function env($key) {
+        return (new SP())->env($key);
+    }
 }
 
 /**

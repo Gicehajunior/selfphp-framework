@@ -223,8 +223,8 @@ class SP
         
         if (!empty($included_file_path)) { 
             $included_file = current($included_file_path); 
-            $controller_parsed_data = isset($_SESSION['controller_parsed_data']) 
-                    ?   $_SESSION['controller_parsed_data'] 
+            $controller_parsed_data = isset($_SESSION['controller_response_data']) 
+                    ?   $_SESSION['controller_response_data'] 
                     :   null;
             if (is_array($controller_parsed_data)) {
                 if (count($controller_parsed_data) > 0) {
@@ -273,8 +273,6 @@ class SP
     
             return ob_get_clean();
         }
-
-        unset($_SESSION['controller_parsed_data']);
         
         return false;
     }

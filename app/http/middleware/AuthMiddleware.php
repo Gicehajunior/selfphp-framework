@@ -10,15 +10,15 @@ class AuthMiddleware
 { 
     public static function AuthView()
     {
-        if (strtolower($_ENV['AUTH']) == 'true') {
+        if (strtolower(env("AUTH")) == 'true') {
             if (Auth::auth() == false) { 
                 if (!empty(strtolower(login_page()))) {  
-                    route(login_page(), [
+                    return route(login_page(), [
                         "status" => "error", 
                         "message" => "Login is required!"
                     ]);
                 } else {
-                    SP::debug_backtrace_show("LogoutDestinationNotSetException");
+                    throw new \Exception("LogoutDestinationNotSetException: Login page not found!");
                 }
             } 
         } 

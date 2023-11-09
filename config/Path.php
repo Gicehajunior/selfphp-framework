@@ -59,48 +59,25 @@ class Path extends AltoRouter
             $controller_class = new $controller();
             $response = $controller_class->$callable_function((new Request()));
 
-            // Return data from backend to frontend   
-            if (isset($_SESSION['status'])) {   
-                $response['data']['status'] = $_SESSION['status'];
-                $_SESSION['controller_parsed_data']['status'] = $_SESSION['status'];
-            } 
-            
-            if (isset($_SESSION['message'])) {   
-                $response['data']['message'] = $_SESSION['message'];
-                $_SESSION['controller_parsed_data']['message'] = $_SESSION['message'];
-            } 
-
-            if (isset($response['data']))
-            {
-                if (is_array($response['data'])) {
-                    if (count($response['data']) > 0) {
-                        $_SESSION['controller_parsed_data'] = $response['data'];
-                        foreach ($response['data'] as $key => $value) { 
-                            $$key = $value; 
-                        }
-                    }
-                }
-    
-                if (isset($response['data'])) { 
-                    extract($response['data']);
-                } 
-            }
+            // Return data from backend to frontend    
+            if (isset($_SESSION['controller_response_data'])) {    
+                $response['data'] = $_SESSION['controller_response_data'];
+            }  
 
             if (isset($response['view_url'])) { 
-                if (file_exists($response['view_url'])) {  
-                    echo $sp->file_parser($response['data'], $response['view_url']);  
+                if (file_exists($response['view_url'])) {   
+                    echo $sp->file_parser($response['data'], $response['view_url']);
+                    (new Path())->unset_session();    
                     exit(); 
                 } 
                 else {
                     throw new \Exception("View path could not be found. You might have deleted the view, or the view path is incorrect.");
                 }
             }    
-            else {
+            else {  
                 (new Path())->alternative_callable_method_response($response, $sp); 
-            }
-
-            // unset($_SESSION['status']);
-            // unset($_SESSION['message']); 
+                (new Path())->unset_session(); 
+            } 
         } catch (\Throwable $th) { 
             echo $th->getMessage();
         }
@@ -109,9 +86,16 @@ class Path extends AltoRouter
     public function alternative_callable_method_response($controllerResponse, $sp) { 
         if (is_array($controllerResponse)) {
             if (count($controllerResponse) > 0) {   
-                echo $sp->serve_json($controllerResponse);
+                echo $sp->serve_json($controllerResponse); 
                 exit();  
             }
+        }
+    }
+
+    public function unset_session()
+    { 
+        if (isset($_SESSION['controller_response_data'])) {
+            unset($_SESSION['controller_response_data']);
         }
     }
 
