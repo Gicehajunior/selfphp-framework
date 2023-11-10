@@ -42,13 +42,9 @@ if (!function_exists('env'))
  * @return string The application name.
  */
 function sys_name() {
-    $app_name = (new SP())->env("APP_NAME");
+    $app_name = (new SP())->app_name();
 
-    if (isset($app_name) && !empty($app_name)) {
-        return $app_name;
-    } else {
-        return (new SP())->app_name(); 
-    }
+    return $app_name;
 }
 
 /**

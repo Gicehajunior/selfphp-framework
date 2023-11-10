@@ -6,10 +6,7 @@ use SelfPhp\SP;
 use SelfPhp\Auth;
 
 class Page extends SP
-{
-    // Root directory - base path of the application
-    private $RootDir;
-
+{ 
     // Status of the controller response
     private $status;
 
@@ -20,15 +17,21 @@ class Page extends SP
     public $route;
 
     /**
-     * Page constructor.
-     * Initializes the Page object with the base path of the application.
+     * Page constructor. 
      * 
      * @return void
      */
-    public function __construct()
-    {
-        // Set the base path of the application
-        $this->RootDir = $GLOBALS['RootDir'];
+    public function __construct() { 
+        // Enable debugging if DEBUG environment variable is set to true.
+        if (strtolower(env("DEBUG")) == "true") { 
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1); 
+        }
+        else {
+            // Disable error reporting in production.
+            error_reporting(0);
+            ini_set('display_errors', 0);
+        } 
     }
 
     /**
@@ -50,7 +53,7 @@ class Page extends SP
         // Extract the route name from the view folder name
         $view_folder_name = explode("/", $view_folder_name);
         $route = end($view_folder_name); 
-        
+
         // Check if the route is the login page and the user is authenticated, then redirect to the dashboard
         if (strtolower($route) == strtolower(login_page()) AND Auth::auth() == true) { 
             $this->navigate_to('dashboard');

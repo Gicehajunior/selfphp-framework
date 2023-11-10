@@ -11,6 +11,10 @@
  * Note: Make sure to set the correct configs for your application.
  * ------------------------------------------------------------------------
  */
+
+// controller paths specified as an array
+
+
 // Set default timezone to Africa/Nairobi
 date_default_timezone_set("Africa/Nairobi");  
 
