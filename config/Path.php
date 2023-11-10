@@ -150,7 +150,10 @@ class Path extends AltoRouter
      */
     public function controller_path($controller)
     {
-        $controllerPath = $GLOBALS['controllerPath'];
+        $config = (new SP())->request_config('app'); 
+
+        // $controllerPath = $GLOBALS['controllerPath'];
+        $controllerPath = $config['CONTROLLER_PATH'];
 
         $controller_found_array = array();
 

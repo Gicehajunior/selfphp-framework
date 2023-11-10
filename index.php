@@ -1,32 +1,80 @@
 <?php
 
-// require autoload class
+/**
+ * ********************************************************************************************************
+ * 
+ *                  SELFPHP FRAMEWORK
+ * 
+ * This is the main entry point for the SELFPHP Framework.
+ * 
+ * [ Framework Overview ]
+ * SELFPHP is a lightweight PHP framework designed for simplicity,
+ * flexibility, and ease of use. It follows the MVC (Model-View-Controller)
+ * architectural pattern and includes various components for
+ * routing, database interaction, and template rendering.
+ * 
+ * [ File Structure ]
+ * - app/http/controllers/      : Contains controllers for handling requests.
+ * - app/models/                : Houses model classes for interacting with the database.
+ * - views/                     : Stores template files for rendering views.
+ * - config/                    : Configuration files for database connections, Core framework files and classes, etc.
+ * - public/                    : Publicly & privately accessible assets (stylesheets, images, storage, etc.). 
+ * 
+ * [ Getting Started ]
+ * To start using SELFPHP, make sure to configure your database
+ * settings in the 'config/database.php' file. Create controllers
+ * in the 'controllers/' directory and corresponding views in
+ * the 'views/' directory. The public assets can be placed in
+ * the 'public/' directory.
+ * 
+ * [ Documentation ]
+ * For detailed documentation and examples, visit the official
+ * SELFPHP documentation at https://selfphpframework.com/docs.
+ * 
+ * [ Version Information ]
+ * SELFPHP Framework v1.0.0
+ * 
+ * [ Author ]
+ * Giceha Junior - https://github.com/GicehaJunior
+ * 
+ * [ License ]
+ * This framework is released under the MIT License. See the LICENSE file for details.
+ * https://github.com/Gicehajunior/selfphp-framework/blob/main/LICENSE
+ * 
+ * ****************************************************************************
+ */
+
+
+// Require autoload class for autoloading dependencies.
 require __DIR__ . '/vendor/autoload.php';
 
 /**
- * Some Variables Declarations
+ * *******************************************************
+ * 
+ *              REQUIRE CONFIG FILES
+ * 
+ * This section includes the necessary configuration files
+ * for the SELFPHP Framework. These files contain helper
+ * functions and other essential configurations.
+ * 
+ * [ File Details ]
+ * - Helper.php: Provides various helper functions used
+ *   throughout the framework for common tasks. 
+ * 
+ * *******************************************************
  */
-$GLOBALS['RootDir'] = $_SERVER['DOCUMENT_ROOT'];
+require __DIR__ . "/config/Helper.php";
 
-$GLOBALS['resource_views_dir'] = "resources";
-
-$GLOBALS['controllerPath'] = [
-    "./app/http/controllers",
-    "./app/http/auth"
-];
-
-$GLOBALS['modelsPath'] = "./app";  
 /**
- * Copies bootstrap assets onto puclic folder.
- * Since composer json post-update-cmd script 
- * never works on windows, this script handles such.
+ * Copy Bootstrap Assets to Public Folder
+ * This script handles the copying of Bootstrap assets to the public folder,
+ * especially for Windows where composer json post-update-cmd script may not work.
  */
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { 
     if (!is_dir(__DIR__ . "/public/bootstrap/css") 
         || !is_dir(__DIR__ . "/public/bootstrap/js") 
         || !is_dir(__DIR__ . "/public/assets/jquery")
-    ) {
-        
+    ) { 
         mkdir(__DIR__ . "/public/bootstrap/css");
         mkdir(__DIR__ . "/public/bootstrap/js");
         mkdir(__DIR__ . "/public/assets/jquery");
@@ -61,31 +109,15 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             || !is_dir(__DIR__ . "/public/bootstrap/js/") 
             || !is_dir(__DIR__ . "/public/assets/jquery/")
         ) {
-            echo "<span>No Bootstrap Css, Js, and jquery files setup!</span>";
+            echo "<span>No Bootstrap CSS, JS, and jQuery files set up!</span>";
             exit();
         }
     } 
 }
 
-/**
- * Require Config Files
- */
-require __DIR__ . "/config/Helper.php";
-
-// Require Dotenv Class; To load environment varaibles.
+// Require Dotenv Class; To load environment variables.
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-if (strtolower(env("DEBUG")) == "true") { 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1); 
-}
-else {
-    error_reporting(0);
-    ini_set('display_errors', 0);
-}
-
 // Require Routes
 require __DIR__ . "/routes/web.php";
-
-

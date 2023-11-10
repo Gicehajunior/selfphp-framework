@@ -2,6 +2,8 @@
 
 namespace SelfPhp;
 
+use SelfPhp\TemplatingEngine\SPTemplateEngine;
+
 /**
  * The SP class acts as the main controller for the entire application, handling 
  * resources, asset management, and serving as the base for controllers and models.
@@ -66,15 +68,26 @@ class SP
     }
 
     /**
+     * Retrieves the value of an environment variable.
+     *
+     * @param string $var_name The name of the environment variable.
+     * @return mixed The value of the environment variable.
+     */
+    public function env($var_name)
+    {
+        return isset($_ENV[strtoupper($var_name)]) ? $_ENV[strtoupper($var_name)] : '{{ ' . $var_name . " is not set in the .env file. }}";
+    }
+
+    /**
      * Gets the application name.
      *
      * @return string The application name.
      */
     public function app_name() {
-        $app_name = (new SP())->env("APP_NAME");
+        $app_name = $this->env("APP_NAME");
 
-        if (isset($app_name) && !empty($app_name)) {
-            return (new SP())->env("APP_NAME");
+        if (isset($app_name) && !empty($app_name) && $app_name !== "{{ APP_NAME is not set in the .env file. }}") {
+            return $this->env("APP_NAME");
         } else {
             return $this->app->APP_NAME;
         }   
@@ -107,21 +120,6 @@ class SP
     }
 
     /**
-     * Retrieves the value of an environment variable.
-     *
-     * @param string $var_name The name of the environment variable.
-     * @return mixed The value of the environment variable.
-     */
-    public function env($var_name)
-    {
-        try {
-            return $_ENV[strtoupper($var_name)];
-        } catch (\Throwable $error) {
-            SP::debug_backtrace_show("EnvironmentVariableParameterException");
-        }
-    }
-
-    /**
      * Verifies the format of the provided domain.
      *
      * @param string|null $domain The domain to be verified.
@@ -148,7 +146,7 @@ class SP
      */
     public function public_path($path=null)
     {
-        $path = ($this->env("APP_DOMAIN") ? $this->env("APP_DOMAIN") : $this->domain()) . "/public" . $path;
+        $path = ($this->env("APP_DOMAIN") ? $this->env("APP_DOMAIN") : $this->domain()) . DIRECTORY_SEPARATOR . $this->app->PUBLIC_PATH . DIRECTORY_SEPARATOR . $path;
         return $path;
     }
 
@@ -160,7 +158,7 @@ class SP
      */
     public function asset_path($path=null)
     { 
-        $path = ($this->env("APP_DOMAIN") ? $this->env("APP_DOMAIN") : $this->domain()) . "/public/" . $path;
+        $path = ($this->env("APP_DOMAIN") ? $this->env("APP_DOMAIN") : $this->domain()) . DIRECTORY_SEPARATOR . $this->app->PUBLIC_PATH . DIRECTORY_SEPARATOR . $path;
         return $path;
     }
 
@@ -172,7 +170,7 @@ class SP
      */
     public function storage_path($path=null)
     {
-        $path = ($this->env("APP_DOMAIN") ? $this->env("APP_DOMAIN") : $this->domain()) . "/public/storage/" . $path;
+        $path = ($this->env("APP_DOMAIN") ? $this->env("APP_DOMAIN") : $this->domain()) . DIRECTORY_SEPARATOR . $this->app->STORAGE_PATH . DIRECTORY_SEPARATOR . $path;
         return $path;
     }
 
@@ -187,7 +185,7 @@ class SP
     public function resource($view, $data=[])
     { 
         $fileArray = array();
-        $resourcePath = getcwd() . "/resources";
+        $resourcePath = getcwd() . DIRECTORY_SEPARATOR . $this->app->RESOURCE_VIEWS_DIRECTORY;
         
         $files = $this->scanDirectory($resourcePath);
         
@@ -289,7 +287,7 @@ class SP
         } 
         else {
             $_SESSION['controller_response_data'] = $data;
-        }
+        } 
 
         // Perform the extraction of the data, and require 
         // the full page respectively. 
@@ -299,10 +297,16 @@ class SP
             }
             
             ob_start();  
-            
+
             require($filename);
 
-            return ob_get_clean();
+            $htmlcontent = ob_get_clean();
+
+            $SPTemplatingEngine = new SPTemplateEngine($htmlcontent);
+            $SPTemplatingEngine->assignArray($data);
+
+            // Return the parsed template content.
+            return $SPTemplatingEngine->render();
         }
         
         return false;
@@ -365,7 +369,7 @@ class SP
     public static function storageAdd($fileMetadata, $path)
     {
         try {
-            $baseStoragePath = getcwd() . DIRECTORY_SEPARATOR . 'public/storage';
+            $baseStoragePath = getcwd() . DIRECTORY_SEPARATOR . $this->app->STORAGE_PATH;
 
             if (substr($path, 1) === "/") {
                 $storagePath = $baseStoragePath . $path;

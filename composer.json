@@ -21,7 +21,9 @@
         "altorouter/altorouter": "1.1.0", 
         "guzzlehttp/guzzle": "^6.2",
         "twbs/bootstrap": "^4.6.1",
-        "components/jquery": "^3.6"
+        "components/jquery": "^3.6",
+        "sp-datatables/sp-datatables": "^1.6",
+        "sp-templating-engine/sp-templating-engine": "^1.0"   
     },
     "require-dev": { 
         "vlucas/phpdotenv": "^5.1"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e1c0ceedebd8034fe87b6441f314c5f",
+    "content-hash": "305848a797b87e56b435aae0d8bdb164",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -585,6 +585,108 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
+            "name": "sp-datatables/sp-datatables",
+            "version": "v1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gicehajunior/SPDataTable.git",
+                "reference": "3696e3585b617713b3aa881a286d1613a916ea3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gicehajunior/SPDataTable/zipball/3696e3585b617713b3aa881a286d1613a916ea3a",
+                "reference": "3696e3585b617713b3aa881a286d1613a916ea3a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "SP/DataTables/SPDataTable.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Giceha Junior",
+                    "email": "gicehajunior76@daphascomp.com",
+                    "homepage": "https://github.com/Gicehajunior/SPDataTable.git"
+                }
+            ],
+            "description": "A simple jquery datatable editor library in PHP",
+            "homepage": "https://github.com/Gicehajunior/SPDataTable.git",
+            "keywords": [
+                "datatable",
+                "editor",
+                "jquery",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/Gicehajunior/SPDataTable/issues",
+                "source": "https://github.com/Gicehajunior/SPDataTable/tree/v1.6.1"
+            },
+            "time": "2023-11-10T14:01:54+00:00"
+        },
+        {
+            "name": "sp-templating-engine/sp-templating-engine",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gicehajunior/SPTemplateEngine.git",
+                "reference": "9571454194d3bde61a5862eed6d067897ba740d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gicehajunior/SPTemplateEngine/zipball/9571454194d3bde61a5862eed6d067897ba740d7",
+                "reference": "9571454194d3bde61a5862eed6d067897ba740d7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "SelfPhp/TemplatingEngine/SPTemplateEngine.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Giceha Junior",
+                    "email": "gicehajunior76@daphascomp.com",
+                    "homepage": "https://github.com/Gicehajunior/SPTemplateEngine.git"
+                }
+            ],
+            "description": "A versatile and lightweight PHP templating engine designed for seamless integration into web development projects.",
+            "homepage": "https://github.com/Gicehajunior/SPTemplateEngine.git",
+            "keywords": [
+                "css",
+                "development",
+                "engine",
+                "framework",
+                "html",
+                "javascript",
+                "php",
+                "template",
+                "templating",
+                "web"
+            ],
+            "support": {
+                "issues": "https://github.com/Gicehajunior/SPTemplateEngine/issues",
+                "source": "https://github.com/Gicehajunior/SPTemplateEngine/tree/v1.0.1"
+            },
+            "time": "2023-11-10T22:29:30+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -1369,5 +1471,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
