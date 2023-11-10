@@ -248,20 +248,20 @@ class MailerService
                         return true;
                     }
                 } catch (Exception $e) {
-                    SP::debug_backtrace_show($e);
+                    SP::debugBacktraceShow($e);
                     return false;
                 }
             }
             else {
                 $e = "No default mailing service method set!";
-                SP::debug_backtrace_show($e);
+                SP::debugBacktraceShow($e);
     
                 return false;
             }
         }
         else {
             $e = "No default mailing service set!";
-            SP::debug_backtrace_show($e);
+            SP::debugBacktraceShow($e);
 
             return false;
         }

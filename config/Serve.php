@@ -90,7 +90,7 @@ class Serve
                 return false;
             }
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error);
+            SP::debugBacktraceShow($error);
         } 
     }
 
@@ -162,7 +162,7 @@ class Serve
 
             return current($row_array);
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error); 
+            SP::debugBacktraceShow($error); 
         }
     } 
     
@@ -190,7 +190,7 @@ class Serve
 
             return $row_array[0];
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error); 
+            SP::debugBacktraceShow($error); 
         } 
     }
 
@@ -218,7 +218,7 @@ class Serve
 
             return $row_array[0];
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error); 
+            SP::debugBacktraceShow($error); 
         } 
     }
 
@@ -244,7 +244,7 @@ class Serve
 
             return $row;
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error); 
+            SP::debugBacktraceShow($error); 
         } 
     }
 
@@ -274,7 +274,7 @@ class Serve
                 return $exists;
             }
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error); 
+            SP::debugBacktraceShow($error); 
         }  
     }
 
@@ -322,7 +322,7 @@ class Serve
 
             return $this;
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error);  
+            SP::debugBacktraceShow($error);  
         }
     }
 
@@ -372,7 +372,7 @@ class Serve
 
             return isset($row_array[0]) ? $row_array[0] : null; 
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error);  
+            SP::debugBacktraceShow($error);  
         }
     }
 
@@ -395,7 +395,7 @@ class Serve
                 return false;
             }
         } catch (\Throwable $error) {
-            SP::debug_backtrace_show($error); 
+            SP::debugBacktraceShow($error); 
         } 
     }
 }
