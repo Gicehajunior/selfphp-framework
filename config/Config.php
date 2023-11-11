@@ -1,7 +1,7 @@
 <?php
 /**
  * ------------------------------------------------------------------------
- *                           S.P Framework v1.0
+ *                           S.P Framework v1.0.0
  * ------------------------------------------------------------------------
  * Config file for the application.
  * 
@@ -11,9 +11,6 @@
  * Note: Make sure to set the correct configs for your application.
  * ------------------------------------------------------------------------
  */
-
-// controller paths specified as an array
-
 
 // Set default timezone to Africa/Nairobi
 date_default_timezone_set("Africa/Nairobi");  

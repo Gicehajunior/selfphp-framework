@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "305848a797b87e56b435aae0d8bdb164",
+    "content-hash": "0762382cb324cae474ae28e1daa9a6d8",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -587,6 +587,62 @@
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
+            "name": "selfphp-framework/selfphp-framework",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gicehajunior/SP.git",
+                "reference": "fc98d0895193fa6665f0829a9208cd04fdb33be5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/fc98d0895193fa6665f0829a9208cd04fdb33be5",
+                "reference": "fc98d0895193fa6665f0829a9208cd04fdb33be5",
+                "shasum": ""
+            },
+            "require": {
+                "altorouter/altorouter": "1.1.0",
+                "php": ">=5.3.0",
+                "sp-templating-engine/sp-templating-engine": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "SelfPhp/SP.php",
+                    "SelfPhp/Serve.php",
+                    "SelfPhp/Route.php",
+                    "SelfPhp/Request.php",
+                    "SelfPhp/Path.php",
+                    "SelfPhp/Page.php",
+                    "SelfPhp/Auth.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Giceha Junior",
+                    "email": "gicehajunior76@daphascomp.com",
+                    "homepage": "https://github.com/Gicehajunior/SP.git"
+                }
+            ],
+            "description": "SelfPhp Framework is a PHP framework for web development. It provides a structure, a set of tools and a way of thinking to help you build a website using PHP.",
+            "homepage": "https://github.com/Gicehajunior/SP.git",
+            "keywords": [
+                "framework",
+                "php",
+                "web development"
+            ],
+            "support": {
+                "email": "support@dapahascomp.com",
+                "issues": "https://github.com/Gicehajunior/SP/issues",
+                "source": "https://github.com/Gicehajunior/SP/tree/v1.0.1"
+            },
+            "time": "2023-11-11T12:15:12+00:00"
+        },
+        {
             "name": "sp-datatables/sp-datatables",
             "version": "v1.6.1",
             "source": {
@@ -636,16 +692,16 @@
         },
         {
             "name": "sp-templating-engine/sp-templating-engine",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gicehajunior/SPTemplateEngine.git",
-                "reference": "9571454194d3bde61a5862eed6d067897ba740d7"
+                "reference": "482988df5dbdd997cbdf1e199edd21eb3f70b85a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gicehajunior/SPTemplateEngine/zipball/9571454194d3bde61a5862eed6d067897ba740d7",
-                "reference": "9571454194d3bde61a5862eed6d067897ba740d7",
+                "url": "https://api.github.com/repos/Gicehajunior/SPTemplateEngine/zipball/482988df5dbdd997cbdf1e199edd21eb3f70b85a",
+                "reference": "482988df5dbdd997cbdf1e199edd21eb3f70b85a",
                 "shasum": ""
             },
             "require": {
@@ -684,9 +740,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Gicehajunior/SPTemplateEngine/issues",
-                "source": "https://github.com/Gicehajunior/SPTemplateEngine/tree/v1.0.1"
+                "source": "https://github.com/Gicehajunior/SPTemplateEngine/tree/v1.0.2"
             },
-            "time": "2023-11-10T22:29:30+00:00"
+            "time": "2023-11-11T11:33:54+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
