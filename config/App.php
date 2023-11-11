@@ -20,24 +20,23 @@ return [
     /**
      * Root DIR Path
      * 
-     * This is the root directory of the application.
-     * You can change it here or set it in the .env file.
+     * This is the root directory of the application. 
      */
     'ROOT_DIRECTORY' => $_SERVER['DOCUMENT_ROOT'],
 
     /**
      * Resource Views Directory
      * 
-     * This is the directory where the views are stored.
-     * You can change it here or set it in the .env file.
+     * This is the directory where the views are stored. This is the default directory.
+     * The folder is primarily used to store the views of the application.
      */
     'RESOURCE_VIEWS_DIRECTORY' => 'resources',
 
     /**
      * Controller Path
      * 
-     * This is the directory where the controllers are stored.
-     * You can change it here or set it in the .env file.
+     * This is the directory where the controllers are stored. 
+     * You can add more directories to the array. 
      */
     'CONTROLLER_PATH' => [
         "app/http/controllers",
@@ -47,26 +46,16 @@ return [
     /**
      * Model Path
      * 
-     * This is the directory where the models are stored.
-     * You can change it here or set it in the .env file.
+     * This is the directory where the models are stored. 
      */
     'MODEL_PATH' => "app/models",
 
     /**
      * Middleware Path
      * 
-     * This is the directory where the middleware are stored.
-     * You can change it here or set it in the .env file.
+     * This is the directory where the middleware are stored. 
      */
     'MIDDLEWARE_PATH' => "app/http/middleware",
-
-    /**
-     * View Path
-     * 
-     * This is the directory where the views are stored.
-     * You can change it here or set it in the .env file.
-     */
-    'VIEW_PATH' => "resources",
 
     /**
      * Route Path

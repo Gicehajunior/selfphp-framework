@@ -16,7 +16,8 @@ public/404.html
 
 app/Exceptions/Exception.php
 config/DataTables
-config/TemplatingEngine_
+config/SPTemplatingEngine
+config/SP
 clone
 tests
-/*.zip 
+/*.zip

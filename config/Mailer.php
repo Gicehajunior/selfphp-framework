@@ -10,12 +10,14 @@
 return [
 
     /*************
+     * 
      * This is the default Mailer Service configured as default.
      */
     'preset' => 'PHP MAILER',
     
 
     /***********
+     * 
      * This sets up the mailing driver.
      * By default, the mail driver is set to 'smtp'.
      */
@@ -23,6 +25,7 @@ return [
 
     
     /*****************
+     * 
      * This refers to the default method for mailing. 
      * The method should be found in the MailerService Class.
      */
@@ -30,8 +33,7 @@ return [
 
     
     /***************************
-     * 
-     * 
+     *  
      * The configs to use while executing the Mail Method/function.
      * 
      * The settings should be available in the .env file at the root 
