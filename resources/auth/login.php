@@ -1,7 +1,5 @@
 <!-- layout -->
-<?php 
-    page_extends("app.layout");
-?>
+{{ @extends("__app.layout__") }}
 <!-- /layout -->
 
 <!-- body -->
@@ -21,7 +19,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                            <?= $message ?>
+                            {{ $message }}
                         </div>
                     <?php
                     }
@@ -66,7 +64,5 @@
 <!-- /body -->
 
 <!-- footer -->
-<?php 
-    page_extends("app.footer");
-?>
+{{ @extends("__app.footer__") }}
 <!-- /footer -->

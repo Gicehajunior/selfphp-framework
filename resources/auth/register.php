@@ -1,7 +1,5 @@
 <!-- layout -->
-<?php 
-    page_extends("app.layout");
-?>
+{{ @extends("__app.layout__") }}
 <!-- /layout -->
 
 <!-- body -->
@@ -16,12 +14,12 @@
                     <?php
                     if (isset($message)) {
                     ?>
-                        <div class="alert <?= ($status == 'success') ? 'alert-success' : 'alert-danger' ?> alert-dismissible fade show" role="alert">
+                        <div class="alert <?= (($status == 'success') ? 'alert-success' : 'alert-danger') ?> alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                            <?= $message; ?>
+                            {{ $message }}
                         </div>
                     <?php
                     }
@@ -61,7 +59,5 @@
 <!-- /body -->
 
 <!-- footer -->
-<?php 
-    page_extends("app.footer");
-?>
+{{ @extends("__app.footer__") }}
 <!-- /footer -->

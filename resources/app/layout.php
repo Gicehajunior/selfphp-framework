@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="origin">
-    <link rel="shortcut icon" href="<?= asset_path("storage/favicon.ico") ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset_path('storage/favicon.ico') }}" type="image/x-icon">
     
-    <title><?= sys_name() ?></title>
+    <title>{{ sys_name() }}</title>
 
-    <link href="<?= asset_path("bootstrap/css/bootstrap.min.css") ?>" rel="stylesheet"> 
+    <link href="{{ asset_path('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> 
 
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -45,7 +45,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user-circle" aria-hidden="true"></i> 
-                            <?= Auth('username') ?>
+                            {{ Auth('username') }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="#">Profile</a>

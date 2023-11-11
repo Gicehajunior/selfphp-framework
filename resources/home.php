@@ -1,7 +1,5 @@
 <!-- layout -->
-<?php 
-    page_extends("app.layout");
-?>
+{{ @extends("__app.layout__") }}
 <!-- /layout -->
 
 <!-- body -->
@@ -24,7 +22,5 @@
 <!-- /body -->
 
 <!-- footer -->
-<?php 
-    page_extends("app.footer");
-?>
+{{ @extends("__app.footer__") }}
 <!-- /footer -->

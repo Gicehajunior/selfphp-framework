@@ -21,3 +21,4 @@ config/SP
 clone
 tests
 /*.zip
+.DS_Store
