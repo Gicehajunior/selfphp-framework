@@ -25,7 +25,7 @@ class AuthController extends SP
 
     public function login_user(Request $request)
     {
-        $serve = new Serve(AuthModel::$table);
+        $serve = new Serve(new AuthModel());
 
         $data['email'] = $request->get->email;
         $data['password'] = $request->get->password;
@@ -57,7 +57,7 @@ class AuthController extends SP
 
     public function signup_user(Request $request)
     {
-        $serve = new Serve(AuthModel::$table);
+        $serve = new Serve(new AuthModel());
 
         $data['username'] = $request->get->username;
         $data['email'] = $request->get->email;

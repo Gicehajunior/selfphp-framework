@@ -2,11 +2,11 @@
 
 namespace App\models;
 
-use SelfPhp\SP;
+use SelfPhp\Serve;
 
-class DashboardModel extends SP
+class DashboardModel extends Serve
 {
-    public static $table = 'users';
+    protected static $table = 'users';
 
     public function __construct()
     {

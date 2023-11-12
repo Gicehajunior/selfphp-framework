@@ -2,8 +2,9 @@
 
 namespace App\models;
 
-use SelfPhp\SP;
+use SelfPhp\Serve;
 
-class HomeModel extends SP {
+class HomeModel extends Serve 
+{
     
 }
