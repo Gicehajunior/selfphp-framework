@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78d0776c65370242e0ff5649674428f6",
+    "content-hash": "e535ba06abe813ba6e6e7177f7686577",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -720,16 +720,16 @@
         },
         {
             "name": "selfphp-framework/selfphp-framework",
-            "version": "1.0.3",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gicehajunior/SP.git",
-                "reference": "88084e2437ddf77726022c8ca8629e1fa06f2831"
+                "reference": "12393191c643410bc0d235ff78dcaea821155a78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/88084e2437ddf77726022c8ca8629e1fa06f2831",
-                "reference": "88084e2437ddf77726022c8ca8629e1fa06f2831",
+                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/12393191c643410bc0d235ff78dcaea821155a78",
+                "reference": "12393191c643410bc0d235ff78dcaea821155a78",
                 "shasum": ""
             },
             "require": {
@@ -742,13 +742,14 @@
             "autoload": {
                 "classmap": [
                     "SelfPhp/SP.php",
-                    "SelfPhp/Serve.php",
                     "SelfPhp/Route.php",
                     "SelfPhp/Request.php",
                     "SelfPhp/Path.php",
                     "SelfPhp/Page.php",
                     "SelfPhp/Auth.php",
-                    "SelfPhp/DB/DatabaseManager.php"
+                    "SelfPhp/DB/DatabaseManager.php",
+                    "SelfPhp/DB/SPQueryBuilder.php",
+                    "SelfPhp/DB/Serve.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -772,9 +773,9 @@
             "support": {
                 "email": "support@dapahascomp.com",
                 "issues": "https://github.com/Gicehajunior/SP/issues",
-                "source": "https://github.com/Gicehajunior/SP/tree/v1.0.3"
+                "source": "https://github.com/Gicehajunior/SP/tree/v1.0.0"
             },
-            "time": "2023-11-12T23:15:08+00:00"
+            "time": "2023-11-13T10:10:10+00:00"
         },
         {
             "name": "sp-datatables/sp-datatables",

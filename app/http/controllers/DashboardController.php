@@ -3,7 +3,7 @@ use SelfPhp\Request;
 
 use SelfPhp\SP; 
 use SelfPhp\Auth;
-use SelfPhp\Serve;
+use SelfPhp\DB\Serve; 
 use App\models\DashboardModel;  
 use App\services\MailerService; 
 use App\http\middleware\AuthMiddleware;

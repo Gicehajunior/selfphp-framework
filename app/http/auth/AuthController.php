@@ -4,7 +4,7 @@ use SelfPhp\Request;
 
 use SelfPhp\SP; 
 use SelfPhp\Auth;
-use SelfPhp\Serve;
+use SelfPhp\DB\Serve; 
 use App\models\AuthModel;
 use App\services\MailerService;
 use App\http\middleware\AuthMiddleware;
@@ -66,16 +66,18 @@ class AuthController extends SP
         $data['created_at'] = date("Y-m-d H:i:s");
         $data['updated_at'] = date("Y-m-d H:i:s");
 
-        $exists = $serve->user_exists_on_condition(['email' => $data['email'], 'username' => $data['username']]);
+        $user = Serve::select("users")
+            ->where("email", $data['email'])
+            ->get();
 
         foreach ($data as $key => $value) {
             if (empty($value)) {
-                unset($exists);
+                unset($user);
                 return route("register", ["status" => "error", "message" => "Please fill in all the fields!"]);
             }
         }
 
-        if ($exists == true) {
+        if (!empty($user)) {
             return route("register", ["status" => "error", "message" => "User is already registered. Register using a different email!"]);
         } else {
             if ($serve->save($data) == true) {
