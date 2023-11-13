@@ -2,7 +2,7 @@
 
 namespace App\models;
 
-use SelfPhp\Serve;
+use SelfPhp\DB\Serve;
 
 class HomeModel extends Serve 
 {
