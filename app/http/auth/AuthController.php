@@ -3,34 +3,65 @@
 use SelfPhp\Request;
 
 use SelfPhp\SP; 
-use SelfPhp\Auth;
-use SelfPhp\DB\Serve; 
+use SelfPhp\Auth; 
 use App\models\AuthModel;
 use App\services\MailerService;
+use App\http\utils\AuthUtil;
 use App\http\middleware\AuthMiddleware;
 
+/**
+ * Class AuthController
+ * Handles authentication-related actions such as login, signup, and logout.
+ */
 class AuthController extends SP
 { 
-    public function __construct() {}
+    /**
+     * @var AuthUtil
+     */
+    public $authUtil;
 
+    /**
+     * AuthController constructor.
+     *
+     * @param AuthUtil $authUtil An instance of AuthUtil for authentication utility functions.
+     */
+    public function __construct(AuthUtil $authUtil) 
+    {
+        $this->authUtil = $authUtil;
+    }
+
+    /**
+     * Displays the login view.
+     *
+     * @return string The HTML content of the login view.
+     */
     public function login()
     { 
         return view("auth.login");
     }
 
+    /**
+     * Displays the signup view.
+     *
+     * @return string The HTML content of the signup view.
+     */
     public function signup()
     {
         return view("auth.register");
     }
 
+    /**
+     * Handles the user login process.
+     *
+     * @param Request $request The HTTP request object.
+     * @return string A route indicating the login status and message.
+     */
     public function login_user(Request $request)
-    {
-        $serve = new Serve(new AuthModel());
-
+    { 
         $data['email'] = $request->get->email;
-        $data['password'] = $request->get->password;
+        $data['password'] = $request->get->password; 
 
-        $user = $serve->query_by_condition(['email' => $data['email']])->first();
+        $user = $this->authUtil->checkUser($data);
 
         if (!empty($user)) {
             if ($user['email'] == $data['email']) {
@@ -41,9 +72,7 @@ class AuthController extends SP
                         'username' => $user['username'], 
                         'email' => $user['email']
                     ]); 
-
-                    return route("dashboard", ["status" => "success", "message" => "Login Success!"]);
-
+                    return route("dashboard", ["status" => "success", "message" => "Login success!"]);
                 } else {
                     return route("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
                 }
@@ -55,32 +84,32 @@ class AuthController extends SP
         } 
     }
 
+    /**
+     * Handles the user signup process.
+     *
+     * @param Request $request The HTTP request object.
+     * @return string A route indicating the signup status and message.
+     */
     public function signup_user(Request $request)
     {
-        $serve = new Serve(new AuthModel());
-
         $data['username'] = $request->get->username;
         $data['email'] = $request->get->email;
         $data['contact'] = $request->get->tel;
-        $data['password'] = Auth::hash_pass($request->get->password);
-        $data['created_at'] = date("Y-m-d H:i:s");
-        $data['updated_at'] = date("Y-m-d H:i:s");
+        $data['password'] = Auth::hash_pass($request->get->password); 
 
-        $user = Serve::select("users")
-            ->where("email", $data['email'])
-            ->get();
+        $exists = $this->authUtil->checkUser($data);
 
         foreach ($data as $key => $value) {
             if (empty($value)) {
-                unset($user);
+                unset($exists);
                 return route("register", ["status" => "error", "message" => "Please fill in all the fields!"]);
             }
         }
 
-        if (!empty($user)) {
+        if ($exists == true) {
             return route("register", ["status" => "error", "message" => "User is already registered. Register using a different email!"]);
-        } else {
-            if ($serve->save($data) == true) {
+        } else { 
+            if ($this->authUtil->RegisterUser($data) == true) {
                 return route("login", ["status" => "success", "message" => "Registration success!"]);
             } else {
                 return route("register", ["status" => "error", "message" => "Server Error!"]);
@@ -88,11 +117,16 @@ class AuthController extends SP
         }
     }
 
+    /**
+     * Logs the user out of the system.
+     *
+     * @return string A route indicating the logout status and message.
+     */
     public function logout()
     {
         if (Auth::auth() == true) {
             if (Auth::boot_out() == true) {
-                return route("login?#booted out");
+                return route("login?#booted out", ["status" => "success", "message" => "You have been logged out!"]);
             } else {
                 return route("dashboard", ["status" => "error", "message" => "System error when trying to log you out.!"]);
             }

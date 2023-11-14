@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e535ba06abe813ba6e6e7177f7686577",
+    "content-hash": "61f3a97e96b3e1c189ce65cde4fa6375",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -720,22 +720,26 @@
         },
         {
             "name": "selfphp-framework/selfphp-framework",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gicehajunior/SP.git",
-                "reference": "12393191c643410bc0d235ff78dcaea821155a78"
+                "reference": "8de1b3e2166053ab5637629558875680c2c43cfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/12393191c643410bc0d235ff78dcaea821155a78",
-                "reference": "12393191c643410bc0d235ff78dcaea821155a78",
+                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/8de1b3e2166053ab5637629558875680c2c43cfc",
+                "reference": "8de1b3e2166053ab5637629558875680c2c43cfc",
                 "shasum": ""
             },
             "require": {
                 "altorouter/altorouter": "1.1.0",
-                "mongodb/mongodb": "^1.16",
+                "ext-pdo_mysql": "*",
+                "ext-pdo_pgsql": "*",
+                "ext-sqlite3": "*",
+                "mongodb/mongodb": "*",
                 "php": ">=5.3.0",
+                "sp-datatables/sp-datatables": "^1.6",
                 "sp-templating-engine/sp-templating-engine": "^1.0"
             },
             "type": "library",
@@ -773,9 +777,9 @@
             "support": {
                 "email": "support@dapahascomp.com",
                 "issues": "https://github.com/Gicehajunior/SP/issues",
-                "source": "https://github.com/Gicehajunior/SP/tree/v1.0.0"
+                "source": "https://github.com/Gicehajunior/SP/tree/v1.0.1"
             },
-            "time": "2023-11-13T10:10:10+00:00"
+            "time": "2023-11-14T18:45:30+00:00"
         },
         {
             "name": "sp-datatables/sp-datatables",
