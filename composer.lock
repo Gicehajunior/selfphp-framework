@@ -720,16 +720,16 @@
         },
         {
             "name": "selfphp-framework/selfphp-framework",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gicehajunior/SP.git",
-                "reference": "8de1b3e2166053ab5637629558875680c2c43cfc"
+                "reference": "16e47465ef0a2e16ac6db823f7073b4f5a8211f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/8de1b3e2166053ab5637629558875680c2c43cfc",
-                "reference": "8de1b3e2166053ab5637629558875680c2c43cfc",
+                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/16e47465ef0a2e16ac6db823f7073b4f5a8211f5",
+                "reference": "16e47465ef0a2e16ac6db823f7073b4f5a8211f5",
                 "shasum": ""
             },
             "require": {
@@ -777,9 +777,9 @@
             "support": {
                 "email": "support@dapahascomp.com",
                 "issues": "https://github.com/Gicehajunior/SP/issues",
-                "source": "https://github.com/Gicehajunior/SP/tree/v1.0.1"
+                "source": "https://github.com/Gicehajunior/SP/tree/v1.0.2"
             },
-            "time": "2023-11-14T18:45:30+00:00"
+            "time": "2023-11-14T22:37:13+00:00"
         },
         {
             "name": "sp-datatables/sp-datatables",
