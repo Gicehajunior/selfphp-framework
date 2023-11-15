@@ -1,20 +1,22 @@
 {
-    "name": "selfphp/selfphp",
+    "name": "selfphp/selfphp-framework",
     "type": "library",
-    "description": "SelfPHP is framework in PHP for a Scalable Application",
-    "authors": [
-        {
-            "name": "Giceha Junior",
-            "email": "gicehajunior76@dapahascomp.com",
-            "role": "Backend Developer",
-            "homepage": "https://www.github.com/Gicehajunior"
-        }
+    "description": "SelfPHP is a framework in PHP for a Scalable Application",
+    "keywords": [
+        "php",
+        "framework",
+        "mvc",
+        "scalable",
+        "application"
     ],
+    "homepage": "https://www.github.com/selfphp-framework/selfphp-framework",
     "support": {
         "email": "support@dapahascomp.com"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
+    "version": "1.0.0",
+    "license": "MIT",
     "require": { 
         "php": "^8.1",
         "phpmailer/phpmailer": "^6.1",
