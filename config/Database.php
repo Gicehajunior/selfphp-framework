@@ -124,7 +124,4 @@ return [
         'enabled' => true,
         'path' => __DIR__ . '/logs',
     ],
-
-    // Add more framework-specific configurations as needed
-
 ];
