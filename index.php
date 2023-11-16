@@ -49,23 +49,6 @@
 require __DIR__ . '/vendor/autoload.php';
 
 /**
- * *******************************************************
- * 
- *              REQUIRE CONFIG FILES
- * 
- * This section includes the necessary configuration files
- * for the SELFPHP Framework. These files contain helper
- * functions and other essential configurations.
- * 
- * [ File Details ]
- * - Helper.php: Provides various helper functions used
- *   throughout the framework for common tasks. 
- * 
- * *******************************************************
- */
-require __DIR__ . "/config/Helper.php";
-
-/**
  * Copy Bootstrap Assets to Public Folder
  * This script handles the copying of Bootstrap assets to the public folder,
  * especially for Windows where composer json post-update-cmd script may not work.
