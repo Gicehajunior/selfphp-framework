@@ -1,9 +1,0 @@
-
-
-/**********
-*
-*   Returns Exceptions experienced
-*
-*
-*
-*****/
