@@ -169,7 +169,7 @@ class MailerService
             $this->email_template = $this->email_templates_path . DIRECTORY_SEPARATOR . $this->template_file . '.php'; 
 
             if (is_file($this->email_template)) { 
-                $this->html_body = fileParser(
+                $this->html_body = file_parser(
                     $this->html_body, 
                     $this->email_template
                 ); 
@@ -240,13 +240,23 @@ class MailerService
 
                     // Content
                     $mail->isHTML(true);                                        // Set email format to HTML
-                    $mail->Subject = $this->subject;
-                    $mail->Body    = $this->html_body;
-                    $mail->AltBody = $this->message;
-
-                    if ($mail->send()) {
-                        return true;
+                    
+                    if (!empty($mail->Subject) || $mail->Subject !== null)
+                    {
+                        $mail->Subject = $this->subject;
                     }
+                    
+                    if (!empty($this->html_body) || $this->html_body !== null)
+                    {
+                        $mail->Body   = $this->html_body;
+                    }
+
+                    if (!empty($this->message) || $this->message !== null)
+                    {
+                        $mail->AltBody = $this->message;
+                    }
+                    
+                    return $mail->send();
                 } catch (Exception $e) {
                     SP::debugBacktraceShow($e);
                     return false;
