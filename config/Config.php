@@ -26,7 +26,7 @@ return [
      * 
      * Note: The value must be in bytes.
      */
-    'UPLOAD_MAX_FILESIZE' => '12M',
+    'UPLOAD_MAX_FILESIZE' => '1200000000M',
     
     /**
      * Set the default language for the application
@@ -92,5 +92,58 @@ return [
      *     Set to false if not using an API key.
      */
     'API_KEY' => false, // e.g. '1234567890abcdef1234567890abcdef'
+
+    /**
+     * Set whether to display errors or not.
+     * Options: 'On' or 'Off'
+     */
+    'DISPLAY_ERRORS' => 'Off',
+
+    /**
+     * Maximum execution time of each script, in seconds.
+     */
+    'MAX_EXECUTION_TIME' => 180,
+
+    /**
+     * Maximum amount of time each script may spend parsing request data, in seconds.
+     */
+    'MAX_INPUT_TIME' => 180,
+
+    /**
+     * Maximum number of input variables allowed for each request.
+     */
+    'MAX_INPUT_VARS' => 10000,
+
+    /**
+     * Maximum amount of memory a script may consume.
+     * Use '-1' for unlimited memory.
+     */
+    'MEMORY_LIMIT' => '-1',
+
+    /**
+     * Maximum size of POST data that PHP will accept.
+     */
+    'POST_MAX_SIZE' => '256M',
+
+    /**
+     * Maximum lifetime of session data, in seconds.
+     */
+    'SESSION_GC_MAXLIFETIME' => 14000,
+
+    /**
+     * Path where session data will be stored.
+     */
+    'SESSION_SAVE_PATH' => '/var/cpanel/php/sessions/ea-php81',
+
+    /**
+     * Maximum size of uploaded files.
+     */
+    'UPLOAD_MAX_FILESIZE' => '200M',
+
+    /**
+     * Whether to compress output with zlib output compression.
+     * Options: 'On' or 'Off'
+     */
+    'ZLIB_OUTPUT_COMPRESSION' => 'Off',
 ];
 
