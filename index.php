@@ -48,6 +48,9 @@
 // Require autoload class for autoloading dependencies.
 require __DIR__ . '/vendor/autoload.php';
 
+// Require SP DB Helper class.
+use SelfPhp\DB\Serve;
+
 /**
  * Copy Bootstrap Assets to Public Folder
  * This script handles the copying of Bootstrap assets to the public folder,
@@ -101,6 +104,10 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 // Require Dotenv Class; To load environment variables.
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+// Add DB.
+$serve = new Serve();
+$serve->addDBManager();
 
 // Require Routes
 require __DIR__ . "/routes/web.php";
