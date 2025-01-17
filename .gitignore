@@ -1,5 +1,6 @@
 .env
 vendor 
+node_modules
 public/css/bootstrap/
 public/bootstrap/readMe.md
 public/bootstrap/css/
@@ -9,7 +10,7 @@ public/assets/jquery/*.js
 public/assets/jquery/*.json
 public/assets/jquery/*.map
 public/assets/jquery/*.min.js
-
+public/assets
 public/asset 
 
 public/404.html
@@ -21,4 +22,4 @@ config/SP
 clone
 tests
 /*.zip
-.DS_Store
+.DS_Store 
