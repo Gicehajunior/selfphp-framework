@@ -57,31 +57,48 @@ class AuthController extends SP
      * @return string A route indicating the login status and message.
      */
     public function login_user(Request $request)
-    { 
-        $data['email'] = $request->get->email;
-        $data['password'] = $request->get->password; 
+    {
+        try {
+            // Validate input fields from the request
+            $email = $request->get->email ?? null;
+            $password = $request->get->password ?? null;
 
-        $user = $this->authUtil->checkUser($data);
-
-        if (!empty($user)) {
-            if ($user['email'] == $data['email']) {
-                // ready for password verification 
-                if (password_verify($data['password'], $user['password'])) {
-                    Auth::start_session([
-                        'user_id' => $user['id'], 
-                        'username' => $user['username'], 
-                        'email' => $user['email']
-                    ]); 
-                    return route("dashboard", ["status" => "success", "message" => "Login success!"]);
-                } else {
-                    return route("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
-                }
-            } else {
-                return route("login", ["status" => "error", "message" => "Please check your username and password and try again!"]);
+            if (!$email || !$password) {
+                throw new \Exception("Email and Password are required!");
             }
-        } else {
-            return route("login", ["status" => "error", "message" => "No account associated with the email found!"]);
-        } 
+
+            $data['email'] = $email;
+            $data['password'] = $password;
+
+            // Check if the user exists
+            $user = $this->authUtil->checkUser($data);
+            if (empty($user)) {
+                throw new \Exception("No account associated with the email found!");
+            }
+
+            // Check if the email matches
+            if ($user['email'] !== $data['email']) {
+                throw new \Exception("Please check your username and password and try again!");
+            }
+
+            // Verify the password
+            if (!password_verify($data['password'], $user['password'])) {
+                throw new \Exception("Please check your username and password and try again!");
+            }
+
+            // Start session if login is successful
+            Auth::start_session([
+                'user_id' => $user['id'],
+                'username' => $user['username'],
+                'email' => $user['email']
+            ]);
+
+            // Redirect to the dashboard on success
+            return route("dashboard", ["status" => "success", "message" => "Login success!"]);
+        } catch (\Exception $e) {
+            // Redirect to login page with error message
+            return route("login", ["status" => "error", "message" => 'Oops, an error occurred!']);
+        }
     }
 
     /**
@@ -92,28 +109,37 @@ class AuthController extends SP
      */
     public function signup_user(Request $request)
     {
-        $data['username'] = $request->get->username;
-        $data['email'] = $request->get->email;
-        $data['contact'] = $request->get->tel;
-        $data['password'] = Auth::hash_pass($request->get->password); 
+        try { 
+            $data = [
+                'username' => $request->get->username ?? null,
+                'email' => $request->get->email ?? null,
+                'contact' => $request->get->tel ?? null,
+                'password' => isset($request->get->password) ? Auth::hash_pass($request->get->password) : null,
+            ];
 
-        $exists = $this->authUtil->checkUser($data);
-
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($exists);
-                return route("register", ["status" => "error", "message" => "Please fill in all the fields!"]);
+            // Validate all fields
+            foreach ($data as $key => $value) {
+                if (empty($value)) {
+                    throw new \Exception("Please fill in all the fields!");
+                }
             }
-        }
 
-        if ($exists == true) {
-            return route("register", ["status" => "error", "message" => "User is already registered. Register using a different email!"]);
-        } else { 
-            if ($this->authUtil->RegisterUser($data) == true) {
+            // Check if user already exists
+            if ($this->authUtil->checkUser($data)) {
+                throw new \Exception("User is already registered. Register using a different email!");
+            }
+
+            // Attempt to register the user
+            if ($this->authUtil->RegisterUser($data)) {
+                // Registration successful
                 return route("login", ["status" => "success", "message" => "Registration success!"]);
             } else {
-                return route("register", ["status" => "error", "message" => "Server Error!"]);
+                // Registration failed due to server error
+                throw new \Exception("Server Error! Please try again later.");
             }
+        } catch (\Exception $e) {
+            // Handle errors and redirect back to registration page
+            return route("register", ["status" => "error", "message" => 'Oops, an error occurred!']);
         }
     }
 

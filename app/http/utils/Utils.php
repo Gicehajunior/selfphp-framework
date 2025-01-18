@@ -30,13 +30,7 @@ class Utils
     {
         // Create a new AuthModel instance and attempt to save user data.
         // Return true if the save operation is successful, false otherwise.
-        $serve = AuthModel::create($data);
-
-        if ($serve->save()) {
-            return true;
-        } else {
-            return false;
-        }
+        return AuthModel::query()->insert($data);
     }
 
     /**
@@ -49,12 +43,10 @@ class Utils
     {
         // Create a new AuthModel instance and query for a user by email.
         // Return the user data if found, null otherwise.
-        $serve = new AuthModel();
-        
-        $checkResponse = $serve->query_by_condition([
-            'email' => $data['email']
-        ])->first();
+        $user = AuthModel::query()
+                ->where('email', $data['email'])    
+                ->first();
 
-        return $checkResponse;
+        return $user;
     }
 }

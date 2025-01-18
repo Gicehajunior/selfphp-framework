@@ -24,7 +24,8 @@
         "guzzlehttp/guzzle": "^6.2",
         "twbs/bootstrap": "^4.6.1",
         "components/jquery": "^3.6",
-        "selfphp-framework/selfphp-framework": "^1.0"
+        "selfphp-framework/selfphp-framework": "^1.0",
+        "rms-api/rms-api": "^1.0"
     },
     "require-dev": { 
         "vlucas/phpdotenv": "^5.1"
