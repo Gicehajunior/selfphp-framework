@@ -1,6 +1,7 @@
 .env
 vendor 
 node_modules
+public/main.js
 public/css/bootstrap/
 public/bootstrap/readMe.md
 public/bootstrap/css/
