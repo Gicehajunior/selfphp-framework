@@ -89,7 +89,13 @@ To report an issue:
 2. If not, create a new issue with a detailed description of the problem.
 3. Include any relevant error messages, logs, and steps to reproduce the issue
 
+
+## Buy me a coffee
+If you like my work, you can buy me a coffee. I will appreciate that a lot 🙏🏼
+
+
+[![Giceha Junior](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Donate-orange?style=for-the-badge&logo=ko-fi)](https://www.buymeacoffee.com/gicehajunior)
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/Gicehajunior/selfphp-framework/blob/main/LICENSE) file for details.
-
 
