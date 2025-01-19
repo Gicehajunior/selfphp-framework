@@ -63,7 +63,7 @@ return [
      * Note: This is the default debug mode for the application.
      *      Set to false when deploying the application.
      */
-    'DEBUG' => true,
+    'DEBUG' => false,
 
     /** Session configuration
      * 

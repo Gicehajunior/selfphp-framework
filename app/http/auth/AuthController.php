@@ -4,6 +4,7 @@ use SelfPhp\Request;
 
 use SelfPhp\SP; 
 use SelfPhp\Auth; 
+use SelfPhp\SPException; 
 use App\models\AuthModel;
 use App\services\MailerService;
 use App\http\utils\AuthUtil;
@@ -58,32 +59,32 @@ class AuthController extends SP
      */
     public function login_user(Request $request)
     {
-        try {
+        try { 
             // Validate input fields from the request
-            $email = $request->get->email ?? null;
-            $password = $request->get->password ?? null;
+            $req = $request->multicapture(['email', 'password']) ?? null;  
 
-            if (!$email || !$password) {
-                throw new \Exception("Email and Password are required!");
+            if (!$req['email'] || !$req['password']) { 
+                throw new SPException("Email and Password are required!");
             }
 
-            $data['email'] = $email;
-            $data['password'] = $password;
+            $data['email'] = $req['email'];
+            $data['password'] = $req['password'];
 
             // Check if the user exists
-            $user = $this->authUtil->checkUser($data);
-            if (empty($user)) {
-                throw new \Exception("No account associated with the email found!");
+            $user = $this->authUtil->checkUser($data); 
+
+            if (empty($user)) { 
+                throw new SPException("No account associated with the email found!");
             }
 
             // Check if the email matches
             if ($user['email'] !== $data['email']) {
-                throw new \Exception("Please check your username and password and try again!");
+                throw new SPException("Please check your username and password, and try again!!!");
             }
 
             // Verify the password
-            if (!password_verify($data['password'], $user['password'])) {
-                throw new \Exception("Please check your username and password and try again!");
+            if (!Auth::verify_pass($data['password'], $user['password'])) { 
+                throw new SPException("Please check your username and password, and try again!");
             }
 
             // Start session if login is successful
@@ -95,9 +96,12 @@ class AuthController extends SP
 
             // Redirect to the dashboard on success
             return route("dashboard", ["status" => "success", "message" => "Login success!"]);
-        } catch (\Exception $e) {
+        } catch (SPException $e) {
             // Redirect to login page with error message
-            return route("login", ["status" => "error", "message" => 'Oops, an error occurred!']);
+            return route("login", ["status" => "error", "message" => $e->getMessage()]);
+        } catch(\Exception $e) {
+            // Redirect to login page with error message
+            return route("login", ["status" => "error", "message" => sp_error_logger($e->getMessage())]);  
         }
     }
 
@@ -108,7 +112,7 @@ class AuthController extends SP
      * @return string A route indicating the signup status and message.
      */
     public function signup_user(Request $request)
-    {
+    { 
         try { 
             $data = [
                 'username' => $request->get->username ?? null,
@@ -119,27 +123,30 @@ class AuthController extends SP
 
             // Validate all fields
             foreach ($data as $key => $value) {
-                if (empty($value)) {
-                    throw new \Exception("Please fill in all the fields!");
+                if (empty($value)) { 
+                    throw new SPException("Please fill in all the fields!");
                 }
             }
 
             // Check if user already exists
-            if ($this->authUtil->checkUser($data)) {
-                throw new \Exception("User is already registered. Register using a different email!");
+            if ($this->authUtil->checkUser($data)) { 
+                throw new SPException("User is already registered. Register using a different email!");
             }
 
             // Attempt to register the user
-            if ($this->authUtil->RegisterUser($data)) {
+            if ($this->authUtil->registerUser($data)) {
                 // Registration successful
                 return route("login", ["status" => "success", "message" => "Registration success!"]);
             } else {
-                // Registration failed due to server error
-                throw new \Exception("Server Error! Please try again later.");
+                // Registration failed due to server error 
+                throw new SPException("Server Error! Please try again later.");
             }
-        } catch (\Exception $e) {
+        } catch (SPException $e) {
             // Handle errors and redirect back to registration page
-            return route("register", ["status" => "error", "message" => 'Oops, an error occurred!']);
+            return route("register", ["status" => "error", "message" => $e->getMessage()]);
+        } finally {
+            // Redirect to login page with default error message
+            return route("login", ["status" => "error", "message" => sp_error_logger($e->getMessage())]);
         }
     }
 
@@ -150,14 +157,20 @@ class AuthController extends SP
      */
     public function logout()
     {
-        if (Auth::auth() == true) {
-            if (Auth::boot_out() == true) {
-                return route("login?#booted out", ["status" => "success", "message" => "You have been logged out!"]);
+        try {
+            if (Auth::auth() == true) {
+                if (Auth::boot_out() == true) {
+                    return route("login?#booted out", ["status" => "warning", "message" => "You have been logged out!"]);
+                } else {
+                    throw new SPException("System error when trying to log you out!");
+                }
             } else {
-                return route("dashboard", ["status" => "error", "message" => "System error when trying to log you out.!"]);
+                return route("login?#booted out", ["status" => "warning", "message" => "Login required!"]);
             }
-        } else {
-            return route("login?#booted out", ["status" => "error", "message" => "Login required!"]);
+        } catch (SPException $e) { 
+            return route("dashboard", ["status" => "error", "message" => $e->getMessage()]);
+        } catch (\Exception $e) { 
+            return route("dashboard", ["status" => "error", "message" => sp_error_logger($e->getMessage())]);
         }
     }
 }

@@ -15,7 +15,7 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "version": "1.0.1",
+    "version": "1.1.0",
     "license": "MIT",
     "require": { 
         "php": "^8.1",
@@ -35,13 +35,5 @@
             "App\\": "app/",
             "SelfPhp\\": "config/"
         }
-    },
-    "scripts": {
-        "post-update-cmd": [
-            "rm -rf public/bootstrap/css",
-            "rm -rf public/bootstrap/js",
-            "cp -R vendor/twbs/bootstrap/dist/* public/bootstrap",
-            "cp -R vendor/components/jquery/* public/assets/jquery"
-        ]
     }
 }

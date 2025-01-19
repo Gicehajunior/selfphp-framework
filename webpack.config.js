@@ -44,6 +44,7 @@ module.exports = (env, argv) => {
                     { from: './node_modules/popper.js/dist/*.js', to: 'assets/vendor/libs/popper/[name][ext]' },
                     { from: './node_modules/datatables/media/css/*.css', to: 'assets/jquery/css/[name][ext]' },
                     { from: './node_modules/datatables/media/js/*.js', to: 'assets/jquery/js/[name][ext]' },
+                    { from: './vendor/components/jquery/*.js', to: 'assets/jquery/js/[name][ext]' },
                     { from: './node_modules/datatables/media/images', to: 'assets/jquery/images' },
                     // ADD NEW RESOURCE TO BE COPIED HERE IF NEEDED.
                 ]

@@ -1716,16 +1716,16 @@
         },
         {
             "name": "selfphp-framework/selfphp-framework",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gicehajunior/SP.git",
-                "reference": "9ef15634d2117e337ff51c6fd30abc2185f5cff2"
+                "reference": "44b7f45c5b6cee54b22dca4d243977b8d95fa576"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/9ef15634d2117e337ff51c6fd30abc2185f5cff2",
-                "reference": "9ef15634d2117e337ff51c6fd30abc2185f5cff2",
+                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/44b7f45c5b6cee54b22dca4d243977b8d95fa576",
+                "reference": "44b7f45c5b6cee54b22dca4d243977b8d95fa576",
                 "shasum": ""
             },
             "require": {
@@ -1741,16 +1741,9 @@
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "SelfPhp/SP.php",
-                    "SelfPhp/Route.php",
-                    "SelfPhp/Request.php",
-                    "SelfPhp/Path.php",
-                    "SelfPhp/Page.php",
-                    "SelfPhp/Auth.php",
-                    "SelfPhp/DB/Serve.php",
-                    "SelfPhp/DB/DatabaseManager.php"
-                ]
+                "psr-4": {
+                    "SelfPhp\\": "SelfPhp/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1773,9 +1766,9 @@
             "support": {
                 "email": "support@dapahascomp.com",
                 "issues": "https://github.com/Gicehajunior/SP/issues",
-                "source": "https://github.com/Gicehajunior/SP/tree/v1.1.0"
+                "source": "https://github.com/Gicehajunior/SP/tree/v1.2.0"
             },
-            "time": "2024-06-19T15:31:32+00:00"
+            "time": "2025-01-19T08:40:07+00:00"
         },
         {
             "name": "sp-datatables/sp-datatables",
