@@ -44,7 +44,7 @@ class Utils
         // Create a new AuthModel instance and query for a user by email.
         // Return the user data if found, null otherwise.
         $user = AuthModel::query()
-                ->where('emails', $data['email'])    
+                ->where('email', $data['email'])    
                 ->first();
 
         return $user;
