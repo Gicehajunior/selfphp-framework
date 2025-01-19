@@ -26,7 +26,7 @@ class Utils
      * @param array $data User registration data.
      * @return bool True if the registration is successful, false otherwise.
      */
-    public function RegisterUser(array $data)
+    public function registerUser(array $data)
     {
         // Create a new AuthModel instance and attempt to save user data.
         // Return true if the save operation is successful, false otherwise.
@@ -39,12 +39,12 @@ class Utils
      * @param array $data User data containing email for checking.
      * @return mixed|null The user data if found, null otherwise.
      */
-    public function CheckUser(array $data)
+    public function checkUser(array $data)
     {
         // Create a new AuthModel instance and query for a user by email.
         // Return the user data if found, null otherwise.
         $user = AuthModel::query()
-                ->where('email', $data['email'])    
+                ->where('emails', $data['email'])    
                 ->first();
 
         return $user;

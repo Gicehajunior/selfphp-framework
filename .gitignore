@@ -6,7 +6,7 @@ public/css/bootstrap/
 public/bootstrap/readMe.md
 public/bootstrap/css/
 public/bootstrap/js/
-
+public/storage/logs/*.txt
 public/assets/jquery/*.js
 public/assets/jquery/*.json
 public/assets/jquery/*.map

@@ -6,7 +6,7 @@
 </footer>
 
 <!-- include jquery -->
-<script type="text/javascript" src="{{ asset_path('assets/jquery/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset_path('assets/jquery/js/jquery.min.js') }}"></script>
 
 <!-- include bootstrap js -->
 <script type="text/javascript" src="{{ asset_path('bootstrap/js/bootstrap.min.js') }}"></script>

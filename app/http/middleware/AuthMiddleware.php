@@ -21,20 +21,22 @@ class AuthMiddleware
     public static function AuthView()
     {
         // Check if authentication is enabled in the environment.
-        if (strtolower(env("AUTH")) == 'true') {
-            // If not authenticated, redirect to the login page or throw an exception.
-            if (Auth::auth() == false) {
-                if (!empty(strtolower(login_page()))) {
-                    // Redirect to the login page with an error message.
-                    return route(login_page(), [
-                        "status" => "error",
-                        "message" => "Login is required!"
-                    ]);
-                } else {
-                    // Throw an exception if the login page is not found.
-                    throw new \Exception("LogoutDestinationNotSetException: Login page not found!");
-                }
-            }
+        if (!env("AUTH")) {
+            throw new \Exception("Authentication ability is turned off!");
         }
+
+        // If not authenticated, redirect to the login page or throw an exception.
+        if (Auth::auth() == false) { 
+            if (empty(strtolower(login_page()))) { 
+                // Throw an exception if the login page is not found.
+                throw new \Exception("LogoutDestinationNotSetException: Login page not found!");
+            }
+            
+            // Redirect to the login page with an error message.
+            return route(login_page(), [
+                "status" => "error",
+                "message" => "Login is required!"
+            ]);
+        } 
     }
 }
