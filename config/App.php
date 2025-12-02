@@ -98,4 +98,17 @@ return [
      * Use username or email and password for authentication.
      */
     'AUTHPAGE' => 'login',
+
+    /** 
+     * Global configurations for conventional config files
+     * 
+     * The following names are mean't to be used by the system.
+     * If changing the files naming convention need be, change the following array as well.
+     */
+    'GLOBAL_CONFIGS' => [
+        'app' => 'config/App.php',
+        'assets' => 'config/Assets.php',
+        'config' => 'config/Config.php',
+        'mailer' => 'config/Mailer.php',
+    ]
 ];
