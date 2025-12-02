@@ -7,7 +7,7 @@ module.exports = (env, argv) => {
     
     return {
         mode: mode,
-        entry: './public/index.js',
+        entry: {},
         output: {
             path: path.resolve(__dirname, 'public/')
         },
