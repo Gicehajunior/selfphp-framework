@@ -28,8 +28,10 @@ module.exports = (env, argv) => {
         plugins: [
             new CopyWebpackPlugin({
                 patterns: [ 
-                    { from: './vendor/twbs/bootstrap/dist/css/*.css', to: 'bootstrap/css/[name][ext]' },
-                    { from: './vendor/twbs/bootstrap/dist/js/*.js', to: 'bootstrap/js/[name][ext]' },
+                    { from: './vendor/twbs/bootstrap4/dist/css/*.css', to: 'bootstrap/4/css/[name][ext]' },
+                    { from: './vendor/twbs/bootstrap4/dist/js/*.js', to: 'bootstrap/4/js/[name][ext]' },
+                    { from: './vendor/twbs/bootstrap5/dist/css/*.css', to: 'bootstrap/5/css/[name][ext]' },
+                    { from: './vendor/twbs/bootstrap5/dist/js/*.js', to: 'bootstrap/5/js/[name][ext]' },
                     { from: './node_modules/bootstrap-datepicker/dist/css/*.css', to: 'bootstrap/css/[name][ext]' },
                     { from: './node_modules/bootstrap-datepicker/dist/js/*.js', to: 'bootstrap/js/[name][ext]' },
                     { from: './node_modules/print-js/dist/*.css', to: 'assets/printjs/css/[name][ext]' },
