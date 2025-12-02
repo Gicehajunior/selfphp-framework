@@ -10,7 +10,6 @@ return [
      * Assets settings. Config file for the application assets accessor settings.
      * ------------------------------------------------------------------------
      */
-
     'bootstrap' => [
 
         // Default version if not defined

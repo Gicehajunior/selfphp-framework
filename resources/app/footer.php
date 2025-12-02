@@ -9,7 +9,7 @@
 <script type="text/javascript" src="{{ asset_path('assets/jquery/js/jquery.min.js') }}"></script>
 
 <!-- include bootstrap js -->
-<script type="text/javascript" src="{{ asset_path('bootstrap/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset_path('bootstrap/<?= bootstrap() ?>/js/bootstrap.min.js') }}"></script>
 
 <!-- local js script -->
 <script src="{{ asset_path('js/auth.js') }}"></script>
