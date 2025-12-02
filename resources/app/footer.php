@@ -8,6 +8,9 @@
 <!-- include jquery -->
 <script type="text/javascript" src="{{ asset_path('assets/jquery/js/jquery.min.js') }}"></script>
 
+<!-- include popper -->
+<script type="text/javascript" src="{{ asset_path('assets/popper/js/popper.js') }}"></script>
+
 <!-- include bootstrap js -->
 <script type="text/javascript" src="{{ asset_path('bootstrap/<?= bootstrap() ?>/js/bootstrap.min.js') }}"></script>
 
