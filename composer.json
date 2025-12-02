@@ -9,31 +9,76 @@
         "scalable",
         "application"
     ],
-    "homepage": "https://www.github.com/selfphp-framework/selfphp-framework",
+    "homepage": "https://www.github.com/Gicehajunior/selfphp-framework",
     "support": {
         "email": "support@dapahascomp.com"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "version": "1.1.0",
+    "version": "1.2.0",
     "license": "MIT",
-    "require": { 
-        "php": "^8.1",
+    "require": {
+        "php": "^8.2",
         "phpmailer/phpmailer": "^6.1",
-        "altorouter/altorouter": "1.1.0", 
-        "guzzlehttp/guzzle": "^6.2",
-        "twbs/bootstrap": "^4.6.1",
+        "altorouter/altorouter": "1.1.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "twbs/bootstrap4": "^4.6.2",
+        "twbs/bootstrap5": "^5.3.6",
         "components/jquery": "^3.6",
-        "selfphp-framework/selfphp-framework": "^1.0",
-        "rms-api/rms-api": "^1.0"
+        "giggsey/libphonenumber-for-php": "^8.13",
+        "selfphp-framework/selfphp-framework": "^1.2",
+        "rms-api/rms-api": "^1.0",
+        "kreait/firebase-php": "^7.0",
+        "guzzlehttp/psr7": "^2.0",
+        "nyholm/psr7": "^1.0",
+        "webklex/php-imap": "^5.5",
+        "mpesapaypap/mpesapaypap": "^1.17",
+        "ezyang/htmlpurifier": "^4.18",
+        "daphascompujumbesms/daphascompujumbesms": "^1.0",
+        "phpoffice/phpspreadsheet": "^4.2"
     },
-    "require-dev": { 
-        "vlucas/phpdotenv": "^5.1"
+    "require-dev": {
+        "vlucas/phpdotenv": "^5.1",
+        "phpunit/phpunit": "^10.5"
     },
+    "extra": {
+        "installer-paths": {
+            "vendor/bootstrap4/": ["twbs/bootstrap4"],
+            "vendor/bootstrap5/": ["twbs/bootstrap5"]
+        }
+    },
+    "repositories": [{
+            "type": "package",
+            "package": {
+                "name": "twbs/bootstrap4",
+                "version": "4.6.2",
+                "dist": {
+                    "url": "https://github.com/twbs/bootstrap/archive/refs/tags/v4.6.2.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "twbs/bootstrap5",
+                "version": "5.3.6",
+                "dist": {
+                    "url": "https://github.com/twbs/bootstrap/archive/refs/tags/v5.3.6.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "app/",
             "SelfPhp\\": "config/"
+        }
+    },
+    "config": {
+        "audit": {
+            "block-insecure": false
         }
     }
 }
