@@ -9,10 +9,13 @@
     
     <title>{{ sys_name() }}</title>
 
+    <!-- Bootstrap 5 CSS -->
     <link href="{{ asset_path('bootstrap/<?= bootstrap() ?>/css/bootstrap.min.css') }}" rel="stylesheet"> 
 
-    <!-- font-awesome icons -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Bootstrap Icons (replaces font-awesome for basic icons) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Font Awesome (if you still need specific icons) -->
     <script src="https://kit.fontawesome.com/6a9db0427a.js" crossorigin="anonymous"></script>
 
     <!-- google fonts -->
@@ -25,39 +28,42 @@
         ?> 
         <!-- auth navbar -->
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
-            <a class="navbar-brand" href="#">SP</a>
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Documentation</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav  mt-2 mt-lg-0 pr-4 pl-4">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> <i class="fa fa-inbox" aria-hidden="true"></i> Inbox</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user-circle" aria-hidden="true"></i> 
-                            {{ Auth('username') }}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Settings</a> 
-                            <a class="dropdown-item" href="/logout">Logout</a>
-                        </div>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">SP</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" aria-current="page">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Documentation</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mt-2 mt-lg-0 pe-4 ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> <i class="fas fa-inbox"></i> Inbox</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle"></i> 
+                                {{ Auth('username') }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownId">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex my-2 my-lg-0">
+                        <input class="form-control me-2" type="search" placeholder="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
             </div>
         </nav>
         <!-- /auth navbar -->
