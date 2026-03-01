@@ -1,7 +1,4 @@
 <?php
-
-    use SelfPhp\Route;
-
     /******************************************************************
      *  
      *  S.P. Framework v1.0.0
@@ -26,13 +23,19 @@
      *                  ____________________________________
      * 
      */
+    use SelfPhp\Route;
+    use App\Http\Auth\AuthController;
+    use App\Http\Controllers\DashboardController;
+    use App\Http\Controllers\HomeController;
+    use App\Http\Middleware\AuthMiddleware;
     
-    Route::get('/', 'HomeController@index');
-    Route::get('/dashboard', 'DashboardController@index');
-    Route::get('/login', 'AuthController@login');
-    Route::get('/register', 'AuthController@signup');
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'], [AuthMiddleware::class]);
+    Route::get('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'signup']);
 
-    Route::post('/login', 'AuthController@login_user'); 
-    Route::post('/register', 'AuthController@signup_user');
+    Route::post('/login', [AuthController::class, 'login_user']); 
+    Route::post('/register', [AuthController::class, 'signup_user']);
     
-    Route::get('/logout', 'AuthController@logout'); 
+    Route::get('/logout', [AuthController::class, 'logout']); 
+    Route::get('/404', [AuthController::class, 'notFoundErrorPage']); 

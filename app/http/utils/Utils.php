@@ -1,9 +1,9 @@
 <?php
 
-namespace App\http\utils;
+namespace App\Http\Utils;
 
 use SelfPhp\Auth;
-use App\models\AuthModel;
+use App\Models\AuthModel;
 
 /**
  * Class Utils

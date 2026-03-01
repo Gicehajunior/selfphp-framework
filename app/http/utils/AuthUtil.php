@@ -1,6 +1,6 @@
 <?php
 
-namespace App\http\utils;
+namespace App\Http\Utils;
 
 use SelfPhp\DB\Serve;
 use SelfPhp\Auth;

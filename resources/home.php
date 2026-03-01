@@ -24,3 +24,7 @@
 <!-- footer -->
 {{ @extends("__app.footer__") }}
 <!-- /footer -->
+
+<!-- closure -->
+{{ @extends("__app.closure__") }}
+<!-- /closure -->

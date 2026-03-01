@@ -19,7 +19,3 @@
 
 <!-- local js script -->
 <script src="{{ asset_path('js/app.js') }}"></script>
-
-</body>
-
-</html>
