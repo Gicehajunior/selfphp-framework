@@ -32,7 +32,7 @@
  * SELFPHP documentation at https://selfphpframework.com/docs.
  * 
  * [ Version Information ]
- * SELFPHP Framework v1.0.0
+ * SELFPHP Framework v1.3.0
  * 
  * [ Author ]
  * Giceha Junior - https://github.com/GicehaJunior
@@ -43,21 +43,10 @@
  * 
  * ****************************************************************************
  */
-
+use SelfPhp\Route;
 
 // Require autoload class for autoloading dependencies.
 require __DIR__ . '/vendor/autoload.php';
 
-// Require SP DB Helper class.
-use SelfPhp\DB\Serve;
-
-// Require Dotenv Class; To load environment variables.
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
-// Add DB.
-$serve = new Serve();
-$serve->addDBManager();
-
-// Require Routes
-require __DIR__ . "/routes/web.php";
+// Require Bootstrapper
+require __DIR__ . "/config/bootstrap.php";

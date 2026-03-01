@@ -1,11 +1,12 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use SelfPhp\Request;
 use SelfPhp\SP;
 use SelfPhp\Auth;
-use App\models\DashboardModel;
-use App\services\MailerService;
-use App\http\middleware\AuthMiddleware;
+use App\Models\DashboardModel;
+use App\Services\MailerService;
 
 /**
  * Class DashboardController
@@ -19,7 +20,7 @@ class DashboardController extends SP
      */
     public function __construct()
     {
-        AuthMiddleware::AuthView();
+        // ANY APPLICABLE CONSTRUCTOR LOGIC
     }
 
     /**

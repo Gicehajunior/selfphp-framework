@@ -1,14 +1,14 @@
 <?php
 
-use SelfPhp\Request;
+namespace App\Http\Auth;
 
+use SelfPhp\Request;
 use SelfPhp\SP; 
 use SelfPhp\Auth; 
 use SelfPhp\SPException; 
-use App\models\AuthModel;
-use App\services\MailerService;
-use App\http\utils\AuthUtil;
-use App\http\middleware\AuthMiddleware;
+use App\Models\AuthModel;
+use App\Services\MailerService;
+use App\Http\Utils\AuthUtil; 
 
 /**
  * Class AuthController
@@ -173,4 +173,15 @@ class AuthController extends SP
             return route("dashboard", ["status" => "error", "message" => sp_error_logger($e->getMessage())]);
         }
     }
+
+    /**
+     * Displays the 404 error page view.
+     *
+     * @return string The HTML content of the 404 error page view.
+     */
+    public function notFoundErrorPage()
+    { 
+        return view("404");
+    }
+
 }

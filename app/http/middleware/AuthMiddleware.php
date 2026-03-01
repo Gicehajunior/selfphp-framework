@@ -1,42 +1,62 @@
 <?php
 
-namespace App\http\middleware;
+namespace App\Http\Middleware;
 
 use SelfPhp\Auth;
-use SelfPhp\Page;
-use SelfPhp\SP;
+use SelfPhp\Request; 
 
-/**
- * Class AuthMiddleware
- * Middleware for handling authentication on views.
- */
 class AuthMiddleware
 {
     /**
-     * Handles authentication for views.
+     * Handle an incoming request.
      *
-     * @return mixed Returns a route or throws an exception based on authentication status.
-     * @throws \Exception If the login page is not found.
+     * @param Request  $request 
+     * @return mixed
+     * @throws \RuntimeException
      */
-    public static function AuthView()
+    public function handle(Request $request)
     {
-        // Check if authentication is enabled in the environment.
-        if (!env("AUTH")) {
-            throw new \Exception("Authentication ability is turned off!");
+        if (!$this->isAuthEnabled()) {
+            throw new \RuntimeException('Authentication is disabled in environment configuration.');
         }
 
-        // If not authenticated, redirect to the login page or throw an exception.
-        if (Auth::auth() == false) { 
-            if (empty(strtolower(login_page()))) { 
-                // Throw an exception if the login page is not found.
-                throw new \Exception("LogoutDestinationNotSetException: Login page not found!");
-            }
-            
-            // Redirect to the login page with an error message.
-            return route(login_page(), [
-                "status" => "error",
-                "message" => "Login is required!"
-            ]);
-        } 
+        if (!$this->isAuthenticated()) {
+            return $this->unauthenticatedResponse();
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if authentication is enabled.
+     */
+    protected function isAuthEnabled(): bool
+    {
+        return (bool) env('AUTH');
+    }
+
+    /**
+     * Determine if user is authenticated.
+     */
+    protected function isAuthenticated(): bool
+    {
+        return Auth::auth() === true;
+    }
+
+    /**
+     * Handle unauthenticated users.
+     */
+    protected function unauthenticatedResponse()
+    {
+        $loginPage = config('AUTHPAGE');
+
+        if (empty($loginPage)) {
+            throw new \RuntimeException('Login page is not configured.');
+        }
+
+        return route($loginPage, [
+            'status'  => 'error',
+            'message' => 'Authentication required.'
+        ]);
     }
 }

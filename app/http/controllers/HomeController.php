@@ -1,10 +1,11 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use SelfPhp\SP;
 use SelfPhp\Page;
 use SelfPhp\Auth;
-use App\models\HomeModel;
-use App\http\middleware\AuthMiddleware;
+use App\Models\HomeModel; 
 
 /**
  * Class HomeController

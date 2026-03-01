@@ -13,7 +13,7 @@ return [
     'bootstrap' => [
 
         // Default version if not defined
-        'default' => '4',
+        'default' => '5',
 
         // Assign version to route groups or named routes
         'routes' => [

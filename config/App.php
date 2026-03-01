@@ -106,9 +106,9 @@ return [
      * If changing the files naming convention need be, change the following array as well.
      */
     'GLOBAL_CONFIGS' => [
-        'app' => 'config/App.php',
-        'assets' => 'config/Assets.php',
-        'config' => 'config/Config.php',
-        'mailer' => 'config/Mailer.php',
+        'app' => 'config/app.php',
+        'assets' => 'config/assets.php',
+        'config' => 'config/config.php',
+        'mailer' => 'config/mailer.php',
     ]
 ];
