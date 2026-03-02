@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30e91412f3ff3d9e174354b54062be03",
+    "content-hash": "e77d0b8a903b5bf58adf63c9615b7a6e",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -4192,16 +4192,16 @@
         },
         {
             "name": "selfphp-framework/selfphp-framework",
-            "version": "1.4.1",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gicehajunior/SP.git",
-                "reference": "6cfc24370401d3efaafd558c6dec1a8fcd32ff7d"
+                "reference": "23f176f4f8fc92e8e8bb3929ff7972ed5be60353"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/6cfc24370401d3efaafd558c6dec1a8fcd32ff7d",
-                "reference": "6cfc24370401d3efaafd558c6dec1a8fcd32ff7d",
+                "url": "https://api.github.com/repos/Gicehajunior/SP/zipball/23f176f4f8fc92e8e8bb3929ff7972ed5be60353",
+                "reference": "23f176f4f8fc92e8e8bb3929ff7972ed5be60353",
                 "shasum": ""
             },
             "require": {
@@ -4243,9 +4243,9 @@
             "support": {
                 "email": "support@dapahascomp.com",
                 "issues": "https://github.com/Gicehajunior/SP/issues",
-                "source": "https://github.com/Gicehajunior/SP/tree/v1.4.1"
+                "source": "https://github.com/Gicehajunior/SP/tree/v1.5.1"
             },
-            "time": "2026-01-13T16:29:14+00:00"
+            "time": "2026-03-02T11:32:05+00:00"
         },
         {
             "name": "sp-datatables/sp-datatables",

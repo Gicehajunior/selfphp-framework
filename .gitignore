@@ -16,6 +16,7 @@ public/asset
 
 public/404.html
 
+app/http/.DS_Store
 app/Exceptions/Exception.php
 config/DataTables
 config/SPTemplatingEngine
