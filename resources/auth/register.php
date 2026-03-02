@@ -8,20 +8,8 @@
         Sign Up
     </div>
     <div class="card-body">
-        <div class="container">
-            <div style="margin: 0 auto;" class="justify-content-center w-50">
-                <div class="message">
-                    <?php
-                    if (isset($message)) {
-                    ?>
-                        <div class="alert <?= (($status == 'success') ? 'alert-success' : 'alert-danger') ?> alert-dismissible fade show" role="alert">
-                            {{ $message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    <?php
-                    }
-                    ?>
-                </div>
+        <div class="container vh-100">
+            <div style="margin: 0 auto;" class="justify-content-center w-50"> 
                 <form action="/register" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>

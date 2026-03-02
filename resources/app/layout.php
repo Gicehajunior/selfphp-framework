@@ -20,6 +20,10 @@
 
     <!-- google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="{{ asset_path('/css/prop.css') }}" rel="stylesheet"> 
+    <link href="{{ asset_path('/css/app.css') }}" rel="stylesheet">  
 </head>
 
 <body class="bodyContainer">
