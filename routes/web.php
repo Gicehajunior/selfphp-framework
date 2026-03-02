@@ -27,7 +27,7 @@
     use App\Http\Auth\AuthController;
     use App\Http\Controllers\DashboardController;
     use App\Http\Controllers\HomeController;
-    use App\Http\Middleware\AuthMiddleware;
+    use App\Http\Middlewares\AuthMiddleware;
     
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/dashboard', [DashboardController::class, 'index'], [AuthMiddleware::class]);
