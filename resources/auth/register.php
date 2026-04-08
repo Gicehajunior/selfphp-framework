@@ -1,5 +1,5 @@
 <!-- layout -->
-{{ @extends("__app.layout__") }}
+{{ @extends("__app.web.layout__") }}
 <!-- /layout -->
 
 <!-- body -->
@@ -46,9 +46,9 @@
 <!-- /body -->
 
 <!-- footer -->
-{{ @extends("__app.footer__") }}
+{{ @extends("__app.web.footer__") }}
 <!-- /footer -->
 
 <!-- closure -->
-{{ @extends("__app.closure__") }}
+{{ @extends("__app.web.closure__") }}
 <!-- /closure -->
