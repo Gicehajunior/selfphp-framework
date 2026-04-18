@@ -1,0 +1,269 @@
+.no-underline {
+    text-decoration-line: none;
+    -moz-text-decoration-line: none;
+}
+/* Select2 CSS fixes */
+.select2-selection__rendered {
+    line-height: 2.6em !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 2.6em !important;
+}
+
+.select2-selection__arrow {
+    height: 2.6em !important;
+}
+
+/* Default border to match Bootstrap form controls */
+.select2-container .select2-selection--single {
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem; /* Rounded corners to match Bootstrap */
+    padding: 0rem 0rem; /* Bootstrap form control padding */
+}
+
+/* Outline and shadow on focus to match Bootstrap */
+.select2-container--default .select2-selection--single:focus,
+.select2-container--default .select2-selection--single .select2-selection__rendered:focus {
+    border-color: #80bdff !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap primary shadow */
+}
+
+/* Adjust arrow position */
+.select2-selection__arrow {
+    height: 100% !important;
+    top: 0;
+    right: 0; /* Align arrow with padding */
+}
+/* /Select2 CSS fixes */
+
+/* Hint tooltip */
+.hint-tooltip { 
+    right: 10px; 
+    cursor: pointer;
+}
+/* Hint tooltip */
+
+/* Invoice resource */
+.invoice-staff-payment-note-modal {
+    z-index: 199999;
+}
+/* /Invoice resource */
+
+/* Email Read Div style */
+.email-read-container {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.email-read-card-header  {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+}
+
+.email-subject {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.email-body-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.email-body-content * {
+    border: none;
+} 
+
+.email-header-left a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.email-header-left a:hover {
+    color: #0056b3;
+}
+
+.email-header-right .btn {
+    margin-top: 5px;
+}
+
+.card-footer {
+    background-color: #f9f9f9;
+}
+
+.email-read-card-title {
+    font-size: 0.875rem;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-footer .btn-success {
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+.email-read-card-body .fas {
+    color: #007bff;
+}
+
+.email-read-card-footer .text-muted {
+    color: #888;
+}
+
+@media (max-width: 576px) {
+    .email-header-left {
+        font-size: 0.875rem;
+    }
+}
+
+.mail-chats-show-section {
+    overflow: auto;
+    height: 80vh;
+}
+/* /Email Read Div style */
+
+
+/* sms Read Div style */
+.sms-read-container {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.sms-read-card-header  {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+}
+
+.sms-subject {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.sms-body-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.sms-body-content * { 
+    border: none; 
+}
+
+.sms-header-left a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.sms-header-left a:hover {
+    color: #0056b3;
+}
+
+.sms-header-right .btn {
+    margin-top: 5px;
+}
+
+.card-footer {
+    background-color: #f9f9f9;
+}
+
+.sms-read-card-title {
+    font-size: 0.875rem;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-footer .btn-success {
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+.sms-read-card-body .fas {
+    color: #007bff;
+}
+
+.sms-read-card-footer .text-muted {
+    color: #888;
+}
+
+@media (max-width: 576px) {
+    .sms-header-left {
+        font-size: 0.875rem;
+    }
+}
+
+.sms-chats-show-section {
+    overflow: auto;
+    height: 80vh;
+}
+/* /sms Read Div style */
+
+/* navigation control css */
+* table .nav-active {
+    background-color: lightgray;
+    color: white;
+}
+* table .navigation-tab {
+    cursor: pointer;
+}
+/* / navigation control css */
+
+/* global overlay  */
+.global-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+body>.global-overlay {
+    position: fixed;
+}
+
+.global-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.global-overlay .loading-message {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* /global overlay */
+
+/* Avatars */
+.avatar-sm {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    font-weight: 600;
+}

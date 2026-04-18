@@ -29,10 +29,18 @@
     use App\Http\Controllers\HomeController;
     use App\Http\Middlewares\AuthMiddleware;
     
-    Route::get('/', [HomeController::class, 'index']);
+    // Route::get('/', [HomeController::class, 'index']);
     Route::get('/dashboard', [DashboardController::class, 'index'], [AuthMiddleware::class]);
-    Route::get('/login', [AuthController::class, 'login']);
-    Route::get('/register', [AuthController::class, 'signup']);
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/auth', [AuthController::class, 'legacyLogin']);
+    
+    // NEW ROUTES
+    Route::get('/e/login', [AuthController::class, 'login']); 
+    Route::get('/e/register', [AuthController::class, 'signup']);
+
+    // OLD ROUTES
+    Route::get('/l/login', [AuthController::class, 'legacyLogin']); 
+    Route::get('/l/register', [AuthController::class, 'legacyRegister']);
 
     Route::post('/login', [AuthController::class, 'login_user']); 
     Route::post('/register', [AuthController::class, 'signup_user']);

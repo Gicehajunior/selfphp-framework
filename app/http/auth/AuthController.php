@@ -42,11 +42,31 @@ class AuthController extends SP
     }
 
     /**
+     * Displays the legacy login view.
+     *
+     * @return string The HTML content of the login view.
+     */
+    public function legacyLogin()
+    { 
+        return route("auth/login");
+    }
+
+    /**
      * Displays the signup view.
      *
      * @return string The HTML content of the signup view.
      */
     public function signup()
+    {
+        return view("auth.register");
+    }
+
+    /**
+     * Displays the legacy register view.
+     *
+     * @return string The HTML content of the signup view.
+     */
+    public function legacyRegister()
     {
         return view("auth.register");
     }

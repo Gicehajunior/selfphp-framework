@@ -29,6 +29,6 @@ class HomeController extends SP
      */
     public function index()
     {
-        return view("home");
+        return view("web/index");
     }
 }

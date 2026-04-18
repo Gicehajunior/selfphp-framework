@@ -1,6 +1,6 @@
         <!-- Footer -->
-        <!-- FSection -->
-        {{ @extends("__app.web.fsection__") }}
+        <!-- FSection --> 
+        {{ @extends("__app.crm.fsection__") }}
         <!-- /FSection -->
 
         <!-- include jquery -->

@@ -1,11 +1,33 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background: var(--primary-dark);
+    min-height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.navbar {
-    background: var(--primary-dark) !important;
-    border-bottom: 1px solid #30363d;
+.hero-section {
+    position: relative;
+    background: var(--pattern-bg);
+}
+
+.hero-section .overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(10,25,41,0.9), rgba(13,27,42,0.95));
+}
+
+footer * {
+    color: var(--xfix-dark) !important;
+    background-color: var(--xfix-light);
+}
+
+a, .text-decoration-none {
+    text-decoration-line: none;
+    color: var(--xfix-dark) !important;
 }
 
 .nav-link {
@@ -34,6 +56,10 @@ body {
 .btn-primary:hover {
     background: #2ea043;
     border-color: #2ea043;
+}
+
+.text-dark-red {
+    color: var(--xfix-dark-red);
 }
 
 code {
@@ -90,4 +116,27 @@ pre {
     pre {
         font-size: 0.8rem;
     }
+}
+
+/* Footer Hover Effects */
+.hover-link:hover {
+    color: #64b5f6 !important;
+    padding-left: 5px;
+    transition: all 0.3s ease;
+}
+
+.hover-effect:hover {
+    transform: translateY(-3px);
+    transition: transform 0.3s ease;
+}
+
+/* Product Cards */
+.product-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.product-card:hover {
+    border: 1px solid rgba(100, 181, 246, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
