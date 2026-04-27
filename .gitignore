@@ -25,3 +25,5 @@ clone
 tests
 /*.zip
 .DS_Store 
+
+.xfixrc.json

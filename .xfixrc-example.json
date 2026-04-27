@@ -1,0 +1,17 @@
+{
+    "host": "ftp.xfixglobal.com",
+    "username": "",
+    "password": "",
+    "remotePath": "selfphp.xfixglobal.com/public/storage/files/deploy/",
+    "deployPath": "selfphp.xfixglobal.com/",
+    "branch": "develop",
+    "cleanupLocal": false,
+    "secure": false,
+    "rejectUnauthorized": false,
+    "maxRetries": false,
+    "retryDelay": false,
+    "verbose": false,
+    "deployUrl": "https://xfixglobal.com",
+    "allowBackup": true,
+    "exclude": ["vendor", "node_modules", ".git", ".env"]
+}
