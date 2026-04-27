@@ -12,6 +12,23 @@
     "retryDelay": false,
     "verbose": false,
     "deployUrl": "https://xfixglobal.com",
-    "allowBackup": true,
+    "allowBackup": true, 
+    "runMigrations": false,
+    "clearCache": false,
+    "runComposer": false, 
+    "clientId": "",
+    "apiKey": "",
+    "obfuscateJs": false,
+    "obfuscatePhp": false,
+    "jsSrcPath": "public/js",
+    "jsDestPath": "public/orig",
+    "preserveOriginal": "public/original_js_asset_folder",
+    "domainLock": [
+        "http://localhost",
+        "http://127.0.0.1", 
+        "https://selfphp.xfixglobal.com",
+        "https://www.selfphp.xfixglobal.com"
+    ],
+    "domainLockRedirectUrl": "https://selfphp.xfixglobal.com",
     "exclude": ["vendor", "node_modules", ".git", ".env"]
 }
