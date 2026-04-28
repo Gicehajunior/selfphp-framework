@@ -27,3 +27,8 @@ tests
 .DS_Store 
 
 .xfixrc.json
+
+obfuscated/
+original_php_backup/
+original_js_asset_folder/
+public/orig/
