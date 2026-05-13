@@ -6,7 +6,7 @@
 <div class="landing-page">
 
     <!-- Navigation -->  
-    {{ @extends("__app.navbar__") }}
+    {{ @extends("__app.web.navbar__") }}
     <!-- /Navigation -->  
 
     <!-- Hero Section -->
